@@ -1,0 +1,50 @@
+.card,
+.goldCard,
+.redCard {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    width: 150px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    text-align: center;
+}
+
+.card:hover {
+    cursor: pointer;
+    border: 2px solid black;
+    background-color: aliceblue;
+}
+
+.goldCard:hover {
+    cursor: pointer;
+    border: 2px solid coral;
+    background-color: gold;
+}
+
+.clicked,
+.redCard:hover {
+    border: 2px solid firebrick;
+    background-color: tomato;
+}
+
+.redCard:not(.clicked):hover {
+    cursor: pointer;
+}
+
+.clicked,
+.card:hover > .cardName,
+.goldCard:hover > .cardName,
+.redCard:hover > .cardName {
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.cardName {}
+.cardContent {
+    overflow: hidden;
+    white-space: nowrap;
+}

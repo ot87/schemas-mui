@@ -1,0 +1,12 @@
+.schemaFormItemsControls {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+}
+
+.schemaFormItemsControls .stickyWrapper {
+    position: sticky;
+    position: -webkit-sticky;
+    top: calc(5% + 15vh);
+}

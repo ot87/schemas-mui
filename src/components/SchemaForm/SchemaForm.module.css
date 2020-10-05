@@ -1,0 +1,10 @@
+.schemaForm {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    column-gap: 1%;
+}
+
+.schema {
+    display: grid;
+    text-align: center;
+}

@@ -1,0 +1,14 @@
+.items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.remove {
+    cursor: pointer;
+}
+
+.clickedItemsRow,
+.remove:hover {
+    border: 1px solid orangered;
+    background-color: lightsalmon;
+}

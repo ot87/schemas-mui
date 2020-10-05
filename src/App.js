@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import HeaderContainer from './components/Header/HeaderContainer';
+import ContentContainer from './components/Content/ContentContainer';
+
+const App = () => {
+    // TODO isSchemasClicked is set true while profile isn't available
+    const [isSchemasClicked, setIsSchemasClicked] = useState(true);
+
+    return (
+        <div className='app-wrapper'>
+            <HeaderContainer
+                isSchemasClicked={isSchemasClicked}
+                setIsSchemasClicked={setIsSchemasClicked}
+            />
+            <ContentContainer isSchemasClicked={isSchemasClicked} />
+        </div>
+    );
 }
 
 export default App;

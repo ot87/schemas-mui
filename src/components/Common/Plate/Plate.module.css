@@ -1,0 +1,65 @@
+.plate,
+.greenPlate,
+.goldPlate,
+.redPlate {
+    margin: 10px;
+    padding: 20px;
+    min-width: fit-content;
+    height: fit-content;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.plate:not(.clickedPlate):not(.disabledPlate):hover {
+    cursor: pointer;
+    border: 2px solid black;
+    background-color: gainsboro;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.greenPlate:not(.clickedPlate):not(.disabledPlate):hover {
+    cursor: pointer;
+    border: 3px solid forestgreen;
+    background-color: greenyellow;
+}
+
+.goldPlate:not(.clickedPlate):not(.disabledPlate):hover {
+    cursor: pointer;
+    border: 3px solid darkorange;
+    background-color: yellow;
+}
+
+.redPlate:not(.clickedPlate):not(.disabledPlate):hover {
+    cursor: pointer;
+    border: 3px solid orangered;
+    background-color: lightsalmon;
+}
+
+.clickedPlate,
+.toggledPlate {
+    border: 5px solid blue;
+    background-color: deepskyblue;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.greenTheme {
+    border: 5px solid green;
+    background-color: palegreen;
+}
+
+.goldTheme {
+    border: 5px solid coral;
+    background-color: gold;
+}
+
+.redTheme {
+    border: 5px solid firebrick;
+    background-color: tomato;
+}
+
+.disabledPlate {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

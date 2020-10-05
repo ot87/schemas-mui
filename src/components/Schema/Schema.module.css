@@ -1,0 +1,9 @@
+.schema {
+    display: grid;
+    text-align: center;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
