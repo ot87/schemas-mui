@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
 import reducer from './redux/reducers';
 
@@ -8,7 +9,11 @@ const customRender = (
     ui,
     {
         initialState = {},
-        store = createStore(reducer, initialState),
+        store = createStore(
+            reducer,
+            initialState,
+            applyMiddleware(thunk)
+        ),
         ...renderOptions
     } = {}
 ) => {

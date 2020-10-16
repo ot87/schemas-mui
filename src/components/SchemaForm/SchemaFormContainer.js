@@ -108,12 +108,14 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                 tag='input'
                                 validate={required}
                                 disabled={isRemoveClicked}
+                                placeholder='Schema Name'
                             />
                             <FormField
                                 name='description'
                                 type='text'
                                 tag='textarea'
                                 disabled={isRemoveClicked}
+                                placeholder='Schema Description'
                             />
                             <SchemaFormItems
                                 initItems={initialValues.items}

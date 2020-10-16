@@ -17,14 +17,16 @@ import Item from '../Common/Item/Item';
  * @param {string}   props.schema.items.time     - Schema item time.
  */
 const Schema = ({ schema }) => (
-    <div className={css.schema}>
-        <div>
+    <div role="table" className={css.schema}>
+        <div role="row">
             {schema.name}
         </div>
-        <div>{schema.description}</div>
+        {typeof schema.description !== 'undefined' ?
+            <div role="row">{schema.description}</div>
+        : null}
         <div>
             {schema.items.map((item, key) => (
-                <div key={key} className={css.items}>
+                <div key={key} role="row" className={css.items}>
                     <Item>{item.name}</Item>
                     <Item>{item.quantity}</Item>
                     <Item>{item.time}</Item>
