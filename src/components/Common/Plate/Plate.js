@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import css from './Plate.module.css';
 
 /**
@@ -24,42 +25,31 @@ const Plate = ({
     isDisabled,
     onClick
 }) => {
-    let plateCss = css.plate;
-
-    if (colorTheme === 'green') {
-        plateCss = css.greenPlate;
-    } else if (colorTheme === 'gold') {
-        plateCss = css.goldPlate;
-    } else if (colorTheme === 'red') {
-        plateCss = css.redPlate;
-    }
+    let plateCssObj = {
+        [css.greenPlate]: colorTheme === 'green',
+        [css.goldPlate]: colorTheme === 'gold',
+        [css.redPlate]: colorTheme === 'red',
+        [css.plate]: ['green', 'gold', 'red'].indexOf(colorTheme) === -1
+    };
 
     if (isDisabled) {
-        plateCss += ' ' + css.disabledPlate;
+        plateCssObj[css.disabledPlate] = true;
         onClick = null;
     } else {
         if (isClicked) {
-            plateCss += ' ' + css.clickedPlate;
-            if (colorTheme === 'green') {
-                plateCss += ' ' + css.greenTheme;
-            } else if (colorTheme === 'gold') {
-                plateCss += ' ' + css.goldTheme;
-            } else if (colorTheme === 'red') {
-                plateCss += ' ' + css.redTheme;
-            }
             onClick = null;
-        } else if (isToggled) {
-            plateCss += ' ' + css.toggledPlate;
-            if (colorTheme === 'gold') {
-                plateCss += ' ' + css.goldTheme;
-            } else if (colorTheme === 'red') {
-                plateCss += ' ' + css.redTheme;
-            }
         }
+        Object.assign(plateCssObj, {
+            [css.clickedPlate]: isClicked,
+            [css.toggledPlate]: !isClicked && isToggled,
+            [css.greenTheme]: isClicked && colorTheme === 'green',
+            [css.goldTheme]: (isClicked || isToggled) && colorTheme === 'gold',
+            [css.redTheme]: (isClicked || isToggled) && colorTheme === 'red'
+        });
     }
 
     return (
-        <div role="button" className={plateCss} onClick={onClick}>
+        <div role="button" className={cn(plateCssObj)} onClick={onClick}>
             {text}
         </div>
     );

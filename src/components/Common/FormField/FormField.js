@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field } from 'react-final-form';
+import cn from 'classnames';
 import css from './FormField.module.css';
 
 /**
@@ -36,18 +37,16 @@ const FormField = ({
     return (
         <Field name={name} type={type} validate={validate}>
             {({ input, meta }) => {
-                const className = validate
-                    ? meta.touched && meta.error
-                        ? css.error
-                        : ''
-                    : null;
+                const fieldCss = cn({
+                    [css.error]: validate && meta.touched && meta.error
+                });
 
                 return (
                     <div>
                         <TagName
                             {...input}
                             type={type}
-                            className={className}
+                            className={fieldCss}
                             disabled={disabled}
                             placeholder={placeholder}
                         />

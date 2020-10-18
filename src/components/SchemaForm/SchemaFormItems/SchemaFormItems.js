@@ -1,5 +1,6 @@
 import React from 'react';
 import { FieldArray } from 'react-final-form-arrays';
+import cn from 'classnames';
 
 import css from './SchemaFormItems.module.css';
 import Item from '../../Common/Item/Item';
@@ -36,14 +37,11 @@ const SchemaFormItems = ({
         name='items'
         initialValue={initItems}
         render={({ fields }) => fields.map((name, index) => {
-            let rowCss = css.items;
-
-            if (isRemoveClicked) {
-                rowCss += ' ' + css.remove;
-                if (itemsIdsToRemove.indexOf(index) !== -1) {
-                    rowCss += ' ' + css.clickedItemsRow;
-                }
-            }
+            let rowCss = cn({
+                [css.items]: true,
+                [css.remove]: isRemoveClicked,
+                [css.clickedItemsRow]: isRemoveClicked && itemsIdsToRemove.indexOf(index) !== -1
+            });
 
             return (
                 <div

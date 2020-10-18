@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import css from './Card.module.css';
 
 /**
@@ -16,17 +17,12 @@ import css from './Card.module.css';
  * @param {EventHandlerFunction} props.onClick      - On click function for the Card.
  */
 const Card = ({ name, content, colorTheme, isClicked, onClick }) => {
-    let cardCss = css.card;
-
-    if (colorTheme === 'gold') {
-        cardCss = css.goldCard;
-    }
-    if (colorTheme === 'red') {
-        cardCss = css.redCard;
-    }
-    if (isClicked) {
-        cardCss += ' ' + css.clicked;
-    }
+    const cardCss = cn({
+        [css.goldCard]: colorTheme === 'gold',
+        [css.redCard]: colorTheme === 'red',
+        [css.card]: ['gold', 'red'].indexOf(colorTheme) === -1,
+        [css.clicked]: isClicked
+    });
 
     return (
         <div role="button" className={cardCss} onClick={onClick}>
