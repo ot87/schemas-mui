@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
 
+    justify-content: center;
     text-align: center;
 }
 
-.schemaFormItemsControls .stickyWrapper {
-    position: sticky;
-    position: -webkit-sticky;
-    top: calc(5% + 15vh);
+/* Tablet Styles */
+@media only screen and (max-width: 740px) {
+    .schemaFormItemsControls {
+        flex-direction: row;
+    }
 }

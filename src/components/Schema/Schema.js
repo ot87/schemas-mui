@@ -24,9 +24,9 @@ const Schema = ({ schema }) => (
         {typeof schema.description !== 'undefined' ?
             <div role="row">{schema.description}</div>
         : null}
-        <div>
+        <div className={css.items}>
             {schema.items.map((item, key) => (
-                <div key={key} role="row" className={css.items}>
+                <div key={key} role="row" className={css.itemsRow}>
                     <Item>{item.name}</Item>
                     <Item>{item.quantity}</Item>
                     <Item>{item.time}</Item>

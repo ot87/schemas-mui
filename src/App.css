@@ -1,7 +1,14 @@
 .app-wrapper {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-  margin: 0 auto;
-  width: 1000px;
+    min-height: 100vh;
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+    .app-wrapper {
+        margin: 0 auto;
+        width: 960px;
+    }
 }

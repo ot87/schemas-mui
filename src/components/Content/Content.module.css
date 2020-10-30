@@ -1,5 +1,4 @@
 .content {
-    padding: 3% 2%;
-    min-height: 67vh;
+    flex-grow: 1;
     border: 1px solid black;
 }

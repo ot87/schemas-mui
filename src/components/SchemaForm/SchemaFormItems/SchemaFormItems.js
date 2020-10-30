@@ -33,56 +33,58 @@ const SchemaFormItems = ({
     itemsIdsToRemove,
     handleRemoveOnItemsRowClick
 }) => (
-    <FieldArray
-        name='items'
-        initialValue={initItems}
-        render={({ fields }) => fields.map((name, index) => {
-            let rowCss = cn({
-                [css.items]: true,
-                [css.remove]: isRemoveClicked,
-                [css.clickedItemsRow]: isRemoveClicked && itemsIdsToRemove.indexOf(index) !== -1
-            });
+    <div className={css.items}>
+        <FieldArray
+            name='items'
+            initialValue={initItems}
+            render={({ fields }) => fields.map((name, index) => {
+                let rowCss = cn({
+                    [css.itemsRow]: true,
+                    [css.remove]: isRemoveClicked,
+                    [css.clickedItemsRow]: isRemoveClicked && itemsIdsToRemove.indexOf(index) !== -1
+                });
 
-            return (
-                <div
-                    key={index}
-                    role="row"
-                    onClick={() => isRemoveClicked && handleRemoveOnItemsRowClick(index)}
-                    className={rowCss}
-                >
-                    <Item>
-                        <FormField
-                            name={`${name}.name`}
-                            type='text'
-                            tag='input'
-                            validate={onValidate}
-                            disabled={isRemoveClicked}
-                            placeholder='Name'
-                        />
-                    </Item>
-                    <Item>
-                        <FormField
-                            name={`${name}.quantity`}
-                            type='text'
-                            tag='input'
-                            validate={onValidate}
-                            disabled={isRemoveClicked}
-                            placeholder='Quantity'
-                        />
-                    </Item>
-                    <Item>
-                        <FormField
-                            name={`${name}.time`}
-                            type='text'
-                            tag='input'
-                            disabled={isRemoveClicked}
-                            placeholder='Time'
-                        />
-                    </Item>
-                </div>
-            );
-        })}
-    />
+                return (
+                    <div
+                        key={index}
+                        role="row"
+                        onClick={() => isRemoveClicked && handleRemoveOnItemsRowClick(index)}
+                        className={rowCss}
+                    >
+                        <Item>
+                            <FormField
+                                name={`${name}.name`}
+                                type='text'
+                                tag='input'
+                                validate={onValidate}
+                                disabled={isRemoveClicked}
+                                placeholder='Name'
+                            />
+                        </Item>
+                        <Item>
+                            <FormField
+                                name={`${name}.quantity`}
+                                type='text'
+                                tag='input'
+                                validate={onValidate}
+                                disabled={isRemoveClicked}
+                                placeholder='Quantity'
+                            />
+                        </Item>
+                        <Item>
+                            <FormField
+                                name={`${name}.time`}
+                                type='text'
+                                tag='input'
+                                disabled={isRemoveClicked}
+                                placeholder='Time'
+                            />
+                        </Item>
+                    </div>
+                );
+            })}
+        />
+    </div>
 );
 
 export default SchemaFormItems;

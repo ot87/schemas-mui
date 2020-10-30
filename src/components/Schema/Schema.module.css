@@ -1,9 +1,30 @@
 .schema {
     display: grid;
     text-align: center;
+    padding: 2%;
 }
 
 .items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.itemsRow {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    border: 1px solid black;
+}
+
+/* Tablet Styles */
+@media only screen and (max-width: 551px) {
+    .items {
+        flex-direction: row;
+    }
+
+    .itemsRow {
+        grid-template-columns: none;
+        grid-template-rows: repeat(3, 1fr);
+    }
 }

@@ -1,10 +1,42 @@
 .schemaForm {
-    display: grid;
-    grid-template-columns: 1fr 6fr;
-    column-gap: 1%;
+    display: flex;
+    flex-direction: row;
+}
+
+.stickyWrapper {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+}
+
+.schemaBar {
+    display: flex;
+    flex-direction: column;
 }
 
 .schema {
+    flex-grow: 1;
     display: grid;
     text-align: center;
+    align-content: flex-start;
+    padding: 2%;
+}
+
+/* Tablet Styles */
+@media only screen and (max-width: 740px) {
+    .schemaForm {
+        flex-direction: column;
+    }
+
+    .schemaBar {
+        background-color: white;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+}
+@media only screen and (min-width: 555px) and (max-width: 740px) {
+    .schemaBar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }

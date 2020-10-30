@@ -1,16 +1,26 @@
 .header {
-    display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
-    gap: 1%;
-
     padding: 10px;
-    height: 15vh;
+    height: fit-content;
     border: 1px solid black;
     background-color: white;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
 
     justify-items: center;
     align-items: baseline;
+}
+
+.stickyHeader {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+}
+
+.headerList {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 1%;
+}
+
+.headerPanel {
+    display: flex;
+    flex-wrap: wrap;
 }

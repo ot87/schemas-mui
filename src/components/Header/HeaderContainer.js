@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 
 import css from './Header.module.css';
 import Plate from '../Common/Plate/Plate';
@@ -28,7 +29,12 @@ const Header = ({
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
 
     return (
-        <header className={css.header}>
+        <header className={cn({
+            [css.header]: true,
+            [css.headerList]: isShowSchema,
+            [css.headerPanel]: !isShowSchema && isSchemasClicked,
+            [css.stickyHeader]: !(mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT))
+        })}>
             {isShowSchema ?
                 <Plate text='Back' onClick={() => selectSchema(null)} />
             : <Plate

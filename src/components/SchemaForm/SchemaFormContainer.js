@@ -92,53 +92,57 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                 values
             }) => (
                 <div className={css.schemaForm}>
-                    <SchemaFormItemsControls
-                        isRemoveClicked={isRemoveClicked}
-                        showRemove={!!values.items.length}
-                        isRemoveAllClicked={isRemoveAllClicked}
-                        addOnClick={() => addOnClick(push, values.items)}
-                        removeOnClick={() => removeOnClick(removeBatch)}
-                        removeAllOnClick={() => removeAllOnClick(values.items)}
-                    />
-                    <form onSubmit={handleSubmit}>
-                        <div role="table" className={css.schema}>
-                            <FormField
-                                name='name'
-                                type='text'
-                                tag='input'
-                                validate={required}
-                                disabled={isRemoveClicked}
-                                placeholder='Schema Name'
-                            />
-                            <FormField
-                                name='description'
-                                type='text'
-                                tag='textarea'
-                                disabled={isRemoveClicked}
-                                placeholder='Schema Description'
-                            />
-                            <SchemaFormItems
-                                initItems={initialValues.items}
-                                onValidate={required}
-                                isRemoveClicked={isRemoveClicked}
-                                itemsIdsToRemove={itemsIdsToRemove}
-                                handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
-                            />
-                            <SchemaFormButtons
-                                submit={({
-                                    isDisabled: isRemoveClicked || submitting,
-                                    onClick: submit
-                                })}
-                                reset={({
-                                    isDisabled: isRemoveClicked || submitting || !dirty,
-                                    onClick: reset
-                                })}
-                                cancel={({
-                                    isDisabled: isRemoveClicked || submitting,
-                                    onClick: onCancel
-                                })}
-                            />
+                    <div className={css.stickyWrapper}>
+                        <div className={css.stickyWrapper}>
+                            <div className={css.schemaBar}>
+                                <SchemaFormButtons
+                                    submit={({
+                                        isDisabled: isRemoveClicked || submitting,
+                                        onClick: submit
+                                    })}
+                                    reset={({
+                                        isDisabled: isRemoveClicked || submitting || !dirty,
+                                        onClick: reset
+                                    })}
+                                    cancel={({
+                                        isDisabled: isRemoveClicked || submitting,
+                                        onClick: onCancel
+                                    })}
+                                />
+                                <SchemaFormItemsControls
+                                    isRemoveClicked={isRemoveClicked}
+                                    showRemove={!!values.items.length}
+                                    isRemoveAllClicked={isRemoveAllClicked}
+                                    addOnClick={() => addOnClick(push, values.items)}
+                                    removeOnClick={() => removeOnClick(removeBatch)}
+                                    removeAllOnClick={() => removeAllOnClick(values.items)}
+                                />
+                            </div>
                         </div>
+                    </div>
+                    <form role="table" className={css.schema} onSubmit={handleSubmit}>
+                        <FormField
+                            name='name'
+                            type='text'
+                            tag='input'
+                            validate={required}
+                            disabled={isRemoveClicked}
+                            placeholder='Schema Name'
+                        />
+                        <FormField
+                            name='description'
+                            type='text'
+                            tag='textarea'
+                            disabled={isRemoveClicked}
+                            placeholder='Schema Description'
+                        />
+                        <SchemaFormItems
+                            initItems={initialValues.items}
+                            onValidate={required}
+                            isRemoveClicked={isRemoveClicked}
+                            itemsIdsToRemove={itemsIdsToRemove}
+                            handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
+                        />
                     </form>
                 </div>
             )}

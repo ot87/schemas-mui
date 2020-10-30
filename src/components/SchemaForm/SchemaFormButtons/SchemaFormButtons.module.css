@@ -1,5 +1,14 @@
 .schemaButtons {
     display: flex;
+    flex-direction: column;
+
     justify-content: center;
-    align-items: baseline;
+    text-align: center;
+}
+
+/* Tablet Styles */
+@media only screen and (max-width: 740px) {
+    .schemaButtons {
+        flex-direction: row;
+    }
 }

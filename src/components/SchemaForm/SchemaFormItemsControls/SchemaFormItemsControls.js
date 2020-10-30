@@ -27,30 +27,28 @@ const SchemaFormItemsControls = ({
     removeAllOnClick
 }) => (
     <div className={css.schemaFormItemsControls}>
-        <div className={css.stickyWrapper}>
+        <Plate
+            text='Add'
+            colorTheme='green'
+            isDisabled={isRemoveClicked}
+            onClick={addOnClick}
+        />
+        {showRemove ?
             <Plate
-                text='Add'
-                colorTheme='green'
-                isDisabled={isRemoveClicked}
-                onClick={addOnClick}
+                text='Remove'
+                colorTheme='red'
+                isToggled={isRemoveClicked}
+                onClick={removeOnClick}
             />
-            {showRemove
-                ? <Plate
-                    text='Remove'
-                    colorTheme='red'
-                    isToggled={isRemoveClicked}
-                    onClick={removeOnClick}
-                />
-            : null}
-            {isRemoveClicked
-                ? <Plate
-                    text='All'
-                    colorTheme='red'
-                    isToggled={isRemoveAllClicked}
-                    onClick={removeAllOnClick}
-                />
-            : null}
-        </div>
+        : null}
+        {isRemoveClicked ?
+            <Plate
+                text='All'
+                colorTheme='red'
+                isToggled={isRemoveAllClicked}
+                onClick={removeAllOnClick}
+            />
+        : null}
     </div>
 );
 
