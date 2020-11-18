@@ -8,6 +8,8 @@ import App from './App';
 import configureStore from './redux/store/configureStore';
 import API from './api';
 
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 // TODO demo profile
 API.init('Profile 1');
 // TODO with demo schema
@@ -20,7 +22,9 @@ const store = configureStore(API.loadData());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={createMuiTheme()}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
 
-import './App.css';
+import { Container, Box } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import grey from '@material-ui/core/colors/grey';
+
 import HeaderContainer from './components/Header/HeaderContainer';
 import ContentContainer from './components/Content/ContentContainer';
 
-const App = () => {
+const styles = {
+    root: {
+        minHeight: '100vh',
+        backgroundColor: grey[50]
+    }
+};
+
+const App = ({ classes }) => {
     // TODO isSchemasClicked is set true while profile isn't available
     const [isSchemasClicked, setIsSchemasClicked] = useState(true);
 
-    return (
-        <div className='app-wrapper'>
-            <HeaderContainer
-                isSchemasClicked={isSchemasClicked}
-                setIsSchemasClicked={setIsSchemasClicked}
-            />
-            <ContentContainer isSchemasClicked={isSchemasClicked} />
-        </div>
-    );
-}
+    const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
-export default App;
+    return (
+        <Container disableGutters={matches}>
+            <Box display="flex" flexDirection="column" className={classes.root}>
+                <HeaderContainer
+                    isSchemasClicked={isSchemasClicked}
+                    setIsSchemasClicked={setIsSchemasClicked}
+                />
+                <ContentContainer isSchemasClicked={isSchemasClicked} />
+            </Box>
+        </Container>
+    );
+};
+
+export default withStyles(styles)(App);
