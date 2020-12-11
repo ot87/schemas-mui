@@ -1,7 +1,8 @@
 import React from 'react';
 
-import css from './Content.module.css';
 import SchemasBoardContainer from '../SchemasBoard/SchemasBoardContainer';
+
+import { Box } from '@material-ui/core';
 
 /**
  * Component for rendering the main part of the app.
@@ -9,9 +10,9 @@ import SchemasBoardContainer from '../SchemasBoard/SchemasBoardContainer';
  * @param {boolean} props.isSchemasClicked - If true, [SchemasBoardContainer]{@link SchemasBoardContainer} will be rendered.
  */
 const Content = ({ isSchemasClicked }) => (
-    <div className={css.content}>
+    <Box p={'2%'}>
         {isSchemasClicked && <SchemasBoardContainer />}
-    </div>
+    </Box>
 );
 
 export default Content;

@@ -1,7 +1,14 @@
 import React from 'react';
 
-import css from './Schema.module.css';
-import Item from '../Common/Item/Item';
+import { Grid, Paper, makeStyles } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center'
+    }
+}));
 
 /**
  * Renders passed schema with all its items.
@@ -16,24 +23,58 @@ import Item from '../Common/Item/Item';
  * @param {string}   props.schema.items.quantity - Schema item quantity.
  * @param {string}   props.schema.items.time     - Schema item time.
  */
-const Schema = ({ schema }) => (
-    <div role="table" className={css.schema}>
-        <div role="row">
-            {schema.name}
-        </div>
-        {typeof schema.description !== 'undefined' ?
-            <div role="row">{schema.description}</div>
-        : null}
-        <div className={css.items}>
+const Schema = ({ schema }) => {
+    const classes = useStyles();
+    const smScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
+
+    return (
+        <Grid
+            container
+            alignContent='center'
+            justify='center'
+            spacing={xsScreen ? 2 : 3}
+        >
+            <Grid item xs={6}>
+                <Paper className={classes.paper}>
+                    {schema.name}
+                </Paper>
+            </Grid>
+            {typeof schema.description !== 'undefined' ?
+                <Grid item xs={11} sm={10} md={9}>
+                    <Paper className={classes.paper}>
+                        {schema.description}
+                    </Paper>
+                </Grid>
+            : null}
             {schema.items.map((item, key) => (
-                <div key={key} role="row" className={css.itemsRow}>
-                    <Item>{item.name}</Item>
-                    <Item>{item.quantity}</Item>
-                    <Item>{item.time}</Item>
-                </div>
+                <Grid
+                    key={key}
+                    container item
+                    xs={11} sm={5} md={9}
+                    justify='center'
+                    spacing={smScreen ? 1 : 2}
+                    direction={{ xs: 'column', sm: 'row' }}
+                >
+                    <Grid item xs={12} md={4}>
+                        <Paper className={classes.paper}>
+                            {item.name}
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Paper className={classes.paper}>
+                            {item.quantity}
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Paper className={classes.paper}>
+                            {item.time}
+                        </Paper>
+                    </Grid>
+                </Grid>
             ))}
-        </div>
-    </div>
-);
+        </Grid>
+    );
+};
 
 export default Schema;
