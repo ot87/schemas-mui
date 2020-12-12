@@ -1,10 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import css from './SchemasPanel.module.css';
 import Plate from '../Common/Plate/Plate';
 import { setMode, UiModes} from '../../redux/reducers/ui';
 import { getSchemasCount } from '../../redux/reducers/schemas';
+
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: '0 auto'
+    }
+}));
 
 /**
  * Renders a control panel of [Plates]{@link Plate} to set a mode of the ui.
@@ -20,6 +28,7 @@ const SchemasPanel = ({
     selectedSchemaId,
     setMode
 }) => {
+    const classes = useStyles();
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
@@ -41,7 +50,7 @@ const SchemasPanel = ({
         : {isToggled: isDelete};
 
     return (
-        <div className={css.schemasPanel}>
+        <Box display='flex' className={classes.root}>
             <Plate
                 text='Add'
                 colorTheme='green'
@@ -67,7 +76,7 @@ const SchemasPanel = ({
                     onClick={() => handleClick(UiModes.DELETE)}
                 />
             : null}
-        </div>
+        </Box>
     );
 };
 

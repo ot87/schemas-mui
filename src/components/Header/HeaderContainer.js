@@ -10,6 +10,17 @@ import { selectSchema, UiModes } from '../../redux/reducers/ui';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    toolbar: {
+        justifyContent: 'space-between',
+        [theme.breakpoints.down('xs')]: {
+          paddingLeft: 0,
+          paddingRight: 0
+        }
+    }
+}));
 
 /**
  * Header component with control buttons.
@@ -29,11 +40,12 @@ const Header = ({
     isSchemasClicked,
     setIsSchemasClicked
 }) => {
+    const classes = useStyles();
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
 
     return (
         <AppBar position='sticky' color='inherit'>
-            <Toolbar>
+            <Toolbar className={classes.toolbar}>
 
         {/* <header className={cn({
             [css.header]: true,

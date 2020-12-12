@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Grid, Paper, makeStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +56,6 @@ const Schema = ({ schema }) => {
                     xs={11} sm={5} md={9}
                     justify='center'
                     spacing={smScreen ? 1 : 2}
-                    direction={{ xs: 'column', sm: 'row' }}
                 >
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.paper}>
