@@ -8,6 +8,9 @@ import SchemasListContainer from '../SchemasList/SchemasListContainer';
 import SchemasPanelContainer from '../SchemasPanel/SchemasPanelContainer';
 import { selectSchema, UiModes } from '../../redux/reducers/ui';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
 /**
  * Header component with control buttons.
  * Consists of two parts - a clickable [Plate]{@link Plate} button and a panel to display either the [SchemasList]{@link SchemasList} or the control [SchemasPanel]{@link SchemasPanel}.
@@ -29,12 +32,15 @@ const Header = ({
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
 
     return (
-        <header className={cn({
+        <AppBar position='sticky' color='inherit'>
+            <Toolbar>
+
+        {/* <header className={cn({
             [css.header]: true,
             [css.headerList]: isShowSchema,
             [css.headerPanel]: !isShowSchema && isSchemasClicked,
             [css.stickyHeader]: !(mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT))
-        })}>
+        })}> */}
             {isShowSchema ?
                 <Plate text='Back' onClick={() => selectSchema(null)} />
             : <Plate
@@ -48,7 +54,10 @@ const Header = ({
                 <SchemasPanelContainer />
             : <div />}
             {/* TODO <Plate text={profile.name} onClick={() => setContent(profile)} /> */}
-        </header>
+        {/* </header> */}
+
+            </Toolbar>
+        </AppBar>
     );
 };
 

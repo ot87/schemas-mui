@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import css from './SchemasList.module.css';
-import Plate from '../Common/Plate/Plate';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
 import { selectSchema } from '../../redux/reducers/ui';
 import { selectSchemasForSchemasList } from '../../redux/reducers/schemas';
 
@@ -15,18 +16,24 @@ import { selectSchemasForSchemasList } from '../../redux/reducers/schemas';
  * @param {number|null} props.selectedSchemaId - The id of the selected schema from the Redux State.
  * @param {function}    props.selectSchema     - A function to select schema.
  */
-const SchemasList = ({ schemas, selectedSchemaId, selectSchema }) => (
-    <div className={css.schemasList}>
-        {schemas.map((schema) => (
-            <Plate
-                key={schema.id}
-                text={schema.name}
-                isClicked={schema.id === selectedSchemaId}
-                onClick={() => selectSchema(schema.id)}
-            />
-        ))}
-    </div>
-);
+const SchemasList = ({ schemas, selectedSchemaId, selectSchema }) => {
+    const handleChange = (event, newId) => {
+        selectSchema(newId);
+    }
+
+    return (
+        <Tabs
+            value={selectedSchemaId}
+            onChange={handleChange}
+            variant='scrollable'
+            indicatorColor='primary'
+        >
+            {schemas.map((schema) => (
+                <Tab key={schema.id} value={schema.id} label={schema.name} />
+            ))}
+        </Tabs>
+    );
+};
 
 export default connect(
     (state) => ({
