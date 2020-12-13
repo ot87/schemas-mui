@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import css from './Header.module.css';
 import Plate from '../Common/Plate/Plate';
+import CustomButton from '../Common/CustomButton/CustomButton';
 import SchemasListContainer from '../SchemasList/SchemasListContainer';
 import SchemasPanelContainer from '../SchemasPanel/SchemasPanelContainer';
 import { selectSchema, UiModes } from '../../redux/reducers/ui';
@@ -48,6 +49,7 @@ const Header = ({
     const classes = useStyles();
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
     const handleBackClick = () => selectSchema(null);
+    const handleSchemasClick = () => setIsSchemasClicked(true);
 
     return (
         <AppBar position='sticky' color='inherit'>
@@ -60,17 +62,15 @@ const Header = ({
             [css.stickyHeader]: !(mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT))
         })}> */}
             {isShowSchema ?
-                <Button
-                  variant='outlined'
-                  onClick={handleBackClick}
-                  className={classes.button}
-                >
-                  Back
-                </Button>
-            : <Plate
-                text='Schemas'
+                <CustomButton
+                    onClick={handleBackClick}
+                    text='Back'
+                />
+            : <CustomButton
+                color='primary'
                 isClicked={isSchemasClicked}
-                onClick={() => setIsSchemasClicked(true)}
+                onClick={handleSchemasClick}
+                text='Schemas'
             />}
             {isShowSchema ?
                 <SchemasListContainer />
