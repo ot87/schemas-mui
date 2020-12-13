@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-
 import { selectSchema } from '../../redux/reducers/ui';
 import { selectSchemasForSchemasList } from '../../redux/reducers/schemas';
+
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 /**
  * Renders a horizontal list of Schemas [Plates]{@link Plate} to choose.

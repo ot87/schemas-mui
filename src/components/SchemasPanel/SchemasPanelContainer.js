@@ -5,10 +5,10 @@ import Plate from '../Common/Plate/Plate';
 import { setMode, UiModes} from '../../redux/reducers/ui';
 import { getSchemasCount } from '../../redux/reducers/schemas';
 
-import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         margin: '0 auto'
     }

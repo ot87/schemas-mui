@@ -8,17 +8,22 @@ import SchemasListContainer from '../SchemasList/SchemasListContainer';
 import SchemasPanelContainer from '../SchemasPanel/SchemasPanelContainer';
 import { selectSchema, UiModes } from '../../redux/reducers/ui';
 
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
         justifyContent: 'space-between',
+        padding: theme.spacing(1),
         [theme.breakpoints.down('xs')]: {
           paddingLeft: 0,
           paddingRight: 0
         }
+    },
+    button: {
+        margin: theme.spacing(1)
     }
 }));
 
@@ -42,6 +47,7 @@ const Header = ({
 }) => {
     const classes = useStyles();
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
+    const handleBackClick = () => selectSchema(null);
 
     return (
         <AppBar position='sticky' color='inherit'>
@@ -54,7 +60,13 @@ const Header = ({
             [css.stickyHeader]: !(mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT))
         })}> */}
             {isShowSchema ?
-                <Plate text='Back' onClick={() => selectSchema(null)} />
+                <Button
+                  variant='outlined'
+                  onClick={handleBackClick}
+                  className={classes.button}
+                >
+                  Back
+                </Button>
             : <Plate
                 text='Schemas'
                 isClicked={isSchemasClicked}
