@@ -8,7 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 /**
- * Renders a horizontal list of Schemas [Plates]{@link Plate} to choose.
+ * Renders a horizontal list of Schemas to choose.
  * @param {Object}      props
  * @param {Object[]}    props.schemas          - An array of ids and names of the all schemas from the Redux State.
  * @param {number}      props.schemas.id       - Schema id.

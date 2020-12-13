@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import cn from 'classnames';
 
-import css from './Header.module.css';
-import Plate from '../Common/Plate/Plate';
 import CustomButton from '../Common/CustomButton/CustomButton';
 import SchemasListContainer from '../SchemasList/SchemasListContainer';
 import SchemasPanelContainer from '../SchemasPanel/SchemasPanelContainer';
@@ -12,7 +9,6 @@ import { selectSchema, UiModes } from '../../redux/reducers/ui';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -54,32 +50,23 @@ const Header = ({
     return (
         <AppBar position='sticky' color='inherit'>
             <Toolbar className={classes.toolbar}>
-
-        {/* <header className={cn({
-            [css.header]: true,
-            [css.headerList]: isShowSchema,
-            [css.headerPanel]: !isShowSchema && isSchemasClicked,
-            [css.stickyHeader]: !(mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT))
-        })}> */}
-            {isShowSchema ?
-                <CustomButton
-                    onClick={handleBackClick}
-                    text='Back'
-                />
-            : <CustomButton
-                color='primary'
-                isClicked={isSchemasClicked}
-                onClick={handleSchemasClick}
-                text='Schemas'
-            />}
-            {isShowSchema ?
-                <SchemasListContainer />
-            : isSchemasClicked ?
-                <SchemasPanelContainer />
-            : <div />}
-            {/* TODO <Plate text={profile.name} onClick={() => setContent(profile)} /> */}
-        {/* </header> */}
-
+                {isShowSchema ?
+                    <CustomButton
+                        onClick={handleBackClick}
+                        text='Back'
+                    />
+                : <CustomButton
+                    color='primary'
+                    isClicked={isSchemasClicked}
+                    onClick={handleSchemasClick}
+                    text='Schemas'
+                />}
+                {isShowSchema ?
+                    <SchemasListContainer />
+                : isSchemasClicked ?
+                    <SchemasPanelContainer />
+                : <div />}
+                {/* TODO <Plate text={profile.name} onClick={() => setContent(profile)} /> */}
             </Toolbar>
         </AppBar>
     );
