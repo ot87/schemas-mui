@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Plate from '../Common/Plate/Plate';
+import CustomButton from '../Common/CustomButton/CustomButton';
 import { setMode, UiModes} from '../../redux/reducers/ui';
 import { getSchemasCount } from '../../redux/reducers/schemas';
 
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 /**
- * Renders a control panel of [Plates]{@link Plate} to set a mode of the ui.
+ * Renders a control panel of [Buttons]{@link CustomButton} to set a mode of the ui.
  * @param {Object}      props
  * @param {string}      props.mode             - The current ui mode from the Redux State.
  * @param {number}      props.schemasCount     - The number of existing schemas.
@@ -32,6 +33,8 @@ const SchemasPanel = ({
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
+
+    const handleAddClick = () => setMode(UiModes.ADD);
 
     const handleClick = (newMode) => {
         if ((isEdit || isDelete) && mode === newMode && !selectedSchemaId) {
@@ -51,12 +54,12 @@ const SchemasPanel = ({
 
     return (
         <Box display='flex' className={classes.root}>
-            <Plate
-                text='Add'
+            <CustomButton
                 colorTheme='green'
                 isClicked={isAdd}
                 isDisabled={selectedSchemaId && (isEdit || isDelete)}
-                onClick={() => setMode(UiModes.ADD)}
+                onClick={handleAddClick}
+                text='Add'
             />
             {schemasCount
                 ? <Plate

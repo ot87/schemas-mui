@@ -56,7 +56,6 @@ const Header = ({
                         text='Back'
                     />
                 : <CustomButton
-                    color='primary'
                     isClicked={isSchemasClicked}
                     onClick={handleSchemasClick}
                     text='Schemas'

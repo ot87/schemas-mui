@@ -1,6 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
 
+import withCustomPrimaryColor from '../../../hoc/withCustomPrimaryColor';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -23,23 +25,21 @@ const useStyles = makeStyles((theme) => ({
 
 /**
  * Functional component which renders a custom clickable or togglable button.
- * @param {Object}               props
- * @param {string}               [props.color]      - Color of the CustomButton.
- * @param {string}               props.text         - Text to display on the CustomButton.
- * @param {'green'|'gold'|'red'} [props.colorTheme] - Color theme of the CustomButton.
- * @param {boolean}              [props.isClicked]  - Indicates whether the CustomButton is clicked. If true, onClick will be nullified.
- * @param {boolean}              [props.isToggled]  - Indicates whether the CustomButton is clicked and stayed clickable.
- * @param {boolean}              [props.isDisabled] - Indicates whether the CustomButton is disabled.
- * @param {EventHandlerFunction} props.onClick      - On click function for the CustomButton.
+ * @param {Object}                 props
+ * @param {'green'|'yellow'|'red'} [props.colorTheme] - Color theme of the CustomButton.
+ * @param {boolean}                [props.isClicked]  - Indicates whether the CustomButton is clicked. If true, onClick will be nullified.
+ * @param {boolean}                [props.isDisabled] - Indicates whether the CustomButton is disabled.
+ * @param {boolean}                [props.isToggled]  - Indicates whether the CustomButton is clicked and stayed clickable.
+ * @param {EventHandlerFunction}   props.onClick      - On click function for the CustomButton.
+ * @param {string}                 props.text         - Text to display on the CustomButton.
  */
 const CustomButton = ({
-    color = 'default',
-    text,
     colorTheme,
     isClicked = false,
-    isToggled,
     isDisabled,
-    onClick
+    isToggled,
+    onClick,
+    text
 }) => {
     const classes = useStyles();
     // let customButtonCssObj = {
@@ -78,7 +78,8 @@ const CustomButton = ({
                 [classes.root]: true,
                 [classes.clicked]: isClicked
             })}
-            color={isClicked ? 'primary' : 'default'}
+            color={colorTheme || isClicked ? 'primary' : 'default'}
+            disabled={isDisabled}
             variant={isClicked ? 'contained' : 'outlined'}
             { ...buttonProps }
         >
@@ -87,4 +88,4 @@ const CustomButton = ({
     );
 };
 
-export default CustomButton;
+export default withCustomPrimaryColor(CustomButton);
