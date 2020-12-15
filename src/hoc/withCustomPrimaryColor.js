@@ -10,15 +10,13 @@ export default (Component) => (props) => (
     props.colorTheme && !props.isDisabled ?
         <ThemeProvider theme={createMuiTheme({
             palette: {
-                primary: {
-                    main: (
-                        props.colorTheme === 'green' ?
-                            green[600]
-                        : props.colorTheme === 'yellow' ?
-                            yellow[600]
-                        : red[600]
-                    )
-                }
+                primary: (
+                    props.colorTheme === 'green' ?
+                        {main: green[600]}
+                    : props.colorTheme === 'yellow' ?
+                        {main: yellow[600], contrastText: '#fff'}
+                    : {main: red[600]}
+                )
             }
         })}>
             <Component {...props} />

@@ -36,34 +36,12 @@ const useStyles = makeStyles((theme) => ({
 const CustomButton = ({
     colorTheme,
     isClicked = false,
-    isDisabled,
-    isToggled,
+    isDisabled = false,
+    isToggled = false,
     onClick,
     text
 }) => {
     const classes = useStyles();
-    // let customButtonCssObj = {
-    //     [css.greenCustomButton]: colorTheme === 'green',
-    //     [css.goldCustomButton]: colorTheme === 'gold',
-    //     [css.redCustomButton]: colorTheme === 'red',
-    //     [css.customButton]: ['green', 'gold', 'red'].indexOf(colorTheme) === -1
-    // };
-
-    // if (isDisabled) {
-    //     customButtonCssObj[css.disabledCustomButton] = true;
-    //     onClick = null;
-    // } else {
-    //    if (isClicked) {
-    //        onClick = null;
-    //    }
-    //     Object.assign(customButtonCssObj, {
-    //         [css.clickedCustomButton]: isClicked,
-    //         [css.toggledCustomButton]: !isClicked && isToggled,
-    //         [css.greenTheme]: isClicked && colorTheme === 'green',
-    //         [css.goldTheme]: (isClicked || isToggled) && colorTheme === 'gold',
-    //         [css.redTheme]: (isClicked || isToggled) && colorTheme === 'red'
-    //     });
-    // }
 
     let buttonProps = {
         disableElevation: isClicked,
@@ -80,7 +58,8 @@ const CustomButton = ({
             })}
             color={colorTheme || isClicked ? 'primary' : 'default'}
             disabled={isDisabled}
-            variant={isClicked ? 'contained' : 'outlined'}
+            size='large'
+            variant={isClicked || isToggled ? 'contained' : 'outlined'}
             { ...buttonProps }
         >
             {text}

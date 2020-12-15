@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Plate from '../Common/Plate/Plate';
 import CustomButton from '../Common/CustomButton/CustomButton';
 import { setMode, UiModes} from '../../redux/reducers/ui';
 import { getSchemasCount } from '../../redux/reducers/schemas';
@@ -35,6 +34,8 @@ const SchemasPanel = ({
     const isDelete = mode === UiModes.DELETE;
 
     const handleAddClick = () => setMode(UiModes.ADD);
+    const handleEditClick = () => handleClick(UiModes.EDIT);
+    const handleDeleteClick = () => handleClick(UiModes.DELETE);
 
     const handleClick = (newMode) => {
         if ((isEdit || isDelete) && mode === newMode && !selectedSchemaId) {
@@ -62,22 +63,22 @@ const SchemasPanel = ({
                 text='Add'
             />
             {schemasCount
-                ? <Plate
-                    text='Edit'
-                    colorTheme='gold'
-                    {...editProps}
-                    isDisabled={isAdd || (selectedSchemaId && isDelete)}
-                    onClick={() => handleClick(UiModes.EDIT)}
-                />
-            : null}
-            {schemasCount
-                ? <Plate
-                    text='Delete'
-                    colorTheme='red'
-                    {...deleteProps}
-                    isDisabled={isAdd || (selectedSchemaId && isEdit)}
-                    onClick={() => handleClick(UiModes.DELETE)}
-                />
+                ? <>
+                    <CustomButton
+                        colorTheme='yellow'
+                        isDisabled={isAdd || (selectedSchemaId && isDelete)}
+                        onClick={handleEditClick}
+                        text='Edit'
+                        {...editProps}
+                    />
+                    <CustomButton
+                        colorTheme='red'
+                        isDisabled={isAdd || (selectedSchemaId && isEdit)}
+                        onClick={handleDeleteClick}
+                        text='Delete'
+                        {...deleteProps}
+                    />
+                </>
             : null}
         </Box>
     );
