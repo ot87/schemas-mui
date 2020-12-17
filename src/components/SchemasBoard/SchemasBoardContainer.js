@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import css from './SchemasBoard.module.css';
-import Card from '../Common/Card/Card';
+import CustomCard from '../Common/CustomCard/CustomCard';
 import CardWithButtons from '../Common/Card/CardWithButtons';
 import Schema from '../Schema/Schema';
 import SchemaFormContainer from '../SchemaForm/SchemaFormContainer';
@@ -94,18 +94,17 @@ const SchemasBoard = ({
                 onCancel={() => setMode(UiModes.SHOW)}
             />;
         } else {
-            let cardColorTheme = null;
-
-            if (isEdit) {
-                cardColorTheme = 'gold';
-            }
-            if (isDelete) {
-                cardColorTheme = 'red';
-            }
+            const cardColorTheme = (
+                isEdit ?
+                    'gold'
+                : isDelete ?
+                    'red'
+                : null
+            );
 
             schemasBoard = <div className={css.board}>
                 {schemas.map((schema) => (
-                    <Card
+                    <CustomCard
                         key={schema.id}
                         name={schema.name}
                         content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}

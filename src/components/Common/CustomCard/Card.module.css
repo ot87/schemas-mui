@@ -1,0 +1,71 @@
+.card,
+.goldCard,
+.redCard {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    width: 150px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    text-align: center;
+}
+
+.card:hover {
+    padding: 18px;
+    cursor: pointer;
+    border: 3px solid black;
+    background-color: aliceblue;
+}
+
+.goldCard:hover {
+    padding: 18px;
+    cursor: pointer;
+    border: 3px solid coral;
+    background-color: gold;
+}
+
+.clicked,
+.redCard:hover {
+    padding: 18px;
+    border: 3px solid firebrick;
+    background-color: tomato;
+}
+
+.redCard:not(.clicked):hover {
+    cursor: pointer;
+}
+
+.clicked,
+.card:hover > .cardName,
+.goldCard:hover > .cardName,
+.redCard:hover > .cardName {
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.cardName {}
+.cardContent {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 426px) {
+    .card,
+    .goldCard,
+    .redCard {
+        padding: 10px;
+        width: 145px;
+        height: 190px;
+    }
+
+    .clicked,
+    .card:hover,
+    .goldCard:hover,
+    .redCard:hover {
+        padding: 8px;
+    }
+}

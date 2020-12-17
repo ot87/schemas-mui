@@ -6,6 +6,8 @@ import green from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
 import red from '@material-ui/core/colors/red';
 
+const currentTheme = createMuiTheme();
+
 export default (Component) => (props) => (
     props.colorTheme && !props.isDisabled ?
         <ThemeProvider theme={createMuiTheme({
@@ -15,7 +17,9 @@ export default (Component) => (props) => (
                         {main: green[600]}
                     : props.colorTheme === 'yellow' ?
                         {main: yellow[600], contrastText: '#fff'}
-                    : {main: red[600]}
+                    : props.colorTheme === 'red' ?
+                        {main: red[600]}
+                    : currentTheme.palette.primary
                 )
             }
         })}>
