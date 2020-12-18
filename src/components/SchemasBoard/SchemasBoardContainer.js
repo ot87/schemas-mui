@@ -96,7 +96,7 @@ const SchemasBoard = ({
         } else {
             const cardColorTheme = (
                 isEdit ?
-                    'gold'
+                    'yellow'
                 : isDelete ?
                     'red'
                 : null

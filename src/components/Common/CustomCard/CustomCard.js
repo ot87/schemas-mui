@@ -7,6 +7,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import yellow from '@material-ui/core/colors/yellow';
+import red from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'inherit',
         height: '100%',
         borderRadius: 4
+    },
+    highlight: {
+        backgroundColor: ({ color }) => (
+            color === 'yellow' ?
+                yellow[600]
+            : color === 'red' ?
+                red[600]
+            : null
+        )
     },
     header: {
         padding: 0
@@ -56,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {EventHandlerFunction} props.onClick      - On click function for the CustomCard.
  */
 const CustomCard = ({ colorTheme, content, isClicked, name, onClick }) => {
-    const classes = useStyles();
+    const classes = useStyles({colorTheme});
     // const customCardCss = cn({
     //     [css.goldCustomCard]: colorTheme === 'gold',
     //     [css.redCustomCard]: colorTheme === 'red',
@@ -66,7 +77,13 @@ const CustomCard = ({ colorTheme, content, isClicked, name, onClick }) => {
 
     return (
         <Card className={classes.root}>
-            <CardActionArea className={classes.actionArea} onClick={onClick}>
+            <CardActionArea
+                classes={{
+                    root: classes.actionArea,
+                    focusHighlight: classes.highlight
+                }}
+                onClick={onClick}
+            >
                 <CardHeader
                     className={classes.header}
                     subheader={name}
