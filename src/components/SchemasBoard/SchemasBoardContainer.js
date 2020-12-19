@@ -1,13 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import css from './SchemasBoard.module.css';
 import CustomCard from '../Common/CustomCard/CustomCard';
 import CardWithButtons from '../Common/Card/CardWithButtons';
 import Schema from '../Schema/Schema';
 import SchemaFormContainer from '../SchemaForm/SchemaFormContainer';
 import { addSchema, updateSchema, deleteSchema } from '../../redux/reducers/schemas';
 import { selectSchema, setMode, UiModes } from '../../redux/reducers/ui';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        rowGap: '3vh',
+        [theme.breakpoints.down('sm')]: {
+            rowGap: '2vh'
+        },
+        [theme.breakpoints.down('xs')]: {
+            rowGap: '1vh'
+        }
+    }
+}));
 
 /**
  * Callback for events handling.
@@ -45,6 +59,7 @@ const SchemasBoard = ({
     selectSchema,
     setMode
 }) => {
+    const classes = useStyles();
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
@@ -59,28 +74,35 @@ const SchemasBoard = ({
                 onCancel={() => selectSchema(null)}
             />;
         } else if (isDelete) {
-            schemasBoard = <div className={css.board}>
-                {schemas.map((schema) => (
-                    <CardWithButtons
-                        key={schema.id}
-                        name={schema.name}
-                        content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
-                        colorTheme='red'
-                        cardIsClicked={schema.id === selectedSchemaId}
-                        onClick={() => selectSchema(schema.id)}
-                        buttons={({
-                            first: {
-                                text: 'Delete',
-                                onClick: () => deleteSchema(schema.id)
-                            },
-                            second: {
-                                text: 'Cancel',
-                                onClick: () => selectSchema(null)
-                            }
-                        })}
-                    />
-                ))}
-            </div>;
+            schemasBoard = (
+                <Box
+                    className={classes.root}
+                    display='flex'
+                    flexWrap='wrap'
+                    justifyContent='space-evenly'
+                >
+                    {schemas.map((schema) => (
+                        <CardWithButtons
+                            key={schema.id}
+                            name={schema.name}
+                            content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
+                            colorTheme='red'
+                            cardIsClicked={schema.id === selectedSchemaId}
+                            onClick={() => selectSchema(schema.id)}
+                            buttons={({
+                                first: {
+                                    text: 'Delete',
+                                    onClick: () => deleteSchema(schema.id)
+                                },
+                                second: {
+                                    text: 'Cancel',
+                                    onClick: () => selectSchema(null)
+                                }
+                            })}
+                        />
+                    ))}
+                </Box>
+            );
         } else {
             schemasBoard = <Schema
                 schema={schemas.find(schema => schema.id === selectedSchemaId)}
@@ -102,17 +124,24 @@ const SchemasBoard = ({
                 : null
             );
 
-            schemasBoard = <div className={css.board}>
-                {schemas.map((schema) => (
-                    <CustomCard
-                        key={schema.id}
-                        name={schema.name}
-                        content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
-                        colorTheme={cardColorTheme}
-                        onClick={() => selectSchema(schema.id)}
-                    />
-                ))}
-            </div>;
+            schemasBoard = (
+                <Box
+                    className={classes.root}
+                    display='flex'
+                    flexWrap='wrap'
+                    justifyContent='space-evenly'
+                >
+                    {schemas.map((schema) => (
+                        <CustomCard
+                            colorTheme={cardColorTheme}
+                            content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
+                            key={schema.id}
+                            name={schema.name}
+                            onClick={() => selectSchema(schema.id)}
+                        />
+                    ))}
+                </Box>
+            );
         }
     }
 

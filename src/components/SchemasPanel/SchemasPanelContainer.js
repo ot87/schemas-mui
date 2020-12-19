@@ -5,14 +5,7 @@ import CustomButton from '../Common/CustomButton/CustomButton';
 import { setMode, UiModes} from '../../redux/reducers/ui';
 import { getSchemasCount } from '../../redux/reducers/schemas';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-
-const useStyles = makeStyles(() => ({
-    root: {
-        margin: '0 auto'
-    }
-}));
 
 /**
  * Renders a control panel of [Buttons]{@link CustomButton} to set a mode of the ui.
@@ -28,7 +21,6 @@ const SchemasPanel = ({
     selectedSchemaId,
     setMode
 }) => {
-    const classes = useStyles();
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
@@ -54,7 +46,7 @@ const SchemasPanel = ({
         : {isToggled: isDelete};
 
     return (
-        <Box display='flex' className={classes.root}>
+        <Box display='flex' mx='auto' my={0}>
             <CustomButton
                 colorTheme='green'
                 isClicked={isAdd}

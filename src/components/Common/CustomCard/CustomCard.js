@@ -60,14 +60,14 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Functional component which renders a custom CustomCard element.
  * @param {Object}               props
- * @param {'gold'|'red'}         [props.colorTheme] - Color theme of the CustomCard.
+ * @param {'yellow'|'red'}       [props.colorTheme] - Color theme of the CustomCard.
  * @param {*}                    props.content      - Content of the CustomCard.
  * @param {boolean}              [props.isClicked]  - Indicates whether the CustomCard is clicked.
  * @param {string}               props.name         - Name of the CustomCard.
  * @param {EventHandlerFunction} props.onClick      - On click function for the CustomCard.
  */
 const CustomCard = ({ colorTheme, content, isClicked, name, onClick }) => {
-    const classes = useStyles({colorTheme});
+    const classes = useStyles({ color: colorTheme });
     // const customCardCss = cn({
     //     [css.goldCustomCard]: colorTheme === 'gold',
     //     [css.redCustomCard]: colorTheme === 'red',
