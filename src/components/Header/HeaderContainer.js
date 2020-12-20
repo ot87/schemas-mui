@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 /**
  * Header component with control buttons.
- * Consists of two parts - a clickable [Plate]{@link Plate} button and a panel to display either the [SchemasList]{@link SchemasList} or the control [SchemasPanel]{@link SchemasPanel}.
+ * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasList]{@link SchemasList} or the control [SchemasPanel]{@link SchemasPanel}.
  * @param {Object}      props
  * @param {number|null} props.selectedSchemaId    - The id of the selected schema from the Redux State.
  * @param {string}      props.mode                - The current ui mode from the Redux State.
@@ -48,7 +48,14 @@ const Header = ({
     const handleSchemasClick = () => setIsSchemasClicked(true);
 
     return (
-        <AppBar position='sticky' color='inherit'>
+        <AppBar
+            color='inherit'
+            position={(
+                mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT) ?
+                    'static'
+                : 'sticky'
+            )}
+        >
             <Toolbar className={classes.toolbar}>
                 {isShowSchema ?
                     <CustomButton
