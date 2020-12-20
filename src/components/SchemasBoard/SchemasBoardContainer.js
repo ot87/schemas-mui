@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CustomCard from '../Common/CustomCard/CustomCard';
-import CardWithButtons from '../Common/Card/CardWithButtons';
+import CustomCardWithButtons from '../Common/CustomCard/CustomCardWithButtons';
 import Schema from '../Schema/Schema';
 import SchemaFormContainer from '../SchemaForm/SchemaFormContainer';
 import { addSchema, updateSchema, deleteSchema } from '../../redux/reducers/schemas';
@@ -64,6 +64,11 @@ const SchemasBoard = ({
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
 
+    const onDeleteClick = (id) => () => deleteSchema(id);
+    const onCancelAddClick = () => setMode(UiModes.SHOW);
+    const onClickResetSchema = () => selectSchema(null);
+    const selectClickedSchema = (id) => () => selectSchema(id)
+
     let schemasBoard;
 
     if (selectedSchemaId) {
@@ -71,7 +76,7 @@ const SchemasBoard = ({
             schemasBoard = <SchemaFormContainer
                 schema={schemas.find(schema => schema.id === selectedSchemaId)}
                 onSubmit={updateSchema}
-                onCancel={() => selectSchema(null)}
+                onCancel={onClickResetSchema}
             />;
         } else if (isDelete) {
             schemasBoard = (
@@ -82,23 +87,23 @@ const SchemasBoard = ({
                     justifyContent='space-evenly'
                 >
                     {schemas.map((schema) => (
-                        <CardWithButtons
-                            key={schema.id}
-                            name={schema.name}
-                            content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
-                            colorTheme='red'
-                            cardIsClicked={schema.id === selectedSchemaId}
-                            onClick={() => selectSchema(schema.id)}
+                        <CustomCardWithButtons
                             buttons={({
                                 first: {
-                                    text: 'Delete',
-                                    onClick: () => deleteSchema(schema.id)
+                                    onClick: onDeleteClick(schema.id),
+                                    text: 'Delete'
                                 },
                                 second: {
-                                    text: 'Cancel',
-                                    onClick: () => selectSchema(null)
+                                    onClick: onClickResetSchema,
+                                    text: 'Cancel'
                                 }
                             })}
+                            cardIsClicked={schema.id === selectedSchemaId}
+                            colorTheme='red'
+                            content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
+                            key={schema.id}
+                            name={schema.name}
+                            onClick={selectClickedSchema(schema.id)}
                         />
                     ))}
                 </Box>
@@ -113,7 +118,7 @@ const SchemasBoard = ({
             schemasBoard = <SchemaFormContainer
                 schema={{items: []}}
                 onSubmit={addSchema}
-                onCancel={() => setMode(UiModes.SHOW)}
+                onCancel={onCancelAddClick}
             />;
         } else {
             const cardColorTheme = (
@@ -137,7 +142,7 @@ const SchemasBoard = ({
                             content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
                             key={schema.id}
                             name={schema.name}
-                            onClick={() => selectSchema(schema.id)}
+                            onClick={selectClickedSchema(schema.id)}
                         />
                     ))}
                 </Box>

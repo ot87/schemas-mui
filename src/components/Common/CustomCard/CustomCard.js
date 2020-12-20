@@ -1,5 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -49,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         padding: 0
+    },
+    subheader: {
+        color: ({ isClicked }) => isClicked ? red[600] : null
     }
 }));
 
@@ -66,17 +68,35 @@ const useStyles = makeStyles((theme) => ({
  * @param {string}               props.name         - Name of the CustomCard.
  * @param {EventHandlerFunction} props.onClick      - On click function for the CustomCard.
  */
-const CustomCard = ({ colorTheme, content, isClicked, name, onClick }) => {
-    const classes = useStyles({ color: colorTheme });
-    // const customCardCss = cn({
-    //     [css.goldCustomCard]: colorTheme === 'gold',
-    //     [css.redCustomCard]: colorTheme === 'red',
-    //     [css.customCard]: ['gold', 'red'].indexOf(colorTheme) === -1,
-    //     [css.clicked]: isClicked
-    // });
+const CustomCard = ({
+    colorTheme,
+    content,
+    isClicked = false,
+    name,
+    onClick
+}) => {
+    const classes = useStyles({ color: colorTheme, isClicked });
 
-    return (
-        <Card className={classes.root}>
+    let cardContent = (
+        <>
+            <CardHeader
+                classes={{
+                    root: classes.header,
+                    subheader: classes.subheader
+                }}
+                subheader={name}
+            />
+            <div><hr /></div>
+            <CardContent className={classes.content}>
+                <Typography component='div'>
+                    {content}
+                </Typography>
+            </CardContent>
+        </>
+    );
+
+    if (!isClicked) {
+        cardContent = (
             <CardActionArea
                 classes={{
                     root: classes.actionArea,
@@ -84,17 +104,14 @@ const CustomCard = ({ colorTheme, content, isClicked, name, onClick }) => {
                 }}
                 onClick={onClick}
             >
-                <CardHeader
-                    className={classes.header}
-                    subheader={name}
-                />
-                <div><hr /></div>
-                <CardContent className={classes.content}>
-                    <Typography component='div'>
-                        {content}
-                    </Typography>
-                </CardContent>
+                {cardContent}
             </CardActionArea>
+        );
+    }
+
+    return (
+        <Card className={classes.root}>
+            {cardContent}
         </Card>
     );
 };
