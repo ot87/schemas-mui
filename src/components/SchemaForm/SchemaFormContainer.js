@@ -8,6 +8,16 @@ import SchemaFormItemsControls from './SchemaFormItemsControls/SchemaFormItemsCo
 import SchemaFormItems from './SchemaFormItems/SchemaFormItems';
 import SchemaFormButtons from './SchemaFormButtons/SchemaFormButtons';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+const useStyles = makeStyles(() => ({
+    form: {
+        width: '100%'
+    }
+}));
+
 /**
  * Callback for events handling.
  * @callback EventHandlerFunction
@@ -29,6 +39,9 @@ import SchemaFormButtons from './SchemaFormButtons/SchemaFormButtons';
  * @param {EventHandlerFunction} props.onCancel              - On click function for Cancel Plate.
  */
 const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
+    const classes = useStyles();
+    const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
+
     const [isRemoveClicked, setIsRemoveClicked] = useState(false);
     const [itemsIdsToRemove, setItemsIdsToRemove] = useState([]);
     const [isRemoveAllClicked, setIsRemoveAllClicked] = useState(false);
@@ -120,29 +133,40 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                             </div>
                         </div>
                     </div>
-                    <form role="table" className={css.schema} onSubmit={handleSubmit}>
-                        <FormField
-                            name='name'
-                            type='text'
-                            tag='input'
-                            validate={required}
-                            disabled={isRemoveClicked}
-                            placeholder='Schema Name'
-                        />
-                        <FormField
-                            name='description'
-                            type='text'
-                            tag='textarea'
-                            disabled={isRemoveClicked}
-                            placeholder='Schema Description'
-                        />
-                        <SchemaFormItems
-                            initItems={initialValues.items}
-                            onValidate={required}
-                            isRemoveClicked={isRemoveClicked}
-                            itemsIdsToRemove={itemsIdsToRemove}
-                            handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
-                        />
+                    <form className={classes.form} onSubmit={handleSubmit} role='table'>
+                        <Grid
+                            container
+                            alignContent='center'
+                            justify='center'
+                            spacing={xsScreen ? 2 : 3}
+                        >
+                            <Grid item xs={6}>
+                                <FormField
+                                    disabled={isRemoveClicked}
+                                    label='Schema Name'
+                                    name='name'
+                                    type='text'
+                                    validate={required}
+                                />
+                            </Grid>
+                            <Grid item xs={11} sm={10} md={9}>
+                                <FormField
+                                    disabled={isRemoveClicked}
+                                    label='Schema Description'
+                                    multiline
+                                    name='description'
+                                    rows={2}
+                                    type='text'
+                                />
+                            </Grid>
+                            <SchemaFormItems
+                                initItems={initialValues.items}
+                                onValidate={required}
+                                isRemoveClicked={isRemoveClicked}
+                                itemsIdsToRemove={itemsIdsToRemove}
+                                handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
+                            />
+                        </Grid>
                     </form>
                 </div>
             )}

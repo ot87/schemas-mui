@@ -1,7 +1,14 @@
 import React from 'react';
 import { Field } from 'react-final-form';
-import cn from 'classnames';
-import css from './FormField.module.css';
+
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles((theme) => ({
+    textfield: {
+        backgroundColor: theme.palette.background.paper
+    }
+}));
 
 /**
  * Function with validation rule.
@@ -13,46 +20,45 @@ import css from './FormField.module.css';
 /**
  * Functional component to wrap the [Field]{@link https://final-form.org/docs/react-final-form/api/Field} component of the [React Final Form]{@link https://final-form.org/react} library.
  * @param {Object}             props
- * @param {string}             props.name          - Field name.
- * @param {string}             props.type          - Field type.
- * @param {string}             props.tag           - Tag to render inside the Field component.
- * @param {ValidationFunction} [props.validate]    - Field validation function.
  * @param {boolean}            props.disabled      - Indicates whether Field is disabled.
- * @param {string}             [props.placeholder] - Field placeholder.
+ * @param {string}             props.label         - Field label.
+ * @param {boolean}            [props.multiline]   - Indicates whether Field is multiline.
+ * @param {string}             props.name          - Field name.
+ * @param {string}             [props.placeholder] - Field placeholder, if undefined, label is used.
+ * @param {number}             [props.rows]        - Number of rows to display when multiline is true.
+ * @param {string}             props.type          - Field type.
+ * @param {ValidationFunction} [props.validate]    - Field validation function.
  */
 const FormField = ({
-    name,
-    type,
-    tag,
-    validate,
     disabled,
-    placeholder
+    label,
+    multiline,
+    name,
+    placeholder,
+    rows,
+    type,
+    validate
 }) => {
-    const tags = {
-        input: 'input',
-        textarea: 'textarea'
-    };
-    const TagName = tags[tag] || 'input';
+    const classes = useStyles();
 
     return (
         <Field name={name} type={type} validate={validate}>
-            {({ input, meta }) => {
-                const fieldCss = cn({
-                    [css.error]: validate && meta.touched && meta.error
-                });
-
-                return (
-                    <div>
-                        <TagName
-                            {...input}
-                            type={type}
-                            className={fieldCss}
-                            disabled={disabled}
-                            placeholder={placeholder}
-                        />
-                    </div>
-                );
-            }}
+            {({ input, meta }) => (
+                <TextField
+                    className={classes.textfield}
+                    disabled={disabled}
+                    error={validate && meta.touched && meta.error}
+                    fullWidth
+                    id={name}
+                    label={label}
+                    multiline={multiline}
+                    placeholder={placeholder || label}
+                    required={!!validate}
+                    rows={rows}
+                    variant='outlined'
+                    {...input}
+                />
+            )}
         </Field>
     );
 };

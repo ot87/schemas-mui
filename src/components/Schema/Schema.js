@@ -53,7 +53,7 @@ const Schema = ({ schema }) => {
                 <Grid
                     key={key}
                     container item
-                    xs={11} sm={5} md={9}
+                    xs={11} sm={6} md={11}
                     justify='center'
                     spacing={smScreen ? 1 : 2}
                 >

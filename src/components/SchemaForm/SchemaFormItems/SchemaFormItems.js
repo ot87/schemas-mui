@@ -3,8 +3,10 @@ import { FieldArray } from 'react-final-form-arrays';
 import cn from 'classnames';
 
 import css from './SchemaFormItems.module.css';
-import Item from '../../Common/Item/Item';
 import FormField from '../../Common/FormField/FormField';
+
+import Grid from '@material-ui/core/Grid';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 /**
  * Function with validation rule.
@@ -32,8 +34,10 @@ const SchemaFormItems = ({
     isRemoveClicked,
     itemsIdsToRemove,
     handleRemoveOnItemsRowClick
-}) => (
-    <div className={css.items}>
+}) => {
+    const smScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
+    return (
         <FieldArray
             name='items'
             initialValue={initItems}
@@ -45,46 +49,51 @@ const SchemaFormItems = ({
                 });
 
                 return (
-                    <div
+                    <Grid
+                        key={index}
+                        container item
+                        xs={11} sm={6} md={11}
+                        justify='center'
+                        spacing={smScreen ? 1 : 2}
+                    >
+                    {/* <div
                         key={index}
                         role="row"
                         onClick={() => isRemoveClicked && handleRemoveOnItemsRowClick(index)}
                         className={rowCss}
-                    >
-                        <Item>
+                    > */}
+                        <Grid item xs={12} md={4}>
                             <FormField
+                                disabled={isRemoveClicked}
+                                label='Name'
                                 name={`${name}.name`}
                                 type='text'
-                                tag='input'
                                 validate={onValidate}
-                                disabled={isRemoveClicked}
-                                placeholder='Name'
                             />
-                        </Item>
-                        <Item>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
                             <FormField
+                                disabled={isRemoveClicked}
+                                label='Quantity'
                                 name={`${name}.quantity`}
                                 type='text'
-                                tag='input'
                                 validate={onValidate}
-                                disabled={isRemoveClicked}
-                                placeholder='Quantity'
                             />
-                        </Item>
-                        <Item>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
                             <FormField
+                                disabled={isRemoveClicked}
+                                label='Time'
                                 name={`${name}.time`}
                                 type='text'
-                                tag='input'
-                                disabled={isRemoveClicked}
-                                placeholder='Time'
                             />
-                        </Item>
-                    </div>
+                        </Grid>
+                    {/* </div> */}
+                    </Grid>
                 );
             })}
         />
-    </div>
-);
+    );
+};
 
 export default SchemaFormItems;
