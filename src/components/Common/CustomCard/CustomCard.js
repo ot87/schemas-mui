@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start',
         alignItems: 'inherit',
         height: '100%',
-        borderRadius: 4
+        borderRadius: theme.shape.borderRadius
     },
     highlight: {
         backgroundColor: ({ color }) => (

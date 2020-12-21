@@ -32,8 +32,8 @@ const Schema = ({ schema }) => {
 
     return (
         <Grid
-            container
             alignContent='center'
+            container
             justify='center'
             spacing={xsScreen ? 2 : 3}
         >
@@ -51,11 +51,11 @@ const Schema = ({ schema }) => {
             : null}
             {schema.items.map((item, key) => (
                 <Grid
-                    key={key}
                     container item
-                    xs={11} sm={6} md={11}
                     justify='center'
+                    key={key}
                     spacing={smScreen ? 1 : 2}
+                    xs={11} sm={6} md={11}
                 >
                     <Grid item xs={12} md={4}>
                         <Paper className={classes.paper}>

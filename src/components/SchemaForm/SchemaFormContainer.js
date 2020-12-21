@@ -135,8 +135,8 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                     </div>
                     <form className={classes.form} onSubmit={handleSubmit} role='table'>
                         <Grid
-                            container
                             alignContent='center'
+                            container
                             justify='center'
                             spacing={xsScreen ? 2 : 3}
                         >
@@ -160,11 +160,11 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                 />
                             </Grid>
                             <SchemaFormItems
+                                handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
                                 initItems={initialValues.items}
-                                onValidate={required}
                                 isRemoveClicked={isRemoveClicked}
                                 itemsIdsToRemove={itemsIdsToRemove}
-                                handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
+                                onValidate={required}
                             />
                         </Grid>
                     </form>
