@@ -9,10 +9,25 @@ import SchemaFormItems from './SchemaFormItems/SchemaFormItems';
 import SchemaFormButtons from './SchemaFormButtons/SchemaFormButtons';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexDirection: 'row',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column'
+        }
+    },
+    bar: {
+        flexDirection: 'column',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: theme.spacing(2)
+        }
+    },
     form: {
         width: '100%'
     }
@@ -104,10 +119,16 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                 initialValues,
                 values
             }) => (
-                <div className={css.schemaForm}>
+                <Box
+                    className={classes.root}
+                    display='flex'
+                >
                     <div className={css.stickyWrapper}>
                         <div className={css.stickyWrapper}>
-                            <div className={css.schemaBar}>
+                            <Box
+                                className={classes.bar}
+                                display='flex'
+                            >
                                 <SchemaFormButtons
                                     submit={({
                                         isDisabled: isRemoveClicked || submitting,
@@ -130,7 +151,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                     removeOnClick={() => removeOnClick(removeBatch)}
                                     removeAllOnClick={() => removeAllOnClick(values.items)}
                                 />
-                            </div>
+                            </Box>
                         </div>
                     </div>
                     <form className={classes.form} onSubmit={handleSubmit} role='table'>
@@ -168,7 +189,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                             />
                         </Grid>
                     </form>
-                </div>
+                </Box>
             )}
         />
     );

@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1)
     },
+    outlined: {
+        backgroundColor: theme.palette.background.paper
+    },
     clicked: {
         '&:hover': {
             backgroundColor: theme.palette.primary.main,
@@ -52,10 +55,13 @@ const CustomButton = ({
 
     return (
         <Button
-            className={cn({
-                [classes.root]: true,
-                [classes.clicked]: isClicked
-            })}
+            classes={{
+                root: cn({
+                    [classes.root]: true,
+                    [classes.clicked]: isClicked
+                }),
+                outlined: classes.outlined
+            }}
             color={colorTheme || isClicked ? 'primary' : 'default'}
             disabled={isDisabled}
             size='large'

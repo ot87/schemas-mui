@@ -1,7 +1,18 @@
 import React from 'react';
 
-import css from './SchemaFormItemsControls.module.css';
-import Plate from '../../Common/Plate/Plate';
+import CustomButton from '../../Common/CustomButton/CustomButton';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexDirection: 'column',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'row'
+        }
+    }
+}));
 
 /**
  * Callback for events handling.
@@ -25,31 +36,38 @@ const SchemaFormItemsControls = ({
     addOnClick,
     removeOnClick,
     removeAllOnClick
-}) => (
-    <div className={css.schemaFormItemsControls}>
-        <Plate
-            text='Add'
-            colorTheme='green'
-            isDisabled={isRemoveClicked}
-            onClick={addOnClick}
-        />
-        {showRemove ?
-            <Plate
-                text='Remove'
-                colorTheme='red'
-                isToggled={isRemoveClicked}
-                onClick={removeOnClick}
+}) => {
+    const classes = useStyles();
+
+    return (
+        <Box
+            className={classes.root}
+            display='flex'
+        >
+            <CustomButton
+                colorTheme='green'
+                isDisabled={isRemoveClicked}
+                onClick={addOnClick}
+                text='Add'
             />
-        : null}
-        {isRemoveClicked ?
-            <Plate
-                text='All'
-                colorTheme='red'
-                isToggled={isRemoveAllClicked}
-                onClick={removeAllOnClick}
-            />
-        : null}
-    </div>
-);
+            {showRemove ?
+                <CustomButton
+                    colorTheme='red'
+                    isToggled={isRemoveClicked}
+                    onClick={removeOnClick}
+                    text='Remove'
+                />
+            : null}
+            {isRemoveClicked ?
+                <CustomButton
+                    colorTheme='red'
+                    isToggled={isRemoveAllClicked}
+                    onClick={removeAllOnClick}
+                    text='All'
+                />
+            : null}
+        </Box>
+    );
+};
 
 export default SchemaFormItemsControls;
