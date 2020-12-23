@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import css from './SchemaForm.module.css';
 import FormField from '../Common/FormField/FormField';
 import SchemaFormItemsControls from './SchemaFormItemsControls/SchemaFormItemsControls';
 import SchemaFormItems from './SchemaFormItems/SchemaFormItems';
@@ -22,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     bar: {
         flexDirection: 'column',
+        backgroundColor: theme.palette.background.default,
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -127,8 +127,8 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                     className={classes.root}
                     display='flex'
                 >
-                    <div className={css.stickyWrapper}>
-                        <div className={css.stickyWrapper}>
+                    <Box position='sticky' top={0} zIndex='appBar'>
+                        <Box position='sticky' top={0}>
                             <Box
                                 className={classes.bar}
                                 display='flex'
@@ -156,8 +156,8 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                     removeAllOnClick={() => removeAllOnClick(values.items)}
                                 />
                             </Box>
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
                     <form className={classes.form} onSubmit={handleSubmit} role='table'>
                         <Grid
                             alignContent='center'
