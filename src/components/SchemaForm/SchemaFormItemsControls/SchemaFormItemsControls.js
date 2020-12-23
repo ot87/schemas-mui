@@ -43,6 +43,7 @@ const SchemaFormItemsControls = ({
         <Box
             className={classes.root}
             display='flex'
+            justifyContent='center'
         >
             <CustomButton
                 colorTheme='green'

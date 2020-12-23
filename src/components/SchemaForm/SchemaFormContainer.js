@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginBottom: theme.spacing(2)
+        },
+        [theme.breakpoints.down(740)]: {
+            flexDirection: 'column',
+            marginBottom: theme.spacing(2)
         }
     },
     form: {
