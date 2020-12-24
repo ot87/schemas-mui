@@ -5,10 +5,14 @@ import withCustomPrimaryColor from '../../../hoc/withCustomPrimaryColor';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+        [theme.breakpoints.down(390)]: {
+            margin: theme.spacing(0.5)
+        }
     },
     outlined: {
         backgroundColor: theme.palette.background.paper
@@ -45,6 +49,8 @@ const CustomButton = ({
     text
 }) => {
     const classes = useStyles();
+    const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(390));
+    const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
     let buttonProps = {
         disableElevation: isClicked,
@@ -64,7 +70,13 @@ const CustomButton = ({
             }}
             color={colorTheme || isClicked ? 'primary' : 'default'}
             disabled={isDisabled}
-            size='large'
+            size={(
+                xxsScreen ?
+                    'small'
+                : xsScreen ?
+                    'medium'
+                : 'large'
+            )}
             variant={isClicked || isToggled ? 'contained' : 'outlined'}
             { ...buttonProps }
         >

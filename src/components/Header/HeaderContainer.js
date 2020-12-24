@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
+        flexWrap: ({ isWrap }) => isWrap ? 'wrap' : 'nowrap',
         justifyContent: 'space-between',
         padding: theme.spacing(1),
         [theme.breakpoints.down('xs')]: {
@@ -42,8 +43,8 @@ const Header = ({
     isSchemasClicked,
     setIsSchemasClicked
 }) => {
-    const classes = useStyles();
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
+    const classes = useStyles({ isWrap: !isShowSchema && isSchemasClicked });
     const handleBackClick = () => selectSchema(null);
     const handleSchemasClick = () => setIsSchemasClicked(true);
 

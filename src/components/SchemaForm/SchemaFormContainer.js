@@ -24,11 +24,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: theme.spacing(2)
-        },
-        [theme.breakpoints.down(740)]: {
-            flexDirection: 'column',
             marginBottom: theme.spacing(2)
         }
     },
@@ -132,6 +127,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                             <Box
                                 className={classes.bar}
                                 display='flex'
+                                flexWrap='wrap'
                             >
                                 <SchemaFormButtons
                                     submit={({
