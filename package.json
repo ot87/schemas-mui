@@ -26,7 +26,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "test": "react-scripts test --env=jest-environment-jsdom-sixteen --coverage --watchAll",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "test-coverage": "react-scripts test --env=jest-environment-jsdom-sixteen --coverage --watchAll",
     "docs": "jsdoc -c jsdoc.conf.json",
     "build": "react-scripts build",
     "predeploy": "npm run build",

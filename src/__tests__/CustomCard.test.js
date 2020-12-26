@@ -22,7 +22,7 @@ test('CustomCard is displayed and onClick handler is called by clicking', () => 
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 });
 
-test('if isClicked true CustomCard is not clickable', () => {
+test('if isClicked is true CustomCard is not clickable', () => {
     const onClickHandler = jest.fn();
     const { rerender } = render(
         <CustomCard name='Schema 1' content={cardContent} isClicked={false} onClick={onClickHandler} />
@@ -40,7 +40,7 @@ test('if isClicked true CustomCard is not clickable', () => {
 
     // check that CustomCard's onClickHandler has not been called second time
     userEvent.click(card);
-    expect(onClickHandler).not.toHaveBeenCalledTimes(2);
+    expect(onClickHandler).toHaveBeenCalledTimes(1);
 });
 
 test('CustomCard with yellow theme has yellow highlight when hovered', () => {
