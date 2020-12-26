@@ -4,17 +4,17 @@ import userEvent from '@testing-library/user-event';
 
 import CustomButton from '../components/Common/CustomButton/CustomButton';
 
-const renderCustomButton = (renderProps) => {
+const renderButton = (renderProps) => {
     const onClickHandler = jest.fn(),
         { rerender }     = render(
             <CustomButton text='CustomButton' onClick={onClickHandler} {...renderProps} />
         ),
-        customButton     = screen.getByRole('button', { name: 'CustomButton' });
+        button = screen.getByRole('button', { name: 'CustomButton' });
 
     return {
-        customButton,
+        button,
         onClickHandler,
-        rerenderCustomButton: (rerenderProps) => {
+        rerenderButton: (rerenderProps) => {
             rerender(
                 <CustomButton text='CustomButton' onClick={onClickHandler} {...rerenderProps} />
             );
@@ -67,13 +67,13 @@ const testSuite = [{
 }];
 
 test('CustomButton is displayed and onClick handleris called', () => {
-    const { customButton, onClickHandler } = renderCustomButton();
+    const { button, onClickHandler } = renderButton();
 
     // check that customButton is displayed
-    expect(customButton).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
 
     // check that CustomButton's onClickHandler has been called
-    userEvent.click(customButton);
+    userEvent.click(button);
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 });
 
@@ -83,19 +83,19 @@ testSuite.forEach(({
     rerenderProps, expectedClass, secondOnClickCall
 }) => {
     test(name, () => {
-        const { customButton, onClickHandler, rerenderCustomButton } = renderCustomButton(initProps);
+        const { button, onClickHandler, rerenderButton } = renderButton(initProps);
 
         if (initExpectedClass !== null) {
-            expect(customButton).toHaveClass(initExpectedClass);
+            expect(button).toHaveClass(initExpectedClass);
         }
 
-        userEvent.click(customButton);
+        userEvent.click(button);
         expect(onClickHandler).toHaveBeenCalledTimes(initOnClickCall);
 
-        rerenderCustomButton(rerenderProps);
-        expect(customButton).toHaveClass(expectedClass);
+        rerenderButton(rerenderProps);
+        expect(button).toHaveClass(expectedClass);
 
-        userEvent.click(customButton);
+        userEvent.click(button);
         expect(onClickHandler).toHaveBeenCalledTimes(secondOnClickCall);
     });
 });
@@ -103,25 +103,25 @@ testSuite.forEach(({
 test('Size of CustomButton is small for screen width less than 390px', () => {
     window.matchMedia = mockUseMediaQuery(300);
 
-    const { customButton } = renderCustomButton();
-    expect(customButton).toHaveClass('MuiButton-sizeSmall');
+    const { button } = renderButton();
+    expect(button).toHaveClass('MuiButton-sizeSmall');
 });
 
 test('Size of CustomButton is medium for screen width between 390px and 600px', () => {
     window.matchMedia = mockUseMediaQuery(500);
 
-    const { customButton } = renderCustomButton();
-    expect(customButton.getAttribute('class')).not.toContain('MuiButton-size');
+    const { button } = renderButton();
+    expect(button.getAttribute('class')).not.toContain('MuiButton-size');
 });
 
 test('Size of CustomButton is large for screen width 600px and more', () => {
     window.matchMedia = mockUseMediaQuery(600);
 
-    const { customButton, rerenderCustomButton } = renderCustomButton();
-    expect(customButton).toHaveClass('MuiButton-sizeLarge');
+    const { button, rerenderButton } = renderButton();
+    expect(button).toHaveClass('MuiButton-sizeLarge');
 
     window.matchMedia = mockUseMediaQuery(700);
 
-    rerenderCustomButton();
-    expect(customButton).toHaveClass('MuiButton-sizeLarge');
+    rerenderButton();
+    expect(button).toHaveClass('MuiButton-sizeLarge');
 });
