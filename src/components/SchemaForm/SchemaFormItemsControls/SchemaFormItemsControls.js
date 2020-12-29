@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexDirection: 'column',
         [theme.breakpoints.down('sm')]: {
-            flexDirection: 'row'
+            flexDirection: 'row',
+            margin: '0 auto'
         }
     }
 }));
@@ -43,8 +44,6 @@ const SchemaFormItemsControls = ({
         <Box
             className={classes.root}
             display='flex'
-            mx='auto'
-            my={0}
         >
             <CustomButton
                 colorTheme='green'

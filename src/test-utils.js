@@ -12,6 +12,22 @@ export const mockUseMediaQuery = (width) => jest.fn().mockImplementation(query =
     removeListener: jest.fn()
 }));
 
+export function mockStyleInjection() {
+    const defaultInsertRule = window.CSSStyleSheet.prototype.insertRule;
+    window.CSSStyleSheet.prototype.insertRule = function (rule, index) {
+        const styleElement = document.createElement('style');
+        const textNode = document.createTextNode(rule);
+        styleElement.appendChild(textNode);
+        document.head.appendChild(styleElement);
+        return defaultInsertRule.bind(this)(rule, index);
+    };
+    // cleanup function, which reinserts the head and cleans up method overwrite
+    return function applyJSSRules() {
+      window.CSSStyleSheet.prototype.insertRule = defaultInsertRule;
+      document.head.innerHTML = document.head.innerHTML;
+    };
+  }
+
 const customRender = (
     ui,
     {

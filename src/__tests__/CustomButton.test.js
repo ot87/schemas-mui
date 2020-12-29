@@ -66,7 +66,7 @@ const testSuite = [{
     secondOnClickCall: 1
 }];
 
-test('CustomButton is displayed and onClick handleris called', () => {
+test('CustomButton is displayed and onClick handler is called', () => {
     const { button, onClickHandler } = renderButton();
 
     // check that customButton is displayed

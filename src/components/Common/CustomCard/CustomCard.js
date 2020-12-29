@@ -110,7 +110,7 @@ const CustomCard = ({
     }
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} role='button'>
             {cardContent}
         </Card>
     );
