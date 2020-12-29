@@ -99,7 +99,6 @@ const SchemasBoard = ({
                                 }
                             })}
                             cardIsClicked={schema.id === selectedSchemaId}
-                            colorTheme='red'
                             content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
                             key={schema.id}
                             name={schema.name}

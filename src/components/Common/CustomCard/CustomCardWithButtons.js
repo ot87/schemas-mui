@@ -22,7 +22,6 @@ import Box from '@material-ui/core/Box';
  * @param {string}               props.buttons.second.text    - Text to display on the second CustomButton.
  *
  * @param {boolean}              props.cardIsClicked - If CustomCard is clicked, then CustomCard onClick will be nullified and two CustomButton will be displayed instead of the content prop.
- * @param {'yellow'|'red'}       [props.colorTheme]  - Color theme of the CustomCard.
  * @param {*}                    props.content       - Content of the CustomCard.
  * @param {string}               props.name          - Name of the CustomCard.
  * @param {EventHandlerFunction} props.onClick       - On click function for the CustomCard.
@@ -30,7 +29,6 @@ import Box from '@material-ui/core/Box';
 const CustomCardWithButtons = ({
     buttons: { first, second },
     cardIsClicked,
-    colorTheme,
     content,
     name,
     onClick
@@ -54,7 +52,7 @@ const CustomCardWithButtons = ({
 
     return (
         <CustomCard
-            colorTheme={colorTheme}
+            colorTheme='red'
             content={content}
             isClicked={cardIsClicked}
             name={name}

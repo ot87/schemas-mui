@@ -8,11 +8,10 @@ const renderButton = (renderProps) => {
     const onClickHandler = jest.fn(),
         { rerender }     = render(
             <CustomButton text='CustomButton' onClick={onClickHandler} {...renderProps} />
-        ),
-        button = screen.getByRole('button', { name: 'CustomButton' });
+        );
 
     return {
-        button,
+        button: screen.getByRole('button', { name: 'CustomButton' }),
         onClickHandler,
         rerenderButton: (rerenderProps) => {
             rerender(
@@ -69,7 +68,7 @@ const testSuite = [{
 test('CustomButton is displayed and onClick handler is called', () => {
     const { button, onClickHandler } = renderButton();
 
-    // check that customButton is displayed
+    // check that CustomButton is displayed
     expect(button).toBeInTheDocument();
 
     // check that CustomButton's onClickHandler has been called
@@ -93,6 +92,8 @@ testSuite.forEach(({
         expect(onClickHandler).toHaveBeenCalledTimes(initOnClickCall);
 
         rerenderButton(rerenderProps);
+        // check that rerendered CustomButton is displayed
+        expect(button).toBeInTheDocument();
         expect(button).toHaveClass(expectedClass);
 
         userEvent.click(button);

@@ -21,11 +21,10 @@ const renderCard = (renderProps) => {
                 onClick={onClickHandler}
                 {...renderProps}
             />
-        ),
-        card = screen.getAllByRole('button', { name: 'CustomCard 1 item 1 item 2' })[0];
+        );
 
     return {
-        card,
+        card: screen.getAllByRole('button', { name: 'CustomCard 1 item 1 item 2' })[0],
         onClickHandler,
         rerenderCard: (rerenderProps) => {
             rerender(
@@ -67,6 +66,8 @@ test('if isClicked is true CustomCard is not clickable', () => {
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 
     rerenderCard({ isClicked: true });
+    // check that rerendered CustomCard is displayed
+    expect(card).toBeInTheDocument();
 
     // check that CustomCard's onClickHandler has not been called second time
     userEvent.click(card);
