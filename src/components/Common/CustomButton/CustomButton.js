@@ -1,10 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
 
-import withCustomPrimaryColor from '../../../hoc/withCustomPrimaryColor';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
+import yellow from '@material-ui/core/colors/yellow';
+import red from '@material-ui/core/colors/red';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,14 +54,13 @@ const CustomButton = ({
     const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(390));
     const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
-    let buttonProps = {
+    const buttonProps = {
         disableElevation: isClicked,
         disableFocusRipple: isClicked,
         disableRipple: isClicked,
         onClick: isClicked ? null : onClick
     };
-
-    return (
+    let button = (
         <Button
             classes={{
                 root: cn({
@@ -83,6 +84,30 @@ const CustomButton = ({
             {text}
         </Button>
     );
+
+    if (colorTheme && !isDisabled) {
+        const currentTheme = createMuiTheme();
+
+        button = (
+            <ThemeProvider theme={createMuiTheme({
+                palette: {
+                    primary: (
+                        colorTheme === 'green' ?
+                            {main: green[600]}
+                        : colorTheme === 'yellow' ?
+                            {main: yellow[600], contrastText: '#fff'}
+                        : colorTheme === 'red' ?
+                            {main: red[600]}
+                        : currentTheme.palette.primary
+                    )
+                }
+            })}>
+                {button}
+            </ThemeProvider>
+        );
+    }
+
+    return button;
 };
 
-export default withCustomPrimaryColor(CustomButton);
+export default CustomButton;
