@@ -21,11 +21,29 @@ const useStyles = makeStyles((theme) => ({
     },
     clicked: {
         '&:hover': {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: ({ color }) => color,
             cursor: 'auto'
         }
     }
 }));
+
+const getColor = (colorTheme, isDisabled) => {
+    const currentTheme = createMuiTheme();
+
+    return (
+        colorTheme && !isDisabled ?
+            (
+                colorTheme === 'green' ?
+                    {main: green[600]}
+                : colorTheme === 'yellow' ?
+                    {main: yellow[600], contrastText: '#fff'}
+                : colorTheme === 'red' ?
+                    {main: red[600]}
+                : currentTheme.palette.primary
+            )
+        : currentTheme.palette.primary
+    );
+};
 
 /**
  * Callback for events handling.
@@ -50,9 +68,10 @@ const CustomButton = ({
     onClick,
     text
 }) => {
-    const classes = useStyles();
+    const color     = getColor(colorTheme, isDisabled);
+    const classes   = useStyles({ color: color.main });
     const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(390));
-    const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
+    const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
     const buttonProps = {
         disableElevation: isClicked,
@@ -86,21 +105,9 @@ const CustomButton = ({
     );
 
     if (colorTheme && !isDisabled) {
-        const currentTheme = createMuiTheme();
-
         button = (
             <ThemeProvider theme={createMuiTheme({
-                palette: {
-                    primary: (
-                        colorTheme === 'green' ?
-                            {main: green[600]}
-                        : colorTheme === 'yellow' ?
-                            {main: yellow[600], contrastText: '#fff'}
-                        : colorTheme === 'red' ?
-                            {main: red[600]}
-                        : currentTheme.palette.primary
-                    )
-                }
+                palette: { primary: color }
             })}>
                 {button}
             </ThemeProvider>

@@ -6,11 +6,16 @@ import { Provider } from 'react-redux';
 import reducer from './redux/reducers';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-export const mockUseMediaQuery = (width) => jest.fn().mockImplementation(query => ({
-    matches: query.match(/\d+.\d+/)?.[0] > width,
-    addListener: jest.fn(),
-    removeListener: jest.fn()
-}));
+export const mockUseMediaQuery = (width) => {
+    Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: jest.fn().mockImplementation((query) => ({
+            matches: query.match(/\d+.\d+/)?.[0] > width,
+            addListener: jest.fn(),
+            removeListener: jest.fn()
+        }))
+    });
+};
 
 export function mockStyleInjection() {
     const defaultInsertRule = window.CSSStyleSheet.prototype.insertRule;

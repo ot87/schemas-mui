@@ -24,55 +24,6 @@ const renderButton = (renderProps) => {
         }
     };
 };
-const testSuite = [{
-    name: 'if isClicked is true CustomButton becomes not clickable',
-    initProps: { isClicked: false },
-    initExpectedClass: 'MuiButton-outlined',
-    initOnClickCall: 1,
-    rerenderProps: { isClicked: true },
-    expectedClass: 'MuiButton-contained',
-    secondOnClickCall: 1
-}, {
-    name: 'if isToggled is true CustomButton stays clickable',
-    initProps: { isToggled: false },
-    initExpectedClass: 'MuiButton-outlined',
-    initOnClickCall: 1,
-    rerenderProps: { isToggled: true },
-    expectedClass: 'MuiButton-contained',
-    secondOnClickCall: 2
-}, {
-    name: 'if isDisabled is true CustomButton becomes not clickable',
-    initProps: { isDisabled: false },
-    initExpectedClass: 'MuiButton-outlined',
-    initOnClickCall: 1,
-    rerenderProps: { isDisabled: true },
-    expectedClass: 'Mui-disabled',
-    secondOnClickCall: 1
-}, {
-    name: 'if isDisabled is true CustomButton becomes not clickable even when isClickable is false',
-    initProps: { isClicked: false, isDisabled: false },
-    initExpectedClass: 'MuiButton-outlined',
-    initOnClickCall: 1,
-    rerenderProps: { isClicked: false, isDisabled: true },
-    expectedClass: 'Mui-disabled',
-    secondOnClickCall: 1
-}, {
-    name: 'if isDisabled is true CustomButton becomes not clickable even when isToggled is false',
-    initProps: { isToggled: false, isDisabled: false },
-    initExpectedClass: 'MuiButton-outlined',
-    initOnClickCall: 1,
-    rerenderProps: { isToggled: false, isDisabled: true },
-    expectedClass: 'Mui-disabled',
-    secondOnClickCall: 1
-}, {
-    name: 'if isDisabled is true CustomButton becomes not clickable even when isToggled is true',
-    initProps: { isToggled: true, isDisabled: false },
-    initExpectedClass: 'MuiButton-contained',
-    initOnClickCall: 1,
-    rerenderProps: { isToggled: true, isDisabled: true },
-    expectedClass: 'Mui-disabled',
-    secondOnClickCall: 1
-}];
 
 test('CustomButton is displayed and onClick handler is called', () => {
     const { button, onClickHandler } = renderButton();
@@ -86,88 +37,172 @@ test('CustomButton is displayed and onClick handler is called', () => {
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 });
 
-testSuite.forEach(({
-    name,
-    initProps, initExpectedClass, initOnClickCall,
-    rerenderProps, expectedClass, secondOnClickCall
-}) => {
-    test(name, () => {
-        const { button, onClickHandler, rerenderButton } = renderButton(initProps);
+describe('Properties isClicked, isToggled, isDisabled of CustomButton', () => {
+    [{
+        name: 'if isClicked is true CustomButton becomes not clickable',
+        initProps: { isClicked: false },
+        initExpectedClass: 'MuiButton-outlined',
+        initOnClickCall: 1,
+        rerenderProps: { isClicked: true },
+        expectedClass: 'MuiButton-contained',
+        secondOnClickCall: 1
+    }, {
+        name: 'if isToggled is true CustomButton stays clickable',
+        initProps: { isToggled: false },
+        initExpectedClass: 'MuiButton-outlined',
+        initOnClickCall: 1,
+        rerenderProps: { isToggled: true },
+        expectedClass: 'MuiButton-contained',
+        secondOnClickCall: 2
+    }, {
+        name: 'if isDisabled is true CustomButton becomes not clickable',
+        initProps: { isDisabled: false },
+        initExpectedClass: 'MuiButton-outlined',
+        initOnClickCall: 1,
+        rerenderProps: { isDisabled: true },
+        expectedClass: 'Mui-disabled',
+        secondOnClickCall: 1
+    }, {
+        name: 'if isDisabled is true CustomButton becomes not clickable even when isClickable is false',
+        initProps: { isClicked: false, isDisabled: false },
+        initExpectedClass: 'MuiButton-outlined',
+        initOnClickCall: 1,
+        rerenderProps: { isClicked: false, isDisabled: true },
+        expectedClass: 'Mui-disabled',
+        secondOnClickCall: 1
+    }, {
+        name: 'if isDisabled is true CustomButton becomes not clickable even when isToggled is false',
+        initProps: { isToggled: false, isDisabled: false },
+        initExpectedClass: 'MuiButton-outlined',
+        initOnClickCall: 1,
+        rerenderProps: { isToggled: false, isDisabled: true },
+        expectedClass: 'Mui-disabled',
+        secondOnClickCall: 1
+    }, {
+        name: 'if isDisabled is true CustomButton becomes not clickable even when isToggled is true',
+        initProps: { isToggled: true, isDisabled: false },
+        initExpectedClass: 'MuiButton-contained',
+        initOnClickCall: 1,
+        rerenderProps: { isToggled: true, isDisabled: true },
+        expectedClass: 'Mui-disabled',
+        secondOnClickCall: 1
+    }].forEach(({
+        name,
+        initProps, initExpectedClass, initOnClickCall,
+        rerenderProps, expectedClass, secondOnClickCall
+    }) => {
+        test(name, () => {
+            const { button, onClickHandler, rerenderButton } = renderButton(initProps);
 
-        expect(button).toHaveClass(initExpectedClass);
+            expect(button).toHaveClass(initExpectedClass);
 
-        userEvent.click(button);
-        expect(onClickHandler).toHaveBeenCalledTimes(initOnClickCall);
+            userEvent.click(button);
+            expect(onClickHandler).toHaveBeenCalledTimes(initOnClickCall);
 
-        rerenderButton(rerenderProps);
-        // check that rerendered CustomButton is displayed
-        expect(button).toBeInTheDocument();
-        expect(button).toHaveClass(expectedClass);
+            rerenderButton(rerenderProps);
+            // check that rerendered CustomButton is displayed
+            expect(button).toBeInTheDocument();
+            expect(button).toHaveClass(expectedClass);
 
-        userEvent.click(button);
-        expect(onClickHandler).toHaveBeenCalledTimes(secondOnClickCall);
+            userEvent.click(button);
+            expect(onClickHandler).toHaveBeenCalledTimes(secondOnClickCall);
+        });
     });
 });
 
-test('Size of CustomButton is small for screen width less than 390px', () => {
-    window.matchMedia = mockUseMediaQuery(300);
+describe('Responsiveness of CustomButton', () => {
+    test('Size of CustomButton is small for screen width less than 390px', () => {
+        mockUseMediaQuery(300);
 
-    const { button } = renderButton();
-    expect(button).toHaveClass('MuiButton-sizeSmall');
+        const { button } = renderButton();
+        expect(button).toHaveClass('MuiButton-sizeSmall');
+    });
+
+    test('Size of CustomButton is medium for screen width between 390px and 600px', () => {
+        mockUseMediaQuery(500);
+
+        const { button } = renderButton();
+        expect(button.getAttribute('class')).not.toContain('MuiButton-size');
+    });
+
+    test('Size of CustomButton is large for screen width 600px and more', () => {
+        mockUseMediaQuery(600);
+
+        const { button, rerenderButton } = renderButton();
+        expect(button).toHaveClass('MuiButton-sizeLarge');
+
+        mockUseMediaQuery(700);
+
+        rerenderButton();
+        expect(button).toHaveClass('MuiButton-sizeLarge');
+    });
 });
 
-test('Size of CustomButton is medium for screen width between 390px and 600px', () => {
-    window.matchMedia = mockUseMediaQuery(500);
+describe('Property colorTheme of CustomButton', () => {
+    [{
+        name: 'CustomButton with green colorTheme is green',
+        initProps: { colorTheme: 'green' },
+        expectedStyle: `color: ${green[600]}`
+    }, {
+        name: 'CustomButton with yellow colorTheme is yellow',
+        initProps: { colorTheme: 'yellow' },
+        expectedStyle: `color: ${yellow[600]}`
+    }, {
+        name: 'CustomButton with red colorTheme is red',
+        initProps: { colorTheme: 'red' },
+        expectedStyle: `color: ${red[600]}`
+    }, {
+        name: 'Clicked CustomButton with green colorTheme is green',
+        initProps: { isClicked: true, colorTheme: 'green' },
+        expectedStyle: `background-color: ${green[600]}`
+    }, {
+        name: 'Clicked CustomButton with yellow colorTheme is yellow',
+        initProps: { isClicked: true, colorTheme: 'yellow' },
+        expectedStyle: `background-color: ${yellow[600]}`
+    }, {
+        name: 'Clicked CustomButton with red colorTheme is red',
+        initProps: { isClicked: true, colorTheme: 'red' },
+        expectedStyle: `background-color: ${red[600]}`
+    }, {
+        name: 'Toggled CustomButton with green colorTheme is green',
+        initProps: { isToggled: true, colorTheme: 'green' },
+        expectedStyle: `background-color: ${green[600]}`
+    }, {
+        name: 'Toggled CustomButton with yellow colorTheme is yellow',
+        initProps: { isToggled: true, colorTheme: 'yellow' },
+        expectedStyle: `background-color: ${yellow[600]}`
+    }, {
+        name: 'Toggled CustomButton with red colorTheme is red',
+        initProps: { isToggled: true, colorTheme: 'red' },
+        expectedStyle: `background-color: ${red[600]}`
+    }].forEach(({ name, initProps, expectedStyle }) => {
+        test(name, () => {
+            const applyJSSRules = mockStyleInjection();
+            const { button } = renderButton(initProps);
 
-    const { button } = renderButton();
-    expect(button.getAttribute('class')).not.toContain('MuiButton-size');
-});
+            applyJSSRules();
 
-test('Size of CustomButton is large for screen width 600px and more', () => {
-    window.matchMedia = mockUseMediaQuery(600);
+            expect(button).toHaveStyle(expectedStyle);
+        });
+    });
 
-    const { button, rerenderButton } = renderButton();
-    expect(button).toHaveClass('MuiButton-sizeLarge');
+    test('CustomButton with unknown colorTheme has standard primary color', () => {
+        const applyJSSRules = mockStyleInjection();
+        const { button } = renderButton({ colorTheme: 'pink' });
+        const currentTheme = createMuiTheme();
 
-    window.matchMedia = mockUseMediaQuery(700);
+        applyJSSRules();
 
-    rerenderButton();
-    expect(button).toHaveClass('MuiButton-sizeLarge');
-});
+        expect(button).toHaveStyle(`color: ${currentTheme.palette.primary.main}`);
+    });
 
-test('CustomButton with green colorTheme has green color', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { button } = renderButton({ colorTheme: 'green' });
+    test('Clicked CustomButton with unknown colorTheme has standard primary color and has that color while hovered', () => {
+        const applyJSSRules = mockStyleInjection();
+        const { button } = renderButton({ isClicked: true, colorTheme: 'pink' });
+        const currentTheme = createMuiTheme();
 
-    applyJSSRules();
+        applyJSSRules();
 
-    expect(button).toHaveStyle(`color: ${green[600]}`);
-});
-
-test('CustomButton with yellow colorTheme has yellow color', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { button } = renderButton({ colorTheme: 'yellow' });
-
-    applyJSSRules();
-
-    expect(button).toHaveStyle(`color: ${yellow[600]}`);
-});
-
-test('CustomButton with red colorTheme has red color', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { button } = renderButton({ colorTheme: 'red' });
-
-    applyJSSRules();
-
-    expect(button).toHaveStyle(`color: ${red[600]}`);
-});
-
-test('CustomButton with unknown colorTheme has standard primary color', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { button } = renderButton({ colorTheme: 'pink' });
-    const currentTheme = createMuiTheme();
-
-    applyJSSRules();
-
-    expect(button).toHaveStyle(`color: ${currentTheme.palette.primary.main}`);
+        expect(button).toHaveStyle(`background-color: ${currentTheme.palette.primary.main}`);
+    });
 });
