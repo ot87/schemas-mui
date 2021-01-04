@@ -1,15 +1,16 @@
-import React from 'react';
+import React       from 'react';
 import { connect } from 'react-redux';
 
-import CustomCard from '../Common/CustomCard/CustomCard';
-import CustomCardWithButtons from '../Common/CustomCard/CustomCardWithButtons';
-import Schema from '../Schema/Schema';
-import SchemaFormContainer from '../SchemaForm/SchemaFormContainer';
-import { addSchema, updateSchema, deleteSchema } from '../../redux/reducers/schemas';
-import { selectSchema, setMode, UiModes } from '../../redux/reducers/ui';
+import CustomCard            from 'components/Common/CustomCard/CustomCard';
+import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithButtons';
+import Schema                from 'components/Schema/Schema';
+import SchemaFormContainer   from 'components/SchemaForm/SchemaFormContainer';
+
+import { addSchema, updateSchema, deleteSchema } from 'redux/reducers/schemas';
+import { selectSchema, setMode, UiModes }        from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import Box            from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
     root: {

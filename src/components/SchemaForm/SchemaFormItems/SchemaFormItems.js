@@ -1,13 +1,13 @@
-import React from 'react';
+import React          from 'react';
 import { FieldArray } from 'react-final-form-arrays';
-import cn from 'classnames';
+import cn             from 'classnames';
 
-import FormField from '../../Common/FormField/FormField';
+import FormField from 'components/Common/FormField/FormField';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import red from '@material-ui/core/colors/red';
+import Grid           from '@material-ui/core/Grid';
+import useMediaQuery  from '@material-ui/core/useMediaQuery';
+import red            from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles((theme) => ({
     row: {

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Form } from 'react-final-form';
-import arrayMutators from 'final-form-arrays';
+import { Form }            from 'react-final-form';
+import arrayMutators       from 'final-form-arrays';
 
-import FormField from '../Common/FormField/FormField';
+import FormField               from 'components/Common/FormField/FormField';
 import SchemaFormItemsControls from './SchemaFormItemsControls/SchemaFormItemsControls';
-import SchemaFormItems from './SchemaFormItems/SchemaFormItems';
-import SchemaFormButtons from './SchemaFormButtons/SchemaFormButtons';
+import SchemaFormItems         from './SchemaFormItems/SchemaFormItems';
+import SchemaFormButtons       from './SchemaFormButtons/SchemaFormButtons';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Box            from '@material-ui/core/Box';
+import Grid           from '@material-ui/core/Grid';
+import useMediaQuery  from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
     root: {

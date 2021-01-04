@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '../test-utils';
+import { render, screen } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemasPanelContainer from '../components/SchemasPanel/SchemasPanelContainer';
+import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
 
 const renderSchemasPanel = (init = false, initData = {}) => {
     let plates = {};

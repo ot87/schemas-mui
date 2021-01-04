@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, mockUseMediaQuery, mockStyleInjection } from '../test-utils';
+import { render, screen, mockUseMediaQuery, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import CustomButton from '../components/Common/CustomButton/CustomButton';
+import CustomButton from 'components/Common/CustomButton/CustomButton';
 import { createMuiTheme } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';

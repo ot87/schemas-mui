@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor } from '../test-utils';
+import { render, screen, waitFor } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import App from '../App';
+import App from 'App';
 
 test('create Schema, edit it and then delete', async () => {
     render(<App />);

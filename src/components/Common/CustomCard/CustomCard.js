@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import Card           from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import yellow from '@material-ui/core/colors/yellow';
-import red from '@material-ui/core/colors/red';
+import CardHeader     from '@material-ui/core/CardHeader';
+import CardContent    from '@material-ui/core/CardContent';
+import Typography     from '@material-ui/core/Typography';
+import yellow         from '@material-ui/core/colors/yellow';
+import red            from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles((theme) => ({
     root: {

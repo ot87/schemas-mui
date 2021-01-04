@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import HeaderContainer from './components/Header/HeaderContainer';
-import ContentContainer from './components/Content/ContentContainer';
+import HeaderContainer  from 'components/Header/HeaderContainer';
+import ContentContainer from 'components/Content/ContentContainer';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import grey from '@material-ui/core/colors/grey';
+import Container      from '@material-ui/core/Container';
+import Box            from '@material-ui/core/Box';
+import grey           from '@material-ui/core/colors/grey';
 
 const useStyles = makeStyles((theme) => ({
     root: {

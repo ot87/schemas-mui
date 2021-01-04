@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CustomCard from './CustomCard';
-import CustomButton from '../CustomButton/CustomButton';
+import CustomCard   from './CustomCard';
+import CustomButton from 'components/Common/CustomButton/CustomButton';
 
 import Box from '@material-ui/core/Box';
 

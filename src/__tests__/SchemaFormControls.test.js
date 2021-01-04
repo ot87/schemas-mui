@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '../test-utils';
+import { render, screen } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemaFormContainer from '../components/SchemaForm/SchemaFormContainer';
+import SchemaFormContainer from 'components/SchemaForm/SchemaFormContainer';
 
 const renderSchemaForm = () => {
     const schema = {

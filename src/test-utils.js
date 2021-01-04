@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { createStore, applyMiddleware } from 'redux';
-import thunk from "redux-thunk";
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import reducer from './redux/reducers';
+import reducer from 'redux/reducers';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 export const mockUseMediaQuery = (width) => {

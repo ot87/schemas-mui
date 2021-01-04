@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SchemasBoardContainer from '../SchemasBoard/SchemasBoardContainer';
+import SchemasBoardContainer from 'components/SchemasBoard/SchemasBoardContainer';
 
 import { Box } from '@material-ui/core';
 

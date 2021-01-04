@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '../test-utils';
+import { render, screen } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import CustomCardWithButtons from '../components/Common/CustomCard/CustomCardWithButtons';
+import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithButtons';
 
 const cardContent = [
     {id: 1, name: 'item 1'},

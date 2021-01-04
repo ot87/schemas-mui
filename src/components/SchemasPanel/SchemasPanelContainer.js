@@ -1,9 +1,10 @@
-import React from 'react';
+import React       from 'react';
 import { connect } from 'react-redux';
 
-import CustomButton from '../Common/CustomButton/CustomButton';
-import { setMode, UiModes} from '../../redux/reducers/ui';
-import { getSchemasCount } from '../../redux/reducers/schemas';
+import CustomButton from 'components/Common/CustomButton/CustomButton';
+
+import { setMode, UiModes} from 'redux/reducers/ui';
+import { getSchemasCount } from 'redux/reducers/schemas';
 
 import Box from '@material-ui/core/Box';
 

@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import profile from "./profile";
-import schemas from "./schemas";
-import ui from "./ui";
+import profile from './profile';
+import schemas from './schemas';
+import ui      from './ui';
 
 const reducer = combineReducers({
     // profile,

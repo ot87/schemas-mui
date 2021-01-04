@@ -1,6 +1,6 @@
-const SELECT_SCHEMA = 'ui/SELECT_SCHEMA';
+const SELECT_SCHEMA  = 'ui/SELECT_SCHEMA';
 const SET_ADD_SCHEMA = 'ui/SET_ADD_SCHEMA';
-const SET_MODE = 'ui/SET_MODE';
+const SET_MODE       = 'ui/SET_MODE';
 
 /**
  * Enum for the modes of the ui.

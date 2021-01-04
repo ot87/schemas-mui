@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, mockStyleInjection } from '../test-utils';
+import { render, screen, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import CustomCard from '../components/Common/CustomCard/CustomCard';
+import CustomCard from 'components/Common/CustomCard/CustomCard';
 
 import yellow from '@material-ui/core/colors/yellow';
 import red from '@material-ui/core/colors/red';

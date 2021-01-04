@@ -1,9 +1,10 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
-import API from "../../api";
-import { selectSchema, setMode, UiModes } from "./ui";
+import API from 'api';
 
-const ADD_SCHEMA = 'schemas/ADD_SCHEMA';
+import { selectSchema, setMode, UiModes } from './ui';
+
+const ADD_SCHEMA    = 'schemas/ADD_SCHEMA';
 const UPDATE_SCHEMA = 'schemas/UPDATE_SCHEMA';
 const DELETE_SCHEMA = 'schemas/DELETE_SCHEMA';
 

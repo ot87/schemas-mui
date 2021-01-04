@@ -1,14 +1,15 @@
-import React from 'react';
+import React       from 'react';
 import { connect } from 'react-redux';
 
-import CustomButton from '../Common/CustomButton/CustomButton';
-import SchemasListContainer from '../SchemasList/SchemasListContainer';
-import SchemasPanelContainer from '../SchemasPanel/SchemasPanelContainer';
-import { selectSchema, UiModes } from '../../redux/reducers/ui';
+import CustomButton          from 'components/Common/CustomButton/CustomButton';
+import SchemasListContainer  from 'components/SchemasList/SchemasListContainer';
+import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
+
+import { selectSchema, UiModes } from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import AppBar         from '@material-ui/core/AppBar';
+import Toolbar        from '@material-ui/core/Toolbar';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
