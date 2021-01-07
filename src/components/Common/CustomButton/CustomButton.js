@@ -31,17 +31,17 @@ const getColor = (colorTheme, isDisabled) => {
     const currentTheme = createMuiTheme();
 
     return (
-        colorTheme && !isDisabled ?
-            (
-                colorTheme === 'green' ?
-                    {main: green[600]}
-                : colorTheme === 'yellow' ?
-                    {main: yellow[600], contrastText: '#fff'}
-                : colorTheme === 'red' ?
-                    {main: red[600]}
-                : currentTheme.palette.primary
-            )
-        : currentTheme.palette.primary
+        isDisabled ?
+            currentTheme.palette.primary
+        : (
+            colorTheme === 'green' ?
+                {main: green[600]}
+            : colorTheme === 'yellow' ?
+                {main: yellow[600], contrastText: '#fff'}
+            : colorTheme === 'red' ?
+                {main: red[600]}
+            : currentTheme.palette.primary
+        )
     );
 };
 
@@ -52,33 +52,28 @@ const getColor = (colorTheme, isDisabled) => {
 
 /**
  * Functional component which renders a custom clickable or togglable button.
- * @param {Object}                 props
- * @param {'green'|'yellow'|'red'} [props.colorTheme] - Color theme of the CustomButton.
- * @param {boolean}                [props.isClicked]  - Indicates whether the CustomButton is clicked. If true, onClick will be nullified.
- * @param {boolean}                [props.isDisabled] - Indicates whether the CustomButton is disabled.
- * @param {boolean}                [props.isToggled]  - Indicates whether the CustomButton is clicked and stayed clickable.
- * @param {EventHandlerFunction}   props.onClick      - On click function for the CustomButton.
- * @param {string}                 props.text         - Text to display on the CustomButton.
+ * @param {Object}                                 props
+ * @param {'green'|'yellow'|'red'|'default'}       [props.colorTheme] - Color theme of the CustomButton.
+ * @param {'clicked'|'toggled'|'disabled'|'shown'} [props.type]       - Indicates a type of the CustomButton. If it's clicked, onClick is nullified; if it's toggled, the CustomButton is clicked and stayed clickable; if it's disabled, the CustomButton is disabled.
+ * @param {EventHandlerFunction}                   props.onClick      - On click function for the CustomButton.
+ * @param {string}                                 props.text         - Text to display on the CustomButton.
  */
 const CustomButton = ({
-    colorTheme,
-    isClicked = false,
-    isDisabled = false,
-    isToggled = false,
+    colorTheme = 'default',
+    type = 'shown',
     onClick,
     text
 }) => {
+    const isClicked  = type === 'clicked';
+    const isToggled  = type === 'toggled';
+    const isDisabled = type === 'disabled';
+
     const color     = getColor(colorTheme, isDisabled);
     const classes   = useStyles({ color: color.main });
     const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(390));
     const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));
+    const isColorNotDefault = ['green', 'yellow', 'red'].includes(colorTheme);
 
-    const buttonProps = {
-        disableElevation: isClicked,
-        disableFocusRipple: isClicked,
-        disableRipple: isClicked,
-        onClick: isClicked ? null : onClick
-    };
     let button = (
         <Button
             classes={{
@@ -88,8 +83,12 @@ const CustomButton = ({
                 }),
                 outlined: classes.outlined
             }}
-            color={colorTheme || isClicked ? 'primary' : 'default'}
+            color={isColorNotDefault || isClicked ? 'primary' : 'default'}
             disabled={isDisabled}
+            disableElevation={isClicked}
+            disableFocusRipple={isClicked}
+            disableRipple={isClicked}
+            onClick={isClicked ? null : onClick}
             size={(
                 xxsScreen ?
                     'small'
@@ -98,13 +97,12 @@ const CustomButton = ({
                 : 'large'
             )}
             variant={isClicked || isToggled ? 'contained' : 'outlined'}
-            { ...buttonProps }
         >
             {text}
         </Button>
     );
 
-    if (colorTheme && !isDisabled) {
+    if (isColorNotDefault && !isDisabled) {
         button = (
             <ThemeProvider theme={createMuiTheme({
                 palette: { primary: color }

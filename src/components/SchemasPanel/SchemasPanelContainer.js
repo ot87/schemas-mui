@@ -38,38 +38,49 @@ const SchemasPanel = ({
         }
     }
 
-    const editProps = isEdit && selectedSchemaId
-        ? {isClicked: isEdit}
-        : {isToggled: isEdit};
-
-    const deleteProps = isDelete && selectedSchemaId
-        ? {isClicked: isDelete}
-        : {isToggled: isDelete};
-
     return (
         <Box display='flex' mx='auto' my={0}>
             <CustomButton
                 colorTheme='green'
-                isClicked={isAdd}
-                isDisabled={selectedSchemaId && (isEdit || isDelete)}
                 onClick={handleAddClick}
                 text='Add'
+                type={(
+                    isAdd ?
+                        'clicked'
+                    : (selectedSchemaId && (isEdit || isDelete)) ?
+                        'disabled'
+                    : 'shown'
+                )}
             />
             {schemasCount
                 ? <>
                     <CustomButton
                         colorTheme='yellow'
-                        isDisabled={isAdd || (selectedSchemaId && isDelete)}
                         onClick={handleEditClick}
                         text='Edit'
-                        {...editProps}
+                        type={(
+                            (isEdit && selectedSchemaId) ?
+                                'clicked'
+                            : isEdit ?
+                                'toggled'
+                            : (isAdd || (selectedSchemaId && isDelete)) ?
+                                'disabled'
+                            : 'shown'
+                        )}
                     />
                     <CustomButton
                         colorTheme='red'
-                        isDisabled={isAdd || (selectedSchemaId && isEdit)}
                         onClick={handleDeleteClick}
                         text='Delete'
-                        {...deleteProps}
+                        type={(
+                            (isDelete && selectedSchemaId) ?
+                                'clicked'
+                            : isDelete ?
+                                'toggled'
+                            : (isAdd || (selectedSchemaId && isEdit)) ?
+                                'disabled'
+                            : 'shown'
+                        )}
                     />
                 </>
             : null}

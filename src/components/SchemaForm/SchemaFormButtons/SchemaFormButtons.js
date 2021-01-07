@@ -43,21 +43,21 @@ const SchemaFormButtons = ({ submit, reset, cancel }) => {
         >
             <CustomButton
                 colorTheme='green'
-                isDisabled={submit.isDisabled}
                 onClick={submit.onClick}
                 text='Submit'
+                type={submit.isDisabled ? 'disabled' : 'shown'}
             />
             <CustomButton
                 colorTheme='yellow'
-                isDisabled={reset.isDisabled}
                 onClick={reset.onClick}
                 text='Reset'
+                type={reset.isDisabled ? 'disabled' : 'shown'}
             />
             <CustomButton
                 colorTheme='red'
-                isDisabled={cancel.isDisabled}
                 onClick={cancel.onClick}
                 text='Cancel'
+                type={cancel.isDisabled ? 'disabled' : 'shown'}
             />
         </Box>
     );

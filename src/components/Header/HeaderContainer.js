@@ -65,9 +65,9 @@ const Header = ({
                         text='Back'
                     />
                 : <CustomButton
-                    isClicked={isSchemasClicked}
                     onClick={handleSchemasClick}
                     text='Schemas'
+                    type={isSchemasClicked ? 'clicked' : 'shown'}
                 />}
                 {isShowSchema ?
                     <SchemasListContainer />

@@ -47,24 +47,24 @@ const SchemaFormItemsControls = ({
         >
             <CustomButton
                 colorTheme='green'
-                isDisabled={isRemoveClicked}
                 onClick={addOnClick}
                 text='Add'
+                type={isRemoveClicked ? 'disabled' : 'shown'}
             />
             {showRemove ?
                 <CustomButton
                     colorTheme='red'
-                    isToggled={isRemoveClicked}
                     onClick={removeOnClick}
                     text='Remove'
+                    type={isRemoveClicked ? 'toggled' : 'shown'}
                 />
             : null}
             {isRemoveClicked ?
                 <CustomButton
                     colorTheme='red'
-                    isToggled={isRemoveAllClicked}
                     onClick={removeAllOnClick}
                     text='All'
+                    type={isRemoveAllClicked ? 'toggled' : 'shown'}
                 />
             : null}
         </Box>
