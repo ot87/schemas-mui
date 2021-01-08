@@ -106,18 +106,23 @@ describe('Properties colorTheme and type of CustomButton', () => {
 
 describe('Property type of CustomButton and onClick handler', () => {
     test.each`
-        type          | expectedClass            | calls
-        ${'unknown'}  | ${'MuiButton-outlined'}  | ${1}
-        ${'shown'}    | ${'MuiButton-outlined'}  | ${1}
-        ${'clicked'}  | ${'MuiButton-contained'} | ${0}
-        ${'toggled'}  | ${'MuiButton-contained'} | ${1}
-        ${'disabled'} | ${'Mui-disabled'}        | ${0}
+        type          | toContain              | notToContain                    | calls
+        ${'unknown'}  | ${'outlined'}          | ${'contained|clicked|disabled'} | ${1}
+        ${'shown'}    | ${'outlined'}          | ${'contained|clicked|disabled'} | ${1}
+        ${'clicked'}  | ${'contained|clicked'} | ${'outlined|disabled'}          | ${0}
+        ${'toggled'}  | ${'contained'}         | ${'outlined|clicked|disabled'}  | ${1}
+        ${'disabled'} | ${'disabled|outlined'} | ${'contained|clicked'}          | ${0}
     `(
-        'CustomButton with "$type" type has "$expectedClass" class and onClick handler has been called "$calls" times',
-        ({ type, expectedClass, calls }) => {
+        'CustomButton with "$type" type has "$toContain" classes, has not "$notToContain" classes and onClick handler has been called "$calls" times',
+        ({ type, toContain, notToContain, calls }) => {
             const { button, onClickHandler } = renderButton({ type });
 
-            expect(button).toHaveClass(expectedClass);
+            toContain.split('|').forEach(expected => {
+                expect(button.className).toContain(expected);
+            });
+            notToContain.split('|').forEach(expected => {
+                expect(button.className).not.toContain(expected);
+            });
 
             userEvent.click(button);
             expect(onClickHandler).toBeCalledTimes(calls);
@@ -153,6 +158,11 @@ describe('Rerender CustomButton', () => {
 
             expect(button).toBeInTheDocument();
             expect(button).toHaveClass(expectedClass);
+            if (newType === 'clicked') {
+                expect(button.className).toContain('clicked');
+            } else {
+                expect(button.className).not.toContain('clicked');
+            }
 
             userEvent.click(button);
             expect(onClickHandler).toBeCalledTimes(calls);
