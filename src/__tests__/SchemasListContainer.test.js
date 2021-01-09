@@ -1,0 +1,60 @@
+import React              from 'react';
+import { render, screen } from 'test-utils';
+import userEvent          from '@testing-library/user-event';
+
+import SchemasListContainer from 'components/SchemasList/SchemasListContainer';
+
+const renderSchemasList = (store = {}) => {
+    render(<SchemasListContainer />, store);
+
+    return screen.getByRole('tablist');
+};
+
+test('An empty SchemaList is displayed', () => {
+    const schemasList = renderSchemasList();
+
+    expect(schemasList).toBeInTheDocument();
+    expect(schemasList).toBeEmptyDOMElement();
+});
+
+test('SchemaList is displayed with two items and the item "Schema 1" is selected', () => {
+    const schemasList = renderSchemasList({
+        initialState: {
+            schemas: [
+                {id: 1, name: 'Schema 1', items: []},
+                {id: 2, name: 'Schema 2', items: []}
+            ],
+            ui: { selectedSchemaId: 1 }
+        }
+    });
+    const schema1 = screen.getByRole('tab', { name: 'Schema 1' });
+    const schema2 = screen.getByRole('tab', { name: 'Schema 2' });
+
+    expect(schemasList).toBeInTheDocument();
+    expect(schemasList.childElementCount).toEqual(2);
+
+    expect(schema1).toBeInTheDocument();
+    expect(schema2).toBeInTheDocument();
+
+    expect(schema1).toHaveClass('Mui-selected');
+    expect(schema2).not.toHaveClass('Mui-selected');
+});
+
+test('Item "Schema 2" is selected after clicking', () => {
+    renderSchemasList({
+        initialState: {
+            schemas: [
+                {id: 1, name: 'Schema 1', items: []},
+                {id: 2, name: 'Schema 2', items: []}
+            ],
+            ui: { selectedSchemaId: 1 }
+        }
+    });
+    const schema1 = screen.getByRole('tab', { name: 'Schema 1' });
+    const schema2 = screen.getByRole('tab', { name: 'Schema 2' });
+
+    userEvent.click(schema2);
+
+    expect(schema1).not.toHaveClass('Mui-selected');
+    expect(schema2).toHaveClass('Mui-selected');
+});
