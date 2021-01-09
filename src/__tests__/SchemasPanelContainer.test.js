@@ -1,11 +1,13 @@
-import React from 'react';
+import React              from 'react';
 import { render, screen } from 'test-utils';
-import userEvent from '@testing-library/user-event';
+import userEvent          from '@testing-library/user-event';
 
 import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
+import { UiModes }           from 'redux/reducers/ui';
 
+const getButton = (name) => screen.getByRole('button', { name });
 const renderSchemasPanel = (init = false, initData = {}) => {
-    let plates = {};
+    let buttons = {};
 
     if (init) {
         let initialState = { schemas: [{id: 1, name: 'schema 1', items: []}] };
@@ -17,128 +19,239 @@ const renderSchemasPanel = (init = false, initData = {}) => {
         }
         render(<SchemasPanelContainer />, { initialState });
 
-        plates['editPlate']   = screen.getByRole('button', { name: 'Edit' });
-        plates['deletePlate'] = screen.getByRole('button', { name: 'Delete' });
+        buttons['editButton']   = getButton('Edit');
+        buttons['deleteButton'] = getButton('Delete');
     } else {
         render(<SchemasPanelContainer />);
     }
 
-    plates['addPlate'] = screen.getByRole('button', { name: 'Add' });
+    buttons['addButton'] = getButton('Add');
 
-    return plates;
+    return buttons;
 };
 
-test('displays only Add Plate that is clickable once only', () => {
-    const { addPlate } = renderSchemasPanel();
+/*
+  Mode is SHOW (by default),
+  schemasCount is 0 as schemas is empty,
+  selectedSchemaId is null (by default)
+*/
+test('"Add" CustomButton is displayed, clickable and not disabled', () => {
+    const { addButton } = renderSchemasPanel();
 
-    // check that Add Plate is displayed
-    expect(addPlate).toBeInTheDocument();
-    expect(addPlate).toHaveClass('greenPlate');
+    // Add CustomButton is displayed, is not clicked and is not disabled
+    expect(addButton).toBeInTheDocument();
+    expect(addButton.className).toContain('MuiButton-outlined');
 
-    // check that Edit and Delete Plates aren't displayed
+    // Edit and Delete CustomButtons are not displayed
     expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
 
-    // check that Add Plate is clicked
-    userEvent.click(addPlate);
-    expect(addPlate).toHaveClass('greenPlate clickedPlate greenTheme');
+    // Add CustomButton is clicked and not disabled
+    userEvent.click(addButton);
+    expect(addButton.className).toContain('MuiButton-contained');
+    expect(addButton.className).toContain('clicked');
 });
 
-test('displays all three Plates - Add, Edit and Delete; Edit and Delete are togglable', () => {
-    const { addPlate, editPlate, deletePlate } = renderSchemasPanel(true);
+/*
+  Mode is SHOW (by default),
+  schemasCount is 1 as schemas contains one item,
+  selectedSchemaId is null (by default)
+*/
+test('"Add", "Edit" and "Delete" CustomButtons are displayed', () => {
+    const { addButton, editButton, deleteButton } = renderSchemasPanel(true);
 
-    // check that Add, Edit and Delete Plates are displayed
-    expect(addPlate).toBeInTheDocument();
-    expect(addPlate).toHaveClass('greenPlate');
+    expect(addButton).toBeInTheDocument();
+    expect(addButton.className).toContain('MuiButton-outlined');
 
-    expect(editPlate).toBeInTheDocument();
-    expect(editPlate).toHaveClass('goldPlate');
+    expect(editButton).toBeInTheDocument();
+    expect(editButton.className).toContain('MuiButton-outlined');
 
-    expect(deletePlate).toBeInTheDocument();
-    expect(deletePlate).toHaveClass('redPlate');
-
-    // check that only Edit Plate is toggled
-    userEvent.click(editPlate);
-    expect(editPlate).toHaveClass('goldPlate toggledPlate goldTheme');
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
-    expect(deletePlate).not.toHaveClass('toggledPlate redTheme');
-
-    // check that only Delete Plate is toggled
-    userEvent.click(deletePlate);
-    expect(deletePlate).toHaveClass('redPlate toggledPlate redTheme');
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
-    expect(editPlate).not.toHaveClass('toggledPlate goldTheme');
-
-    // check that Edit is toggled back
-    userEvent.click(editPlate);
-    expect(editPlate).toHaveClass('goldPlate toggledPlate goldTheme');
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
-    expect(deletePlate).not.toHaveClass('toggledPlate redTheme');
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton.className).toContain('MuiButton-outlined');
 });
 
-test('Add Plate is clickable once only; Edit and Delete Plates are disabled and not clickable', () => {
-    const { addPlate, editPlate, deletePlate } = renderSchemasPanel(true);
+describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () => {
+    /*
+      Mode is SHOW (by default),
+      schemasCount is 1 as schemas contains one item,
+      selectedSchemaId is null (by default)
+    */
+    test.each`
+        name1       | name2
+        ${'Edit'}   | ${'Delete'}
+        ${'Delete'} | ${'Edit'}
+    `('Only "$name1" CustomButton is toggled after clicking', ({ name1, name2 }) => {
+        const {
+            addButton,
+            [`${name1.toLowerCase()}Button`]: button1,
+            [`${name2.toLowerCase()}Button`]: button2
+        } = renderSchemasPanel(true);
 
-    userEvent.click(addPlate);
-
-    // check that Add Plate is clicked
-    expect(addPlate).toHaveClass('greenPlate clickedPlate greenTheme');
-    expect(editPlate).not.toHaveClass('toggledPlate goldTheme');
-    expect(deletePlate).not.toHaveClass('toggledPlate redTheme');
-
-    // check that Edit Plate is disabled
-    expect(editPlate).toHaveClass('goldPlate disabledPlate');
-    userEvent.click(editPlate);
-    expect(editPlate).not.toHaveClass('toggledPlate goldTheme');
-
-    // check that Delete Plate is disabled
-    expect(deletePlate).toHaveClass('redPlate disabledPlate');
-    userEvent.click(deletePlate);
-    expect(deletePlate).not.toHaveClass('toggledPlate redTheme');
-});
-
-test('Edit Plate is clickable once only; Add and Delete Plates are disabled and not clickable', () => {
-    const { addPlate, editPlate, deletePlate } = renderSchemasPanel(true, {
-        ui: { selectedSchemaId: 1 }
+        userEvent.click(button1);
+        expect(button1.className).toContain('MuiButton-contained');
+        expect(button1.className).not.toContain('clicked');
+        expect(addButton.className).toContain('MuiButton-outlined');
+        expect(button2.className).toContain('MuiButton-outlined');
     });
 
-    userEvent.click(editPlate);
+    /*
+      Mode is EDIT or DELETE,
+      schemasCount is 1 as schemas contains one item,
+      selectedSchemaId is null (by default)
+    */
+    test.each`
+        name1       | name2       | mode
+        ${'Edit'}   | ${'Delete'} | ${'EDIT'}
+        ${'Delete'} | ${'Edit'}   | ${'DELETE'}
+    `('Only "$name1" CustomButton is toggled if mode is "$mode"', ({ name1, name2, mode }) => {
+        const {
+            addButton,
+            [`${name1.toLowerCase()}Button`]: button1,
+            [`${name2.toLowerCase()}Button`]: button2
+        } = renderSchemasPanel(true, {
+            ui: { mode: UiModes[mode] }
+        });
 
-    // check that Edit Plate is clicked
-    expect(editPlate).toHaveClass('goldPlate clickedPlate goldTheme');
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
-    expect(deletePlate).not.toHaveClass('clickedPlate redTheme');
-
-    // check that Add Plate is disabled
-    expect(addPlate).toHaveClass('greenPlate disabledPlate');
-    userEvent.click(addPlate);
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
-
-    // check that Delete Plate is disabled
-    expect(deletePlate).toHaveClass('redPlate disabledPlate');
-    userEvent.click(deletePlate);
-    expect(deletePlate).not.toHaveClass('clickedPlate redTheme');
-});
-
-test('Delete Plate is clickable once only; Add and Edit Plates are disabled and not clickable', () => {
-    const { addPlate, editPlate, deletePlate } = renderSchemasPanel(true, {
-        ui: { selectedSchemaId: 1 }
+        expect(button1.className).toContain('MuiButton-contained');
+        expect(button1.className).not.toContain('clicked');
+        expect(addButton.className).toContain('MuiButton-outlined');
+        expect(button2.className).toContain('MuiButton-outlined');
     });
 
-    userEvent.click(deletePlate);
+    /*
+      Mode is EDIT or DELETE,
+      schemasCount is 0 as schemas is empty,
+      selectedSchemaId is null (by default)
+    */
+    test.each`
+        name
+        ${'Edit'}
+        ${'Delete'}
+    `('"$name" CustomButton is toggled back', ({ name }) => {
+        const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel(true, {
+            ui: { mode: UiModes[name.toUpperCase()] }
+        });
 
-    // check that Delete Plate is clicked
-    expect(deletePlate).toHaveClass('redPlate clickedPlate redTheme');
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
-    expect(editPlate).not.toHaveClass('clickedPlate goldTheme');
+        userEvent.click(button);
+        expect(button).toBeInTheDocument();
+        expect(button.className).toContain('MuiButton-outlined');
+    });
 
-    // check that Add Plate is disabled
-    expect(addPlate).toHaveClass('greenPlate disabledPlate');
-    userEvent.click(addPlate);
-    expect(addPlate).not.toHaveClass('clickedPlate greenTheme');
+    /*
+      Mode is SHOW (by default),
+      schemasCount is 1 as schemas contains one item,
+      selectedSchemaId is null (by default)
+    */
+    test.each`
+        name1       | name 2
+        ${'Edit'}   | ${'Delete'}
+        ${'Delete'} | ${'Edit'}
+    `('"$name1" and "$name2" CustomButtons are toggled one by one and back', ({ name1, name2 }) => {
+        const {
+            addButton,
+            [`${name1.toLowerCase()}Button`]: button1,
+            [`${name2.toLowerCase()}Button`]: button2
+        } = renderSchemasPanel(true);
 
-    // check that Edit Plate is disabled
-    expect(editPlate).toHaveClass('goldPlate disabledPlate');
-    userEvent.click(editPlate);
-    expect(editPlate).not.toHaveClass('clickedPlate goldTheme');
+        userEvent.click(button1);
+        expect(button1.className).toContain('MuiButton-contained');
+
+        userEvent.click(button2);
+        expect(button2.className).toContain('MuiButton-contained');
+
+        userEvent.click(button1);
+        expect(button1.className).toContain('MuiButton-contained');
+        expect(button1.className).not.toContain('clicked');
+        expect(addButton.className).toContain('MuiButton-outlined');
+        expect(button2.className).toContain('MuiButton-outlined');
+    });
 });
+
+/*
+  Mode is SHOW (by default),
+  schemasCount is 1 as schemas contains one item,
+  selectedSchemaId is null (by default)
+*/
+describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomButtons are disabled and not clickable', () => {
+    test('"Add" CustomButton is clicked', () => {
+        const { addButton } = renderSchemasPanel(true);
+
+        userEvent.click(addButton);
+
+        expect(addButton).toBeInTheDocument();
+        expect(addButton.className).toContain('MuiButton-contained');
+        expect(addButton.className).toContain('clicked');
+    });
+
+    test.each`
+        name
+        ${'Edit'}
+        ${'Delete'}
+    `('"$name" CustomButton is disabled', ({ name }) => {
+        const {
+            addButton,
+            [`${name.toLowerCase()}Button`]: buttonToDisable
+        } = renderSchemasPanel(true);
+
+        userEvent.click(addButton);
+
+        const disabledButton = getButton(name);
+
+        expect(disabledButton).toBeInTheDocument();
+        expect(disabledButton).toHaveClass('Mui-disabled');
+
+        userEvent.click(disabledButton);
+        expect(disabledButton).toHaveClass('Mui-disabled');
+        expect(disabledButton.className).not.toContain('MuiButton-contained');
+        expect(disabledButton.className).not.toContain('clicked');
+        expect(disabledButton).not.toEqual(buttonToDisable);
+    });
+});
+
+/*
+  Mode is EDIT or DELETE,
+  schemasCount is 1 as schemas contains one item,
+  selectedSchemaId is 1
+*/
+describe.each`
+    clicked     | disabled1 | disabled2
+    ${'Edit'}   | ${'Add'}  | ${'Delete'}
+    ${'Delete'} | ${'Add'}  | ${'Edit'}
+`(
+    '"$clicked" CustomButton is clickable once only, "$disabled1" and "$disabled2" CustomButtons are disabled and not clickable',
+    ({ clicked, disabled1, disabled2 }) => {
+        test(`"${clicked}" CustomButton is clicked`, () => {
+            const { [`${clicked.toLowerCase()}Button`]: button } = renderSchemasPanel(true, {
+                ui: {
+                    selectedSchemaId: 1,
+                    mode: UiModes[clicked.toUpperCase()]
+                }
+            });
+
+            expect(button).toBeInTheDocument();
+            expect(button.className).toContain('MuiButton-contained');
+            expect(button.className).toContain('clicked');
+        });
+
+        test.each`
+            name
+            ${disabled1}
+            ${disabled2}
+        `('"$name" CustomButton is disabled', ({ name }) => {
+            const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel(true, {
+                ui: {
+                    selectedSchemaId: 1,
+                    mode: UiModes[clicked.toUpperCase()]
+                }
+            });
+
+            expect(button).toBeInTheDocument();
+            expect(button).toHaveClass('Mui-disabled');
+
+            userEvent.click(button);
+            expect(button).toHaveClass('Mui-disabled');
+            expect(button.className).not.toContain('MuiButton-contained');
+            expect(button.className).not.toContain('clicked');
+        });
+    }
+);

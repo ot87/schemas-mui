@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import CustomCard from 'components/Common/CustomCard/CustomCard';
 
 import yellow from '@material-ui/core/colors/yellow';
-import red from '@material-ui/core/colors/red';
+import red    from '@material-ui/core/colors/red';
 
 const cardContent = [
     {id: 1, name: 'item 1'},
