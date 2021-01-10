@@ -39,17 +39,21 @@ const renderSchemaFormButtons = (renderProps) => {
     };
 };
 
-test('SchemaFormButtons with three active buttons "Submit", "Reset" and "Cancel" is displayed', () => {
+test('SchemaFormButtons is displayed with three active buttons "Submit", "Reset" and "Cancel"', () => {
     const { schemaFormButtons, submit, reset, cancel } = renderSchemaFormButtons();
 
     expect(schemaFormButtons).toBeInTheDocument();
+    expect(schemaFormButtons.childElementCount).toEqual(3);
 
+    expect(schemaFormButtons).toContainElement(submit.button);
     expect(submit.button).toBeInTheDocument();
     expect(submit.button.className).toContain('MuiButton-outlined');
 
+    expect(schemaFormButtons).toContainElement(reset.button);
     expect(reset.button).toBeInTheDocument();
     expect(reset.button.className).toContain('MuiButton-outlined');
 
+    expect(schemaFormButtons).toContainElement(cancel.button);
     expect(cancel.button).toBeInTheDocument();
     expect(cancel.button.className).toContain('MuiButton-outlined');
 });
