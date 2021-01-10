@@ -9,14 +9,15 @@ import { Form } from 'react-final-form';
 const renderFormField = (renderProps, searchLabelText = '') => {
     const label = 'FormField Label';
     const name  = 'FormFieldName';
-    const { rerender } = render(
-            <Form
-                onSubmit={jest.fn()}
-                render={() => (
-                    <FormField label={label} name={name} {...renderProps} />
-                )}
-            />
-        );
+
+    render(
+        <Form
+            onSubmit={jest.fn()}
+            render={() => (
+                <FormField label={label} name={name} {...renderProps} />
+            )}
+        />
+    );
 
     return {
         field: screen.getByLabelText(searchLabelText || label),

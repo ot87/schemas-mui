@@ -40,6 +40,7 @@ const SchemaFormButtons = ({ submit, reset, cancel }) => {
         <Box
             className={classes.root}
             display='flex'
+            role='tablist'
         >
             <CustomButton
                 colorTheme='green'
