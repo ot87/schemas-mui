@@ -3,9 +3,10 @@ import { render, screen, mockUseMediaQuery, mockStyleInjection } from 'test-util
 import userEvent from '@testing-library/user-event';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
-import green        from '@material-ui/core/colors/green';
-import yellow       from '@material-ui/core/colors/yellow';
-import red          from '@material-ui/core/colors/red';
+
+import green  from '@material-ui/core/colors/green';
+import yellow from '@material-ui/core/colors/yellow';
+import red    from '@material-ui/core/colors/red';
 
 const renderButton = (renderProps) => {
     const onClickHandler = jest.fn(),

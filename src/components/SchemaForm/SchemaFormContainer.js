@@ -166,7 +166,6 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                     disabled={isRemoveClicked}
                                     label='Schema Name'
                                     name='name'
-                                    type='text'
                                     validate={required}
                                 />
                             </Grid>
@@ -177,7 +176,6 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                     multiline
                                     name='description'
                                     rows={2}
-                                    type='text'
                                 />
                             </Grid>
                             <SchemaFormItems

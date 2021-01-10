@@ -76,7 +76,6 @@ const SchemaFormItems = ({
                             disabled={isRemoveClicked}
                             label='Name'
                             name={`${name}.name`}
-                            type='text'
                             validate={onValidate}
                         />
                     </Grid>
@@ -85,7 +84,6 @@ const SchemaFormItems = ({
                             disabled={isRemoveClicked}
                             label='Quantity'
                             name={`${name}.quantity`}
-                            type='text'
                             validate={onValidate}
                         />
                     </Grid>
@@ -94,7 +92,6 @@ const SchemaFormItems = ({
                             disabled={isRemoveClicked}
                             label='Time'
                             name={`${name}.time`}
-                            type='text'
                         />
                     </Grid>
                 </Grid>

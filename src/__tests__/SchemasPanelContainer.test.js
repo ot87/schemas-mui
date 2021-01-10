@@ -6,6 +6,7 @@ import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer
 import { UiModes }           from 'redux/reducers/ui';
 
 const getButton = (name) => screen.getByRole('button', { name });
+
 const renderSchemasPanel = (init = false, initData = {}) => {
     let buttons = {};
 

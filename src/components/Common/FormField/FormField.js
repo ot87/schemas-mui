@@ -20,29 +20,27 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Functional component to wrap the [Field]{@link https://final-form.org/docs/react-final-form/api/Field} component of the [React Final Form]{@link https://final-form.org/react} library.
  * @param {Object}             props
- * @param {boolean}            props.disabled      - Indicates whether Field is disabled.
+ * @param {boolean}            [props.disabled]    - Indicates whether Field is disabled.
  * @param {string}             props.label         - Field label.
- * @param {boolean}            [props.multiline]   - Indicates whether Field is multiline.
+ * @param {boolean}            [props.multiline]   - If multiline is specified, Field is textarea.
  * @param {string}             props.name          - Field name.
- * @param {string}             [props.placeholder] - Field placeholder, if undefined, label is used.
+ * @param {string}             [props.placeholder] - Field placeholder, if is undefined, label is used.
  * @param {number}             [props.rows]        - Number of rows to display when multiline is true.
- * @param {string}             props.type          - Field type.
  * @param {ValidationFunction} [props.validate]    - Field validation function.
  */
 const FormField = ({
-    disabled,
+    disabled = false,
     label,
-    multiline,
+    multiline = false,
     name,
     placeholder,
     rows,
-    type,
     validate
 }) => {
     const classes = useStyles();
 
     return (
-        <Field name={name} type={type} validate={validate}>
+        <Field name={name} type='text' validate={validate}>
             {({ input, meta }) => (
                 <TextField
                     className={classes.textfield}
