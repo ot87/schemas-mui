@@ -20,18 +20,9 @@ const renderFormField = (renderProps, searchLabelText = '') => {
 
     return {
         field: screen.getByLabelText(searchLabelText || label),
-        label: label,
+        label,
         name
     };
-
-    // return {
-    //     button: screen.getByRole('button', { name: 'CustomButton' }),
-    //     rerenderButton: (rerenderProps) => {
-    //         rerender(
-    //             <FormField label='FormField Label' name='name' {...rerenderProps} />
-    //         );
-    //     }
-    // };
 };
 
 test('FormField is displayed with "label" and "name" props', () => {
