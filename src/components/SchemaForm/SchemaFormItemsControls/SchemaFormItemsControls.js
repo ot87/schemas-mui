@@ -44,6 +44,7 @@ const SchemaFormItemsControls = ({
         <Box
             className={classes.root}
             display='flex'
+            role='tablist'
         >
             <CustomButton
                 colorTheme='green'
@@ -59,7 +60,7 @@ const SchemaFormItemsControls = ({
                     type={isRemoveClicked ? 'toggled' : 'shown'}
                 />
             : null}
-            {isRemoveClicked ?
+            {showRemove && isRemoveClicked ?
                 <CustomButton
                     colorTheme='red'
                     onClick={removeAllOnClick}
