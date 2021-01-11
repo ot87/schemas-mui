@@ -13,28 +13,19 @@ const cardContent = [
 ].map((item) => <div key={item.id}>{item.name}</div>);
 
 const renderCard = (renderProps) => {
-    const onClickHandler = jest.fn(),
-        { rerender }     = render(
-            <CustomCard
-                name='CustomCard 1'
-                content={cardContent}
-                onClick={onClickHandler}
-                {...renderProps}
-            />
-        );
+    const onClickHandler = jest.fn();
+    const initProps      = {
+        name:    'CustomCard 1',
+        content: cardContent,
+        onClick: onClickHandler,
+    };
+    const { rerender } = render(<CustomCard {...initProps} {...renderProps} />);
 
     return {
         card: screen.getAllByRole('button', { name: 'CustomCard 1 item 1 item 2' })[0],
         onClickHandler,
         rerenderCard: (rerenderProps) => {
-            rerender(
-                <CustomCard
-                    name='CustomCard 1'
-                    content={cardContent}
-                    onClick={onClickHandler}
-                    {...rerenderProps}
-                />
-            );
+            rerender(<CustomCard {...initProps} {...rerenderProps} />);
         }
     };
 };

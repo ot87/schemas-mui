@@ -9,18 +9,15 @@ import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
 const renderButton = (renderProps) => {
-    const onClickHandler = jest.fn(),
-        { rerender }     = render(
-            <CustomButton text='CustomButton' onClick={onClickHandler} {...renderProps} />
-        );
+    const onClickHandler = jest.fn();
+    const initProps      = { text: 'CustomButton', onClick: onClickHandler };
+    const { rerender }   = render(<CustomButton {...initProps} {...renderProps} />);
 
     return {
         button: screen.getByRole('button', { name: 'CustomButton' }),
         onClickHandler,
         rerenderButton: (rerenderProps) => {
-            rerender(
-                <CustomButton text='CustomButton' onClick={onClickHandler} {...rerenderProps} />
-            );
+            rerender(<CustomButton {...initProps} {...rerenderProps} />);
         }
     };
 };

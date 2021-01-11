@@ -13,29 +13,27 @@ const notClickedName = 'CustomCard 1 item 1 item 2';
 const clickedName = 'CustomCard 1 Button 1 Button 2';
 
 const renderCard = (renderProps) => {
-    const onClickHandler      = jest.fn(),
-        onButton1ClickHandler = jest.fn(),
-        onButton2ClickHandler = jest.fn(),
-        buttons = {
-            first: {
-                text: 'Button 1',
-                onClick: onButton1ClickHandler
-            },
-            second: {
-                text: 'Button 2',
-                onClick: onButton2ClickHandler
-            }
+    const onClickHandler        = jest.fn();
+    const onButton1ClickHandler = jest.fn();
+    const onButton2ClickHandler = jest.fn();
+    const buttons = {
+        first: {
+            text: 'Button 1',
+            onClick: onButton1ClickHandler
         },
-        { rerender } = render(
-            <CustomCardWithButtons
-                name='CustomCard 1'
-                content={cardContent}
-                cardIsClicked={false}
-                onClick={onClickHandler}
-                buttons={buttons}
-                {...renderProps}
-            />
-        );
+        second: {
+            text: 'Button 2',
+            onClick: onButton2ClickHandler
+        }
+    };
+    const initProps = {
+        name:          'CustomCard 1',
+        content:       cardContent,
+        cardIsClicked: false,
+        onClick:       onClickHandler,
+        buttons:       buttons
+    };
+    const { rerender } = render(<CustomCardWithButtons {...initProps} {...renderProps} />);
 
     return {
         card: screen.getAllByRole('button', { name: notClickedName })[0],
@@ -43,16 +41,7 @@ const renderCard = (renderProps) => {
         onButton1ClickHandler,
         onButton2ClickHandler,
         rerenderCard: (rerenderProps) => {
-            rerender(
-                <CustomCardWithButtons
-                    name='CustomCard 1'
-                    content={cardContent}
-                    cardIsClicked={false}
-                    onClick={onClickHandler}
-                    buttons={buttons}
-                    {...rerenderProps}
-                />
-            );
+            rerender(<CustomCardWithButtons {...initProps} {...rerenderProps} />);
         }
     };
 };

@@ -85,7 +85,7 @@ test('All three buttons "Submit", "Reset" and "Cancel" are clickable', () => {
 test('All three buttons "Submit", "Reset" and "Cancel" are disabled', () => {
     const { schemaFormButtons, submit, reset, cancel } = renderSchemaFormButtons({
         submit: { isDisabled: true },
-        reset: { isDisabled: true },
+        reset:  { isDisabled: true },
         cancel: { isDisabled: true }
     });
 
@@ -104,10 +104,9 @@ test('All three buttons "Submit", "Reset" and "Cancel" are disabled', () => {
 test('All three buttons "Submit", "Reset" and "Cancel" are not clickable while disabled', () => {
     const { submit, reset, cancel } = renderSchemaFormButtons({
         submit: { isDisabled: true },
-        reset: { isDisabled: true },
+        reset:  { isDisabled: true },
         cancel: { isDisabled: true }
     });
-
 
     userEvent.click(submit.button);
     expect(submit.onClick).toBeCalledTimes(0);
