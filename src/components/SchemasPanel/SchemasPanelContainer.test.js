@@ -2,7 +2,7 @@ import React              from 'react';
 import { render, screen } from 'test-utils';
 import userEvent          from '@testing-library/user-event';
 
-import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
+import SchemasPanelContainer from './SchemasPanelContainer';
 import { UiModes }           from 'redux/reducers/ui';
 
 const getButton = (name) => screen.getByRole('button', { name });

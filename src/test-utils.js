@@ -31,7 +31,7 @@ export function mockStyleInjection() {
       window.CSSStyleSheet.prototype.insertRule = defaultInsertRule;
       document.head.innerHTML = document.head.innerHTML;
     };
-  }
+};
 
 const customRender = (
     ui,

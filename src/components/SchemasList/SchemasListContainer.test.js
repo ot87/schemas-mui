@@ -2,7 +2,7 @@ import React              from 'react';
 import { render, screen } from 'test-utils';
 import userEvent          from '@testing-library/user-event';
 
-import SchemasListContainer from 'components/SchemasList/SchemasListContainer';
+import SchemasListContainer from './SchemasListContainer';
 
 const renderSchemasList = (store = {}) => {
     render(<SchemasListContainer />, store);

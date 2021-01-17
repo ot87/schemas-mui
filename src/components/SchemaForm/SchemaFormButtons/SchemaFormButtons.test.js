@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemaFormButtons from 'components/SchemaForm/SchemaFormButtons/SchemaFormButtons';
+import SchemaFormButtons from './SchemaFormButtons';
 
 import green  from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
