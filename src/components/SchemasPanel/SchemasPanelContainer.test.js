@@ -7,10 +7,12 @@ import { UiModes }           from 'redux/reducers/ui';
 
 const getButton = (name) => screen.getByRole('button', { name });
 
-const renderSchemasPanel = (init = false, initData = {}) => {
+const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
     let buttons = {};
 
-    if (init) {
+    if (isStateInitial) {
+        render(<SchemasPanelContainer />);
+    } else {
         let initialState = { schemas: [{id: 1, name: 'schema 1', items: []}] };
         if (Object.keys(initData).length) {
             initialState = {
@@ -22,8 +24,6 @@ const renderSchemasPanel = (init = false, initData = {}) => {
 
         buttons['editButton']   = getButton('Edit');
         buttons['deleteButton'] = getButton('Delete');
-    } else {
-        render(<SchemasPanelContainer />);
     }
 
     buttons['addButton'] = getButton('Add');
@@ -59,7 +59,7 @@ test('"Add" CustomButton is displayed, clickable and not disabled', () => {
   selectedSchemaId is null (by default)
 */
 test('"Add", "Edit" and "Delete" CustomButtons are displayed', () => {
-    const { addButton, editButton, deleteButton } = renderSchemasPanel(true);
+    const { addButton, editButton, deleteButton } = renderSchemasPanel({ isStateInitial: false });
 
     expect(addButton).toBeInTheDocument();
     expect(addButton.className).toContain('MuiButton-outlined');
@@ -86,7 +86,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
             addButton,
             [`${name1.toLowerCase()}Button`]: button1,
             [`${name2.toLowerCase()}Button`]: button2
-        } = renderSchemasPanel(true);
+        } = renderSchemasPanel({ isStateInitial: false });
 
         userEvent.click(button1);
         expect(button1.className).toContain('MuiButton-contained');
@@ -109,8 +109,9 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
             addButton,
             [`${name1.toLowerCase()}Button`]: button1,
             [`${name2.toLowerCase()}Button`]: button2
-        } = renderSchemasPanel(true, {
-            ui: { mode: UiModes[mode] }
+        } = renderSchemasPanel({
+            isStateInitial: false,
+            initData: { ui: { mode: UiModes[mode] } }
         });
 
         expect(button1.className).toContain('MuiButton-contained');
@@ -129,8 +130,9 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
         ${'Edit'}
         ${'Delete'}
     `('"$name" CustomButton is toggled back', ({ name }) => {
-        const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel(true, {
-            ui: { mode: UiModes[name.toUpperCase()] }
+        const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel({
+            isStateInitial: false,
+            initData: { ui: { mode: UiModes[name.toUpperCase()] } }
         });
 
         userEvent.click(button);
@@ -152,7 +154,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
             addButton,
             [`${name1.toLowerCase()}Button`]: button1,
             [`${name2.toLowerCase()}Button`]: button2
-        } = renderSchemasPanel(true);
+        } = renderSchemasPanel({ isStateInitial: false });
 
         userEvent.click(button1);
         expect(button1.className).toContain('MuiButton-contained');
@@ -175,7 +177,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
 */
 describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomButtons are disabled and not clickable', () => {
     test('"Add" CustomButton is clicked', () => {
-        const { addButton } = renderSchemasPanel(true);
+        const { addButton } = renderSchemasPanel({ isStateInitial: false });
 
         userEvent.click(addButton);
 
@@ -192,7 +194,7 @@ describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomB
         const {
             addButton,
             [`${name.toLowerCase()}Button`]: buttonToDisable
-        } = renderSchemasPanel(true);
+        } = renderSchemasPanel({ isStateInitial: false });
 
         userEvent.click(addButton);
 
@@ -222,10 +224,13 @@ describe.each`
     '"$clicked" CustomButton is clickable once only, "$disabled1" and "$disabled2" CustomButtons are disabled and not clickable',
     ({ clicked, disabled1, disabled2 }) => {
         test(`"${clicked}" CustomButton is clicked`, () => {
-            const { [`${clicked.toLowerCase()}Button`]: button } = renderSchemasPanel(true, {
-                ui: {
-                    selectedSchemaId: 1,
-                    mode: UiModes[clicked.toUpperCase()]
+            const { [`${clicked.toLowerCase()}Button`]: button } = renderSchemasPanel({
+                isStateInitial: false,
+                initData: {
+                    ui: {
+                        selectedSchemaId: 1,
+                        mode: UiModes[clicked.toUpperCase()]
+                    }
                 }
             });
 
@@ -239,10 +244,13 @@ describe.each`
             ${disabled1}
             ${disabled2}
         `('"$name" CustomButton is disabled', ({ name }) => {
-            const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel(true, {
-                ui: {
-                    selectedSchemaId: 1,
-                    mode: UiModes[clicked.toUpperCase()]
+            const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel({
+                isStateInitial: false,
+                initData: {
+                    ui: {
+                        selectedSchemaId: 1,
+                        mode: UiModes[clicked.toUpperCase()]
+                    }
                 }
             });
 

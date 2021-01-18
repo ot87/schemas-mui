@@ -4,8 +4,8 @@ import userEvent          from '@testing-library/user-event';
 
 import SchemasListContainer from './SchemasListContainer';
 
-const renderSchemasList = (store = {}) => {
-    render(<SchemasListContainer />, store);
+const renderSchemasList = (initialState = {}) => {
+    render(<SchemasListContainer />, { initialState });
 
     return screen.getByRole('tablist');
 };
@@ -19,13 +19,11 @@ test('An empty SchemaList is displayed', () => {
 
 test('SchemaList is displayed with two items and the item "Schema 1" is selected', () => {
     const schemasList = renderSchemasList({
-        initialState: {
-            schemas: [
-                {id: 1, name: 'Schema 1', items: []},
-                {id: 2, name: 'Schema 2', items: []}
-            ],
-            ui: { selectedSchemaId: 1 }
-        }
+        schemas: [
+            {id: 1, name: 'Schema 1', items: []},
+            {id: 2, name: 'Schema 2', items: []}
+        ],
+        ui: { selectedSchemaId: 1 }
     });
     const schema1 = screen.getByRole('tab', { name: 'Schema 1' });
     const schema2 = screen.getByRole('tab', { name: 'Schema 2' });
@@ -42,13 +40,11 @@ test('SchemaList is displayed with two items and the item "Schema 1" is selected
 
 test('Item "Schema 2" is selected after clicking', () => {
     renderSchemasList({
-        initialState: {
-            schemas: [
-                {id: 1, name: 'Schema 1', items: []},
-                {id: 2, name: 'Schema 2', items: []}
-            ],
-            ui: { selectedSchemaId: 1 }
-        }
+        schemas: [
+            {id: 1, name: 'Schema 1', items: []},
+            {id: 2, name: 'Schema 2', items: []}
+        ],
+        ui: { selectedSchemaId: 1 }
     });
     const schema1 = screen.getByRole('tab', { name: 'Schema 1' });
     const schema2 = screen.getByRole('tab', { name: 'Schema 2' });
