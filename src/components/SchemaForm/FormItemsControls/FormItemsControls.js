@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {EventHandlerFunction} props.removeOnClick      - On click function for Remove Plate.
  * @param {EventHandlerFunction} props.removeAllOnClick   - On click function for All Plate.
  */
-const SchemaFormItemsControls = ({
+const FormItemsControls = ({
     isRemoveClicked,
     showRemove,
     isRemoveAllClicked,
@@ -72,4 +72,4 @@ const SchemaFormItemsControls = ({
     );
 };
 
-export default SchemaFormItemsControls;
+export default FormItemsControls;

@@ -2,12 +2,12 @@ import React from 'react';
 import { render, getByRole, getButton, queryButton, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemaFormItemsControls from './SchemaFormItemsControls';
+import FormItemsControls from './FormItemsControls';
 
 import green from '@material-ui/core/colors/green';
 import red   from '@material-ui/core/colors/red';
 
-const renderSchemaFormItemsControls = (renderProps) => {
+const renderFormItemsControls = (renderProps) => {
     const addOnClick       = jest.fn();
     const removeOnClick    = jest.fn();
     const removeAllOnClick = jest.fn();
@@ -19,7 +19,7 @@ const renderSchemaFormItemsControls = (renderProps) => {
         removeOnClick:      removeOnClick,
         removeAllOnClick:   removeAllOnClick
     };
-    const { rerender } = render(<SchemaFormItemsControls {...initProps} {...renderProps} />);
+    const { rerender } = render(<FormItemsControls {...initProps} {...renderProps} />);
 
     return {
         itemsControls: getByRole('tablist'),
@@ -27,14 +27,14 @@ const renderSchemaFormItemsControls = (renderProps) => {
         removeOnClick,
         removeAllOnClick,
         rerenderItemsControls: (rerenderProps) => {
-            rerender(<SchemaFormItemsControls {...initProps} {...rerenderProps} />);
+            rerender(<FormItemsControls {...initProps} {...rerenderProps} />);
         }
     };
 };
 
-describe('SchemaFormItemsControls and "Add" button', () => {
+describe('FormItemsControls and "Add" button', () => {
     test('"Add" button is displayed', () => {
-        const { itemsControls } = renderSchemaFormItemsControls();
+        const { itemsControls } = renderFormItemsControls();
 
         expect(itemsControls).toBeInTheDocument();
         expect(itemsControls.childElementCount).toEqual(1);
@@ -46,7 +46,7 @@ describe('SchemaFormItemsControls and "Add" button', () => {
     });
 
     test('"Add" button is clicked', () => {
-        const { addOnClick } = renderSchemaFormItemsControls();
+        const { addOnClick } = renderFormItemsControls();
 
         userEvent.click(getButton('Add'));
         expect(addOnClick).toBeCalledTimes(1);
@@ -54,7 +54,7 @@ describe('SchemaFormItemsControls and "Add" button', () => {
 
     test('"Add" button is "green"', () => {
         const applyJSSRules = mockStyleInjection();
-        renderSchemaFormItemsControls();
+        renderFormItemsControls();
 
         applyJSSRules();
 
@@ -62,7 +62,7 @@ describe('SchemaFormItemsControls and "Add" button', () => {
     });
 
     test('"Add" button is disabled', () => {
-        const { itemsControls } = renderSchemaFormItemsControls({ isRemoveClicked: true });
+        const { itemsControls } = renderFormItemsControls({ isRemoveClicked: true });
 
         expect(itemsControls).toBeInTheDocument();
 
@@ -72,7 +72,7 @@ describe('SchemaFormItemsControls and "Add" button', () => {
     });
 
     test('"Add" button is not clickable while disabled', () => {
-        const { addOnClick } = renderSchemaFormItemsControls({ isRemoveClicked: true });
+        const { addOnClick } = renderFormItemsControls({ isRemoveClicked: true });
 
         const addButton = getButton('Add');
         userEvent.click(addButton);
@@ -81,7 +81,7 @@ describe('SchemaFormItemsControls and "Add" button', () => {
     });
 
     test('"Remove" and "All" buttons are not displayed', () => {
-        const { itemsControls } = renderSchemaFormItemsControls();
+        const { itemsControls } = renderFormItemsControls();
 
         const removeButton = queryButton('Remove');
         expect(removeButton).not.toBeInTheDocument();
@@ -93,9 +93,9 @@ describe('SchemaFormItemsControls and "Add" button', () => {
     });
 });
 
-describe('SchemaFormItemsControls and "Add" and "Remove" buttons', () => {
+describe('FormItemsControls and "Add" and "Remove" buttons', () => {
     test('"Add" and "Remove" buttons are displayed', () => {
-        const { itemsControls } = renderSchemaFormItemsControls({ showRemove: true });
+        const { itemsControls } = renderFormItemsControls({ showRemove: true });
 
         expect(itemsControls).toBeInTheDocument();
         expect(itemsControls.childElementCount).toEqual(2);
@@ -112,7 +112,7 @@ describe('SchemaFormItemsControls and "Add" and "Remove" buttons', () => {
     });
 
     test('"Remove" button is clicked', () => {
-        const { removeOnClick } = renderSchemaFormItemsControls({ showRemove: true });
+        const { removeOnClick } = renderFormItemsControls({ showRemove: true });
 
         userEvent.click(getButton('Remove'));
         expect(removeOnClick).toBeCalledTimes(1);
@@ -120,7 +120,7 @@ describe('SchemaFormItemsControls and "Add" and "Remove" buttons', () => {
 
     test('"Remove" button is "red"', () => {
         const applyJSSRules = mockStyleInjection();
-        renderSchemaFormItemsControls({ showRemove: true });
+        renderFormItemsControls({ showRemove: true });
 
         applyJSSRules();
 
@@ -128,7 +128,7 @@ describe('SchemaFormItemsControls and "Add" and "Remove" buttons', () => {
     });
 
     test('"Remove" button is toggled', () => {
-        const { itemsControls } = renderSchemaFormItemsControls({
+        const { itemsControls } = renderFormItemsControls({
             isRemoveClicked: true,
             showRemove: true
         });
@@ -141,7 +141,7 @@ describe('SchemaFormItemsControls and "Add" and "Remove" buttons', () => {
     });
 
     test('"All" button is not displayed', () => {
-        const { itemsControls, rerenderItemsControls } = renderSchemaFormItemsControls({
+        const { itemsControls, rerenderItemsControls } = renderFormItemsControls({
             isRemoveClicked: true
         });
 
@@ -157,9 +157,9 @@ describe('SchemaFormItemsControls and "Add" and "Remove" buttons', () => {
     });
 });
 
-describe('SchemaFormItemsControls and "Add", "Remove" and "All" buttons', () => {
+describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
     test('All three buttons are displayed', () => {
-        const { itemsControls } = renderSchemaFormItemsControls({
+        const { itemsControls } = renderFormItemsControls({
             isRemoveClicked: true,
             showRemove: true
         });
@@ -184,7 +184,7 @@ describe('SchemaFormItemsControls and "Add", "Remove" and "All" buttons', () => 
     });
 
     test('"All" button is clicked', () => {
-        const { removeAllOnClick } = renderSchemaFormItemsControls({
+        const { removeAllOnClick } = renderFormItemsControls({
             isRemoveClicked: true,
             showRemove: true
         });
@@ -195,7 +195,7 @@ describe('SchemaFormItemsControls and "Add", "Remove" and "All" buttons', () => 
 
     test('"All" button is "red"', () => {
         const applyJSSRules = mockStyleInjection();
-        renderSchemaFormItemsControls({
+        renderFormItemsControls({
             isRemoveClicked: true,
             showRemove: true
         });
@@ -206,7 +206,7 @@ describe('SchemaFormItemsControls and "Add", "Remove" and "All" buttons', () => 
     });
 
     test('"All" button is toggled', () => {
-        const { itemsControls } = renderSchemaFormItemsControls({
+        const { itemsControls } = renderFormItemsControls({
             isRemoveClicked: true,
             showRemove: true,
             isRemoveAllClicked: true

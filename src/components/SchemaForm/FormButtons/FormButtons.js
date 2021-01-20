@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {boolean}              props.cancel.isDisabled - Indicates whether CustomButton is disabled.
  * @param {EventHandlerFunction} props.cancel.onClick    - On click function for Cancel CustomButton.
  */
-const SchemaFormButtons = ({ submit, reset, cancel }) => {
+const FormButtons = ({ submit, reset, cancel }) => {
     const classes = useStyles();
 
     return (
@@ -64,4 +64,4 @@ const SchemaFormButtons = ({ submit, reset, cancel }) => {
     );
 };
 
-export default SchemaFormButtons;
+export default FormButtons;

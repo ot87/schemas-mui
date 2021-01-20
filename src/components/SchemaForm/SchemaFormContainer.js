@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Form }            from 'react-final-form';
 import arrayMutators       from 'final-form-arrays';
 
-import FormField               from 'components/Common/FormField/FormField';
-import SchemaFormItemsControls from './SchemaFormItemsControls/SchemaFormItemsControls';
-import SchemaFormItems         from './SchemaFormItems/SchemaFormItems';
-import SchemaFormButtons       from './SchemaFormButtons/SchemaFormButtons';
+import FormField         from 'components/Common/FormField/FormField';
+import FormItemsControls from './FormItemsControls/FormItemsControls';
+import FormItems         from './FormItems/FormItems';
+import FormButtons       from './FormButtons/FormButtons';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box            from '@material-ui/core/Box';
@@ -129,7 +129,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                 display='flex'
                                 flexWrap='wrap'
                             >
-                                <SchemaFormButtons
+                                <FormButtons
                                     submit={({
                                         isDisabled: isRemoveClicked || submitting,
                                         onClick: submit
@@ -143,7 +143,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                         onClick: onCancel
                                     })}
                                 />
-                                <SchemaFormItemsControls
+                                <FormItemsControls
                                     isRemoveClicked={isRemoveClicked}
                                     showRemove={!!values.items.length}
                                     isRemoveAllClicked={isRemoveAllClicked}
@@ -178,7 +178,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                     rows={2}
                                 />
                             </Grid>
-                            <SchemaFormItems
+                            <FormItems
                                 handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
                                 initItems={initialValues.items}
                                 isRemoveClicked={isRemoveClicked}

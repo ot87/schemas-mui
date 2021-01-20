@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {number[]}           props.itemsIdsToRemove   - Array of items ids to remove from the form.
  * @param {ValidationFunction} props.onValidate         - Field validation function.
  */
-const SchemaFormItems = ({
+const FormItems = ({
     handleRemoveOnItemsRowClick,
     initItems,
     isRemoveClicked,
@@ -100,4 +100,4 @@ const SchemaFormItems = ({
     );
 };
 
-export default SchemaFormItems;
+export default FormItems;
