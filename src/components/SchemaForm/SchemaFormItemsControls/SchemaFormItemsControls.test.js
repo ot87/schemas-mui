@@ -1,14 +1,11 @@
 import React from 'react';
-import { render, screen, mockStyleInjection } from 'test-utils';
+import { render, getByRole, getButton, queryButton, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import SchemaFormItemsControls from './SchemaFormItemsControls';
 
 import green from '@material-ui/core/colors/green';
 import red   from '@material-ui/core/colors/red';
-
-const getButton   = (name) => screen.getByRole('button', { name });
-const queryButton = (name) => screen.queryByRole('button', { name });
 
 const renderSchemaFormItemsControls = (renderProps) => {
     const addOnClick       = jest.fn();
@@ -25,7 +22,7 @@ const renderSchemaFormItemsControls = (renderProps) => {
     const { rerender } = render(<SchemaFormItemsControls {...initProps} {...renderProps} />);
 
     return {
-        itemsControls: screen.getByRole('tablist'),
+        itemsControls: getByRole('tablist'),
         addOnClick,
         removeOnClick,
         removeAllOnClick,

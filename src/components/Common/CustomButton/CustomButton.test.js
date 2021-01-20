@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, mockUseMediaQuery, mockStyleInjection } from 'test-utils';
+import { render, getButton, mockUseMediaQuery, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import CustomButton from './CustomButton';
@@ -14,7 +14,7 @@ const renderButton = (renderProps) => {
     const { rerender }   = render(<CustomButton {...initProps} {...renderProps} />);
 
     return {
-        button: screen.getByRole('button', { name: 'CustomButton' }),
+        button: getButton('CustomButton'),
         onClickHandler,
         rerenderButton: (rerenderProps) => {
             rerender(<CustomButton {...initProps} {...rerenderProps} />);

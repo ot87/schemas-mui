@@ -1,13 +1,13 @@
-import React              from 'react';
-import { render, screen } from 'test-utils';
-import userEvent          from '@testing-library/user-event';
+import React from 'react';
+import { render, getByRole, getTab } from 'test-utils';
+import userEvent from '@testing-library/user-event';
 
 import SchemasListContainer from './SchemasListContainer';
 
 const renderSchemasList = (initialState = {}) => {
     render(<SchemasListContainer />, { initialState });
 
-    return screen.getByRole('tablist');
+    return getByRole('tablist');
 };
 
 test('An empty SchemaList is displayed', () => {
@@ -25,8 +25,8 @@ test('SchemaList is displayed with two items and the item "Schema 1" is selected
         ],
         ui: { selectedSchemaId: 1 }
     });
-    const schema1 = screen.getByRole('tab', { name: 'Schema 1' });
-    const schema2 = screen.getByRole('tab', { name: 'Schema 2' });
+    const schema1 = getTab('Schema 1');
+    const schema2 = getTab('Schema 2');
 
     expect(schemasList).toBeInTheDocument();
     expect(schemasList.childElementCount).toEqual(2);
@@ -46,8 +46,8 @@ test('Item "Schema 2" is selected after clicking', () => {
         ],
         ui: { selectedSchemaId: 1 }
     });
-    const schema1 = screen.getByRole('tab', { name: 'Schema 1' });
-    const schema2 = screen.getByRole('tab', { name: 'Schema 2' });
+    const schema1 = getTab('Schema 1');
+    const schema2 = getTab('Schema 2');
 
     userEvent.click(schema2);
 

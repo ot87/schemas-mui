@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from 'test-utils';
+import { render, screen, getButton, queryButton } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import CustomCardWithButtons from './CustomCardWithButtons';
@@ -53,8 +53,8 @@ test('CustomCardWithButtons is displayed without CustomButtons', () => {
     expect(card).toBeInTheDocument();
 
     // check that CustomCardWithButtons does not contain CustomButton 1 and CustomButton 2
-    expect(card).not.toContainElement(screen.queryByRole('button', { name: 'Button 1' }));
-    expect(card).not.toContainElement(screen.queryByRole('button', { name: 'Button 2' }));
+    expect(card).not.toContainElement(queryButton('Button 1'));
+    expect(card).not.toContainElement(queryButton('Button 2'));
 
     // check that Card's onClickHandler has been called
     userEvent.click(card.firstElementChild);
@@ -71,12 +71,12 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
     rerenderCard({ cardIsClicked: true });
 
     // check that CustomCardWithButtons is rerendered with a new content when is clicked
-    expect(screen.queryByRole('button', { name: notClickedName })).not.toBeInTheDocument();
+    expect(queryButton(notClickedName)).not.toBeInTheDocument();
     expect(card).toBeInTheDocument();
 
     // check that CustomButton 1 and CustomButton 2 are displayed
-    const button1 = screen.getByRole('button', { name: 'Button 1' }),
-          button2 = screen.getByRole('button', { name: 'Button 2' });
+    const button1 = getButton('Button 1'),
+          button2 = getButton('Button 2');
 
     expect(button1).toBeInTheDocument();
     expect(button2).toBeInTheDocument();
@@ -101,7 +101,7 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
     rerenderCard({ cardIsClicked: false });
 
     // check that CustomCardWithButtons is rerendered with new content again when is unclicked
-    expect(screen.queryByRole('button', { name: clickedName })).not.toBeInTheDocument();
+    expect(queryButton(clickedName)).not.toBeInTheDocument();
     expect(card).toBeInTheDocument();
 
     // check that CustomCardWithButtons does not contain CustomButton 1 and CustomButton 2
@@ -109,8 +109,8 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
     expect(card).not.toContainElement(button2);
 
     // check that CustomButton 1 and CustomButton 2 aren't displayed at all
-    expect(screen.queryByRole('button', { name: 'Button 1' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Button 2' })).not.toBeInTheDocument();
+    expect(queryButton('Button 1')).not.toBeInTheDocument();
+    expect(queryButton('Button 2')).not.toBeInTheDocument();
 
     // check that CustomCardWithButtons is clickable again
     userEvent.click(card.firstElementChild);

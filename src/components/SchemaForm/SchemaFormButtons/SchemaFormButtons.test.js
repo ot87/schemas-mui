@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, mockStyleInjection } from 'test-utils';
+import { render, getByRole, getButton, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import SchemaFormButtons from './SchemaFormButtons';
@@ -23,17 +23,17 @@ const renderSchemaFormButtons = (renderProps) => {
     );
 
     return {
-        schemaFormButtons: screen.getByRole('tablist'),
+        schemaFormButtons: getByRole('tablist'),
         submit: {
-            button: screen.getByRole('button', { name: 'Submit' }),
+            button: getButton('Submit'),
             onClick: submitOnClick
         },
         reset: {
-            button: screen.getByRole('button', { name: 'Reset' }),
+            button: getButton('Reset'),
             onClick: resetOnClick
         },
         cancel: {
-            button: screen.getByRole('button', { name: 'Cancel' }),
+            button: getButton('Cancel'),
             onClick: cancelOnClick
         }
     };

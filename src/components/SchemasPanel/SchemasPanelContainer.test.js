@@ -1,11 +1,9 @@
-import React              from 'react';
-import { render, screen } from 'test-utils';
-import userEvent          from '@testing-library/user-event';
+import React from 'react';
+import { render, getButton, queryButton } from 'test-utils';
+import userEvent from '@testing-library/user-event';
 
 import SchemasPanelContainer from './SchemasPanelContainer';
 import { UiModes }           from 'redux/reducers/ui';
-
-const getButton = (name) => screen.getByRole('button', { name });
 
 const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
     let buttons = {};
@@ -44,8 +42,8 @@ test('"Add" CustomButton is displayed, clickable and not disabled', () => {
     expect(addButton.className).toContain('MuiButton-outlined');
 
     // Edit and Delete CustomButtons are not displayed
-    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
+    expect(queryButton('Edit')).not.toBeInTheDocument();
+    expect(queryButton('Delete')).not.toBeInTheDocument();
 
     // Add CustomButton is clicked and not disabled
     userEvent.click(addButton);

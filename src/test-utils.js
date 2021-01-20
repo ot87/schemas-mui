@@ -1,10 +1,18 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from 'redux/reducers';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+export const getByRole   = (type, name) => screen.getByRole(type, { name });
+export const queryByRole = (type, name) => screen.queryByRole(type, { name });
+
+export const getButton   = (name) => screen.getByRole('button', { name });
+export const queryButton = (name) => screen.queryByRole('button', { name });
+
+export const getTab = (name) => screen.getByRole('tab', { name });
 
 export const mockUseMediaQuery = (width) => {
     Object.defineProperty(window, 'matchMedia', {
