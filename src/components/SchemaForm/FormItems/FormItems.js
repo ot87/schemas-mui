@@ -30,7 +30,7 @@ const FormItems = ({
     onItemsRowClick,
     onValidate
 }) => {
-    const onRowClick = (id) => () => isRemoveClicked && onItemsRowClick(id);
+    const onRowClick = (id) => () => onItemsRowClick(id);
 
     return (
         <FieldArray
@@ -39,7 +39,7 @@ const FormItems = ({
             render={({ fields }) => fields.map((name, index) => (
                 <FormItemsRow
                     key={index}
-                    isClicked={isRemoveClicked && itemsIdsToRemove.indexOf(index) !== -1}
+                    isClicked={itemsIdsToRemove.indexOf(index) !== -1}
                     isDisabled={isRemoveClicked}
                     name={name}
                     onRowClick={onRowClick(index)}

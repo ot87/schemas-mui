@@ -6,6 +6,7 @@ import FormField         from './FormField/FormField';
 import FormItemsControls from './FormItemsControls/FormItemsControls';
 import FormItems         from './FormItems/FormItems';
 import FormButtons       from './FormButtons/FormButtons';
+import useRemoveItems    from './utils/useRemoveItems';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box            from '@material-ui/core/Box';
@@ -56,51 +57,23 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
     const classes = useStyles();
     const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
-    const [isRemoveClicked, setIsRemoveClicked] = useState(false);
-    const [itemsIdsToRemove, setItemsIdsToRemove] = useState([]);
-    const [isRemoveAllClicked, setIsRemoveAllClicked] = useState(false);
+    const [
+        { isRemoveClicked, isRemoveAllClicked, itemsIdsToRemove },
+        { removeOnClick, removeAllOnClick, onItemsRowClick }
+    ] = useRemoveItems();
 
     const addOnClick = (push, items) => {
         push(
             'items',
             {
-                id: items.length ?
-                    items[items.length - 1].id + 1 :
-                    1,
+                id: (
+                    items.length ?
+                        items[items.length - 1].id + 1
+                    : 1
+                ),
                 name: '', quantity: '', time: ''
             }
         );
-    };
-
-    const removeOnClick = (removeBatch) => {
-        if (isRemoveClicked && itemsIdsToRemove.length) {
-            removeBatch('items', itemsIdsToRemove);
-            setItemsIdsToRemove([]);
-            setIsRemoveAllClicked(false);
-        }
-        setIsRemoveClicked(!isRemoveClicked);
-    };
-
-    const removeAllOnClick = (items) => {
-        if (isRemoveAllClicked) {
-            setItemsIdsToRemove([]);
-        } else {
-            setItemsIdsToRemove([...items.keys()]);
-        }
-        setIsRemoveAllClicked(!isRemoveAllClicked);
-    };
-
-    const onItemsRowClick = (items) => (index) => {
-        let newItemsIdsToRemove = [...itemsIdsToRemove];
-
-        if (itemsIdsToRemove.indexOf(index) !== -1) {
-            newItemsIdsToRemove = itemsIdsToRemove.filter((id) => id !== index);
-        } else {
-            newItemsIdsToRemove = itemsIdsToRemove.concat(index);
-        }
-
-        setItemsIdsToRemove(newItemsIdsToRemove);
-        setIsRemoveAllClicked(items.length === newItemsIdsToRemove.length);
     };
 
     const required = (value) => !value;
