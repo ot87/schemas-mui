@@ -90,7 +90,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
         setIsRemoveAllClicked(!isRemoveAllClicked);
     };
 
-    const handleRemoveOnItemsRowClick = (items) => (index) => {
+    const onItemsRowClick = (items) => (index) => {
         let newItemsIdsToRemove = [...itemsIdsToRemove];
 
         if (itemsIdsToRemove.indexOf(index) !== -1) {
@@ -179,7 +179,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                 />
                             </Grid>
                             <FormItems
-                                handleRemoveOnItemsRowClick={handleRemoveOnItemsRowClick(values.items)}
+                                onItemsRowClick={onItemsRowClick(values.items)}
                                 initItems={initialValues.items}
                                 isRemoveClicked={isRemoveClicked}
                                 itemsIdsToRemove={itemsIdsToRemove}
