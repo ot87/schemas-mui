@@ -152,10 +152,10 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                 />
                             </Grid>
                             <FormItems
-                                onItemsRowClick={onItemsRowClick(values.items)}
                                 initItems={initialValues.items}
                                 isRemoveClicked={isRemoveClicked}
                                 itemsIdsToRemove={itemsIdsToRemove}
+                                onItemsRowClick={onItemsRowClick(values.items)}
                                 onValidate={required}
                             />
                         </Grid>
