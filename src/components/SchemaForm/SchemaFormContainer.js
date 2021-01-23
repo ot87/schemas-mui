@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form }            from 'react-final-form';
 import arrayMutators       from 'final-form-arrays';
 
-import FormField         from 'components/Common/FormField/FormField';
+import FormField         from './FormField/FormField';
 import FormItemsControls from './FormItemsControls/FormItemsControls';
 import FormItems         from './FormItems/FormItems';
 import FormButtons       from './FormButtons/FormButtons';

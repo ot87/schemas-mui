@@ -1,7 +1,7 @@
 import React from 'react';
 import cn    from 'classnames';
 
-import FormField from 'components/Common/FormField/FormField';
+import FormField from 'components/SchemaForm/FormField/FormField';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid           from '@material-ui/core/Grid';
