@@ -62,14 +62,14 @@ describe('Property "disabled" of FormField', () => {
         const { field } = renderFormField();
 
         expect(field).toBeInTheDocument();
-        expect(field).not.toBeDisabled();
+        expect(field).toBeEnabled();
     });
 
     test('FormField with "disabled" set to "false" is not disabled', () => {
         const { field } = renderFormField({ disabled: false });
 
         expect(field).toBeInTheDocument();
-        expect(field).not.toBeDisabled();
+        expect(field).toBeEnabled();
     });
 
     test('FormField with "disabled" set to "true" is disabled', () => {
