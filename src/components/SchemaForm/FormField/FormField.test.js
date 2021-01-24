@@ -62,21 +62,21 @@ describe('Property "disabled" of FormField', () => {
         const { field } = renderFormField();
 
         expect(field).toBeInTheDocument();
-        expect(field).not.toHaveClass('Mui-disabled');
+        expect(field).not.toBeDisabled();
     });
 
     test('FormField with "disabled" set to "false" is not disabled', () => {
         const { field } = renderFormField({ disabled: false });
 
         expect(field).toBeInTheDocument();
-        expect(field).not.toHaveClass('Mui-disabled');
+        expect(field).not.toBeDisabled();
     });
 
     test('FormField with "disabled" set to "true" is disabled', () => {
         const { field } = renderFormField({ disabled: true });
 
         expect(field).toBeInTheDocument();
-        expect(field).toHaveClass('Mui-disabled');
+        expect(field).toBeDisabled();
     });
 });
 

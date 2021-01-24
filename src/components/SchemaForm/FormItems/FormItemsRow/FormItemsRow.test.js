@@ -89,7 +89,7 @@ describe('FormItemsRow and "isClicked" and "isDisabled" properties', () => {
         });
 
         screen.getAllByRole('textbox').map((field) =>{
-            expect(field).toHaveClass('Mui-disabled');
+            expect(field).toBeDisabled();
         });
     });
 });

@@ -92,13 +92,13 @@ test('All three buttons "Submit", "Reset" and "Cancel" are disabled', () => {
     expect(schemaFormButtons).toBeInTheDocument();
 
     expect(submit.button).toBeInTheDocument();
-    expect(submit.button).toHaveClass('Mui-disabled');
+    expect(submit.button).toBeDisabled();
 
     expect(reset.button).toBeInTheDocument();
-    expect(reset.button).toHaveClass('Mui-disabled');
+    expect(reset.button).toBeDisabled();
 
     expect(cancel.button).toBeInTheDocument();
-    expect(cancel.button).toHaveClass('Mui-disabled');
+    expect(cancel.button).toBeDisabled();
 });
 
 test('All three buttons "Submit", "Reset" and "Cancel" are not clickable while disabled', () => {
@@ -110,13 +110,13 @@ test('All three buttons "Submit", "Reset" and "Cancel" are not clickable while d
 
     userEvent.click(submit.button);
     expect(submit.onClick).toBeCalledTimes(0);
-    expect(submit.button).toHaveClass('Mui-disabled');
+    expect(submit.button).toBeDisabled();
 
     userEvent.click(reset.button);
     expect(reset.onClick).toBeCalledTimes(0);
-    expect(reset.button).toHaveClass('Mui-disabled');
+    expect(reset.button).toBeDisabled();
 
     userEvent.click(cancel.button);
     expect(cancel.onClick).toBeCalledTimes(0);
-    expect(cancel.button).toHaveClass('Mui-disabled');
+    expect(cancel.button).toBeDisabled();
 });

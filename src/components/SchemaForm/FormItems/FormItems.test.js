@@ -64,7 +64,7 @@ describe('FormItems and "isRemoveClicked" and "itemsIdsToRemove" properties', ()
         renderFormItems({ isRemoveClicked: true });
 
         screen.getAllByRole('textbox').map((field) =>{
-            expect(field).toHaveClass('Mui-disabled');
+            expect(field).toBeDisabled();
         });
     });
 

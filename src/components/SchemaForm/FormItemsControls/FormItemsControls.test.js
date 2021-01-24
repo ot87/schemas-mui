@@ -68,7 +68,7 @@ describe('FormItemsControls and "Add" button', () => {
 
         const addButton = getButton('Add');
         expect(addButton).toBeInTheDocument();
-        expect(addButton).toHaveClass('Mui-disabled');
+        expect(addButton).toBeDisabled();
     });
 
     test('"Add" button is not clickable while disabled', () => {
@@ -77,7 +77,7 @@ describe('FormItemsControls and "Add" button', () => {
         const addButton = getButton('Add');
         userEvent.click(addButton);
         expect(addOnClick).toBeCalledTimes(0);
-        expect(addButton).toHaveClass('Mui-disabled');
+        expect(addButton).toBeDisabled();
     });
 
     test('"Remove" and "All" buttons are not displayed', () => {

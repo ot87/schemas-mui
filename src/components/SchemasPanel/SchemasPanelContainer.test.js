@@ -199,10 +199,10 @@ describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomB
         const disabledButton = getButton(name);
 
         expect(disabledButton).toBeInTheDocument();
-        expect(disabledButton).toHaveClass('Mui-disabled');
+        expect(disabledButton).toBeDisabled();
 
         userEvent.click(disabledButton);
-        expect(disabledButton).toHaveClass('Mui-disabled');
+        expect(disabledButton).toBeDisabled();
         expect(disabledButton.className).not.toContain('MuiButton-contained');
         expect(disabledButton.className).not.toContain('clicked');
         expect(disabledButton).not.toEqual(buttonToDisable);
@@ -253,10 +253,10 @@ describe.each`
             });
 
             expect(button).toBeInTheDocument();
-            expect(button).toHaveClass('Mui-disabled');
+            expect(button).toBeDisabled();
 
             userEvent.click(button);
-            expect(button).toHaveClass('Mui-disabled');
+            expect(button).toBeDisabled();
             expect(button.className).not.toContain('MuiButton-contained');
             expect(button.className).not.toContain('clicked');
         });
