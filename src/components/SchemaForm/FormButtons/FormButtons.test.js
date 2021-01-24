@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByRole, getButton, mockStyleInjection } from 'test-utils';
+import { render, getTabList, getButton, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormButtons from './FormButtons';
@@ -23,7 +23,7 @@ const renderFormButtons = (renderProps) => {
     );
 
     return {
-        schemaFormButtons: getByRole('tablist'),
+        schemaFormButtons: getTabList(),
         submit: {
             button: getButton('Submit'),
             onClick: submitOnClick

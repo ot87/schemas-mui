@@ -12,6 +12,8 @@ export const queryByRole = (type, name) => screen.queryByRole(type, { name });
 export const getButton   = (name) => screen.getByRole('button', { name });
 export const queryButton = (name) => screen.queryByRole('button', { name });
 
+export const getTabList = (name) => screen.getByRole('tablist', { name });
+
 export const getTab = (name) => screen.getByRole('tab', { name });
 
 export const mockUseMediaQuery = (width) => {

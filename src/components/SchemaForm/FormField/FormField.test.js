@@ -1,28 +1,36 @@
 import React from 'react';
-import { render, screen } from 'test-utils';
+import { render, screen, getByRole } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormField from './FormField';
 
 import { Form } from 'react-final-form';
 
-const renderFormField = (renderProps, searchLabelText = '') => {
+const getTextBox = (name) => getByRole('textbox', name);
+
+const renderFormField = (renderProps) => {
     const label = 'FormField Label';
     const name  = 'FormFieldName';
-
-    render(
+    const initProps = { label, name };
+    const { rerender } = render(
         <Form
             onSubmit={jest.fn()}
-            render={() => (
-                <FormField label={label} name={name} {...renderProps} />
-            )}
+            render={() => <FormField {...initProps} {...renderProps} />}
         />
     );
 
     return {
-        field: screen.getByLabelText(searchLabelText || label),
+        field: getTextBox(label),
         label,
-        name
+        name,
+        rerenderFormField: (rerenderProps) => {
+            rerender(
+                <Form
+                    onSubmit={jest.fn()}
+                    render={() => <FormField {...initProps} {...rerenderProps} />}
+                />
+            )
+        }
     };
 };
 
@@ -123,23 +131,20 @@ describe('Property "validate" of FormField', () => {
     });
 
     test('FormField with "validate" is required', () => {
-        const { field } = renderFormField({ validate: jest.fn() }, 'FormField Label *');
+        const { field } = renderFormField({ validate: jest.fn() });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveAttribute('required');
     });
 
     test('FormField with "validate" returns "false" is not displayed with an error', () => {
-        const { field } = renderFormField({ validate: jest.fn(_ => false) }, 'FormField Label *');
+        const { field, rerenderFormField } = renderFormField({ validate: jest.fn(_ => false) });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveAttribute('aria-invalid', 'false');
         expect(field.parentElement).not.toHaveClass('Mui-error');
 
-        renderFormField(
-            { validate: jest.fn(), label: 'FormField Label 1'},
-            'FormField Label 1 *'
-        );
+        rerenderFormField({ validate: jest.fn() });
         userEvent.tab();
         userEvent.tab();
 
@@ -148,14 +153,11 @@ describe('Property "validate" of FormField', () => {
     });
 
     test('FormField with "validate" returns "true" is displayed with an error', () => {
-        const { field } = renderFormField({ validate: jest.fn(_ => true) }, 'FormField Label *');
+        const { field, rerenderFormField } = renderFormField({ validate: jest.fn(_ => true) });
 
         expect(field).toBeInTheDocument();
 
-        renderFormField(
-            { validate: jest.fn(), label: 'FormField Label 1'},
-            'FormField Label 1 *'
-        );
+        rerenderFormField({ validate: jest.fn() });
         userEvent.tab();
         userEvent.tab();
 

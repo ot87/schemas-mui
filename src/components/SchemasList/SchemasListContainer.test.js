@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByRole, getTab } from 'test-utils';
+import { render, getTabList, getTab } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import SchemasListContainer from './SchemasListContainer';
@@ -7,7 +7,7 @@ import SchemasListContainer from './SchemasListContainer';
 const renderSchemasList = (initialState = {}) => {
     render(<SchemasListContainer />, { initialState });
 
-    return getByRole('tablist');
+    return getTabList();
 };
 
 test('An empty SchemaList is displayed', () => {

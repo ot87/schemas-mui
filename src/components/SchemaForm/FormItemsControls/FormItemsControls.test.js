@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByRole, getButton, queryButton, mockStyleInjection } from 'test-utils';
+import { render, getTabList, getButton, queryButton, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormItemsControls from './FormItemsControls';
@@ -22,7 +22,7 @@ const renderFormItemsControls = (renderProps) => {
     const { rerender } = render(<FormItemsControls {...initProps} {...renderProps} />);
 
     return {
-        itemsControls: getByRole('tablist'),
+        itemsControls: getTabList(),
         addOnClick,
         removeOnClick,
         removeAllOnClick,
