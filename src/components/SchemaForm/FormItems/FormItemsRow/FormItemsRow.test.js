@@ -1,5 +1,8 @@
 import React from 'react';
-import { render, screen, mockStyleInjection, mockUseMediaQuery } from 'test-utils';
+import {
+    render, getAllTextBoxes, getGridCell,
+    mockStyleInjection, mockUseMediaQuery
+} from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormItemsRow from './FormItemsRow';
@@ -8,8 +11,6 @@ import { Form }      from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
 import red from '@material-ui/core/colors/red';
-
-const getGridCell = (name) => screen.getByRole('gridcell', { name });
 
 const renderFormItemsRow = ({ items = [], searchRowText = '', renderProps = {} } = {}) => {
     const onRowClickHandler = jest.fn();
@@ -88,7 +89,7 @@ describe('FormItemsRow and "isClicked" and "isDisabled" properties', () => {
             renderProps: { isDisabled: true }
         });
 
-        screen.getAllByRole('textbox').map((field) =>{
+        getAllTextBoxes().forEach((field) =>{
             expect(field).toBeDisabled();
         });
     });

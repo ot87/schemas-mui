@@ -1,12 +1,10 @@
 import React from 'react';
-import { render, screen, getByRole } from 'test-utils';
+import { render, getTextBox } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormField from './FormField';
 
 import { Form } from 'react-final-form';
-
-const getTextBox = (name) => getByRole('textbox', name);
 
 const renderFormField = (renderProps) => {
     const label = 'FormField Label';

@@ -16,6 +16,12 @@ export const getTabList = (name) => screen.getByRole('tablist', { name });
 
 export const getTab = (name) => screen.getByRole('tab', { name });
 
+export const getGridCell     = (name) => screen.getByRole('gridcell', { name });
+export const getAllGridCells = (name) => screen.getAllByRole('gridcell', { name });
+
+export const getTextBox      = (name) => screen.getByRole('textbox', { name });
+export const getAllTextBoxes = (name) => screen.getAllByRole('textbox', { name });
+
 export const mockUseMediaQuery = (width) => {
     Object.defineProperty(window, 'matchMedia', {
         writable: true,

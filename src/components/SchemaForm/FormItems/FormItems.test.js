@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, mockStyleInjection } from 'test-utils';
+import { render, getAllGridCells, getAllTextBoxes, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormItems from './FormItems';
@@ -8,8 +8,6 @@ import { Form }      from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
 import red from '@material-ui/core/colors/red';
-
-const getAllGridCells = (name) => screen.getAllByRole('gridcell', { name });
 
 const renderFormItems = (renderProps = {}) => {
     const onItemsRowClickHandler = jest.fn();
@@ -63,7 +61,7 @@ describe('FormItems and "isRemoveClicked" and "itemsIdsToRemove" properties', ()
     test('All fields of FormItems are "disabled" when "isRemoveClicked" set to "true"', () => {
         renderFormItems({ isRemoveClicked: true });
 
-        screen.getAllByRole('textbox').map((field) =>{
+        getAllTextBoxes().forEach((field) =>{
             expect(field).toBeDisabled();
         });
     });
