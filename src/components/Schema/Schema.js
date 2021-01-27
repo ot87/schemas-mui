@@ -32,6 +32,7 @@ const Schema = ({ schema }) => {
 
     return (
         <Grid
+            role='grid'
             alignContent='center'
             container
             justify='center'

@@ -9,7 +9,8 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 export const getByRole   = (type, name) => screen.getByRole(type, { name });
 export const queryByRole = (type, name) => screen.queryByRole(type, { name });
 
-export const getButton   = (name) => screen.getByRole('button', { name });
+export const getButton     = (name) => screen.getByRole('button', { name });
+export const getAllButtons = (name) => screen.getAllByRole('button', { name });
 export const queryButton = (name) => screen.queryByRole('button', { name });
 
 export const getTabList = (name) => screen.getByRole('tablist', { name });
@@ -18,9 +19,12 @@ export const getTab = (name) => screen.getByRole('tab', { name });
 
 export const getGridCell     = (name) => screen.getByRole('gridcell', { name });
 export const getAllGridCells = (name) => screen.getAllByRole('gridcell', { name });
+export const queryGridCell   = (name) => screen.queryByRole('gridcell', { name });
 
 export const getTextBox      = (name) => screen.getByRole('textbox', { name });
 export const getAllTextBoxes = (name) => screen.getAllByRole('textbox', { name });
+
+export const getTable = (name) => screen.getByRole('table', { name });
 
 export const mockUseMediaQuery = (width) => {
     Object.defineProperty(window, 'matchMedia', {

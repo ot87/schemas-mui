@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, getButton, queryButton } from 'test-utils';
+import { render, getAllButtons, getButton, queryButton } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import CustomCardWithButtons from './CustomCardWithButtons';
@@ -36,7 +36,7 @@ const renderCard = (renderProps) => {
     const { rerender } = render(<CustomCardWithButtons {...initProps} {...renderProps} />);
 
     return {
-        card: screen.getAllByRole('button', { name: notClickedName })[0],
+        card: getAllButtons(notClickedName)[0],
         onClickHandler,
         onButton1ClickHandler,
         onButton2ClickHandler,

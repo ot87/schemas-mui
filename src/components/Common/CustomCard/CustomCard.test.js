@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, mockStyleInjection } from 'test-utils';
+import { render, getAllButtons, mockStyleInjection } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import CustomCard from './CustomCard';
@@ -22,7 +22,7 @@ const renderCard = (renderProps) => {
     const { rerender } = render(<CustomCard {...initProps} {...renderProps} />);
 
     return {
-        card: screen.getAllByRole('button', { name: 'CustomCard 1 item 1 item 2' })[0],
+        card: getAllButtons('CustomCard 1 item 1 item 2')[0],
         onClickHandler,
         rerenderCard: (rerenderProps) => {
             rerender(<CustomCard {...initProps} {...rerenderProps} />);

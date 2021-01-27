@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Form }            from 'react-final-form';
-import arrayMutators       from 'final-form-arrays';
+import React from 'react';
+
+import { Form }      from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
 
 import FormField         from './FormField/FormField';
 import FormItemsControls from './FormItemsControls/FormItemsControls';
@@ -39,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
  */
 
 /**
- * Form container to add or edit schemas. [React Final Form]{@link https://final-form.org/react} library is used.
+ * Form container to add or edit schemas.
+ * [React Final Form]{@link https://final-form.org/react} library is used.
  * @param {Object}               props
  * @param {Object}               props.schema                - Initial data for the form.
  * @param {number}               [props.schema.id]           - Schema id.

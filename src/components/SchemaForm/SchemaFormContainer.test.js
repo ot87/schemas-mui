@@ -1,15 +1,12 @@
 import React from 'react';
 import {
     render, mockUseMediaQuery,
-    getByRole, queryByRole, getButton, queryButton,
+    getTable, queryGridCell, getButton, queryButton,
     getGridCell, getAllGridCells, getTextBox, getAllTextBoxes
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import SchemaFormContainer from './SchemaFormContainer';
-
-const getTable = (name) => getByRole('table', name);
-const queryGridCell = (name) => queryByRole('gridcell', name);
 
 const renderSchemaForm = (items = null) => {
     const schema = {

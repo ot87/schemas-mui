@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
  */
 
 /** 
- * Component to display a list of all Schemas by [Card]{@link Card} or [CardWithButtons]{@link CardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaFormContainer]{@link SchemaFormContainer}. The displayed content depends on value of the selectedSchemaId and mode parameters.
+ * Component to display a list of all Schemas by [Card]{@link Card} or [CardWithButtons]{@link CardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaFormContainer]{@link SchemaFormContainer}.
+ * The displayed content depends on value of the selectedSchemaId and mode parameters.
  * @param {Object}               props
  * @param {Object[]}             props.schemas                - The data of the all schemas from the Redux State.
  * @param {number}               props.schemas.id             - Schema id.
