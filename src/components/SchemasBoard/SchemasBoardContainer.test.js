@@ -1,8 +1,8 @@
 import React from 'react';
 import {
     render, waitFor, screen, mockStyleInjection,
-    getByRole, getAllButtons, getButton, queryButton,
-    getTable, getGridCell, queryGridCell, getTextBox
+    getAllButtons, getButton, queryButton, getTable,
+    getGrid, getGridCell, queryGridCell, getTextBox
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
@@ -40,20 +40,9 @@ describe('SchemasBoardContainer without "selectedSchemaId"', () => {
 
         userEvent.click(getAllButtons('Schema 1 2')[0].firstElementChild);
 
-        const schema = getByRole('grid');
-        expect(schema).toBeInTheDocument();
-
-        const schemaName = screen.getByText('Schema 1');
-        expect(schemaName).toBeInTheDocument();
-        expect(schema).toContainElement(schemaName);
-
-        const itemName = screen.getByText('2');
-        expect(itemName).toBeInTheDocument();
-        expect(schema).toContainElement(itemName);
-
-        const itemQuantity = screen.getByText('3');
-        expect(itemQuantity).toBeInTheDocument();
-        expect(schema).toContainElement(itemQuantity);
+        expect(getGrid()).toBeInTheDocument();
+        expect(screen.getByText('Schema 1')).toBeInTheDocument();
+        expect(getGridCell('2 3')).toBeInTheDocument();
     });
 
     test('SchemasBoard is displayed with two Cards with yellow theme ("mode" = "EDIT")', () => {
@@ -189,20 +178,9 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
             initData: { ui: { selectedSchemaId: 1 } }
         });
 
-        const schema = getByRole('grid');
-        expect(schema).toBeInTheDocument();
-
-        const schemaName = screen.getByText('Schema 1');
-        expect(schemaName).toBeInTheDocument();
-        expect(schema).toContainElement(schemaName);
-
-        const itemName = screen.getByText('2');
-        expect(itemName).toBeInTheDocument();
-        expect(schema).toContainElement(itemName);
-
-        const itemQuantity = screen.getByText('3');
-        expect(itemQuantity).toBeInTheDocument();
-        expect(schema).toContainElement(itemQuantity);
+        expect(getGrid()).toBeInTheDocument();
+        expect(screen.getByText('Schema 1')).toBeInTheDocument();
+        expect(getGridCell('2 3')).toBeInTheDocument();
     });
 
     test('SchemaForm is displayed ("mode" = "EDIT")', () => {

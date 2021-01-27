@@ -26,6 +26,8 @@ export const getAllTextBoxes = (name) => screen.getAllByRole('textbox', { name }
 
 export const getTable = (name) => screen.getByRole('table', { name });
 
+export const getGrid = (name) => screen.getByRole('grid', { name });
+
 export const mockUseMediaQuery = (width) => {
     Object.defineProperty(window, 'matchMedia', {
         writable: true,

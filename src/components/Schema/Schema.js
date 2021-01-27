@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {number}   props.schema.items.id       - Schema item id.
  * @param {string}   props.schema.items.name     - Schema item name.
  * @param {string}   props.schema.items.quantity - Schema item quantity.
- * @param {string}   props.schema.items.time     - Schema item time.
+ * @param {string}   [props.schema.items.time]   - Schema item time.
  */
 const Schema = ({ schema }) => {
     const classes = useStyles();
@@ -52,8 +52,10 @@ const Schema = ({ schema }) => {
             : null}
             {schema.items.map((item, key) => (
                 <Grid
+                    role='gridcell'
                     container item
                     justify='center'
+                    alignContent='flex-start'
                     key={key}
                     spacing={smScreen ? 1 : 2}
                     xs={11} sm={6} md={11}
@@ -68,11 +70,13 @@ const Schema = ({ schema }) => {
                             {item.quantity}
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                        <Paper className={classes.paper}>
-                            {item.time}
-                        </Paper>
-                    </Grid>
+                    {typeof item.time !== 'undefined' ?
+                        <Grid item xs={12} md={4}>
+                            <Paper className={classes.paper}>
+                                {item.time}
+                            </Paper>
+                        </Grid>
+                    : null}
                 </Grid>
             ))}
         </Grid>
