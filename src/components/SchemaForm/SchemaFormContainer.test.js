@@ -1,8 +1,9 @@
 import React from 'react';
 import {
     render, mockUseMediaQuery,
-    getTable, queryGridCell, getButton, queryButton,
-    getGridCell, getAllGridCells, getTextBox, getAllTextBoxes
+    getTable, getGridCell, getAllGridCells, queryGridCell,
+    getGridCellWithin, queryGridCellWithin,
+    getButton, queryButton, getTextBox, getAllTextBoxes, getTextBoxWithin
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
@@ -27,8 +28,6 @@ const renderSchemaForm = (items = null) => {
 
     return {
         form: getTable(),
-        nameField: getTextBox('Schema Name'),
-        descField: getTextBox('Schema Description'),
         removeButton: schema.items.length ? getButton('Remove') : queryButton('Remove'),
         onSubmitHandler,
         onCancelHandler
@@ -37,20 +36,20 @@ const renderSchemaForm = (items = null) => {
 
 describe('SchemaFormContainer', () => {
     test('Form with FormButtons and FormItemsControls is displayed', () => {
-        const { form, nameField, descField } = renderSchemaForm();
+        const { form } = renderSchemaForm();
 
         expect(form).toBeInTheDocument();
+
+        const nameField = getTextBoxWithin(form, 'Schema Name');
+        const descField = getTextBoxWithin(form, 'Schema Description');
+
         expect(nameField).toBeInTheDocument();
         expect(descField).toBeInTheDocument();
-        expect(form).toContainElement(nameField);
-        expect(form).toContainElement(descField);
 
         expect(nameField).toHaveValue('Schema 1');
         expect(descField).not.toHaveValue();
 
-        const itemsRow = getGridCell('Name 1 Quantity 1 Time');
-        expect(itemsRow).toBeInTheDocument();
-        expect(form).toContainElement(itemsRow);
+        expect(getGridCellWithin(form, 'Name 1 Quantity 1 Time')).toBeInTheDocument();
 
         expect(getButton('Submit')).toBeInTheDocument();
         expect(getButton('Reset')).toBeInTheDocument();
@@ -61,18 +60,20 @@ describe('SchemaFormContainer', () => {
     });
 
     test('Form without items row and "Remove" button is displayed', () => {
-        const { form, nameField, descField, removeButton } = renderSchemaForm([]);
+        const { form, removeButton } = renderSchemaForm([]);
 
         expect(form).toBeInTheDocument();
+
+        const nameField = getTextBoxWithin(form, 'Schema Name');
+        const descField = getTextBoxWithin(form, 'Schema Description');
+
         expect(nameField).toBeInTheDocument();
         expect(descField).toBeInTheDocument();
-        expect(form).toContainElement(nameField);
-        expect(form).toContainElement(descField);
 
         expect(nameField).toHaveValue('Schema 1');
         expect(descField).not.toHaveValue();
 
-        expect(queryGridCell('Name Quantity Time')).not.toBeInTheDocument();
+        expect(queryGridCellWithin(form, 'Name Quantity Time')).not.toBeInTheDocument();
 
         expect(getButton('Submit')).toBeInTheDocument();
         expect(getButton('Reset')).toBeInTheDocument();
@@ -93,7 +94,8 @@ describe('SchemaFormContainer', () => {
     });
 
     test('"Reset" button resets edited Form', () => {
-        const { descField } = renderSchemaForm();
+        renderSchemaForm();
+        const descField = getTextBox('Schema Description');
         const timeField = getTextBox('Time');
 
         userEvent.type(descField, '1');

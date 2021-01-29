@@ -1,5 +1,8 @@
 import React from 'react';
-import { render, getTabList, getButton, queryButton, mockStyleInjection } from 'test-utils';
+import {
+    render, mockStyleInjection,
+    getTabList, getButton, getButtonWithin, queryButtonWithin
+} from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormItemsControls from './FormItemsControls';
@@ -39,10 +42,9 @@ describe('FormItemsControls and "Add" button', () => {
         expect(itemsControls).toBeInTheDocument();
         expect(itemsControls.childElementCount).toEqual(1);
 
-        const addButton = getButton('Add');
+        const addButton = getButtonWithin(itemsControls, 'Add');
         expect(addButton).toBeInTheDocument();
         expect(addButton.className).toContain('MuiButton-outlined');
-        expect(itemsControls).toContainElement(addButton);
     });
 
     test('"Add" button is clicked', () => {
@@ -83,13 +85,8 @@ describe('FormItemsControls and "Add" button', () => {
     test('"Remove" and "All" buttons are not displayed', () => {
         const { itemsControls } = renderFormItemsControls();
 
-        const removeButton = queryButton('Remove');
-        expect(removeButton).not.toBeInTheDocument();
-        expect(itemsControls).not.toContainElement(removeButton);
-
-        const allButton = queryButton('All');
-        expect(allButton).not.toBeInTheDocument();
-        expect(itemsControls).not.toContainElement(allButton);
+        expect(queryButtonWithin(itemsControls, 'Remove')).not.toBeInTheDocument();
+        expect(queryButtonWithin(itemsControls, 'All')).not.toBeInTheDocument();
     });
 });
 
@@ -100,15 +97,13 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
         expect(itemsControls).toBeInTheDocument();
         expect(itemsControls.childElementCount).toEqual(2);
 
-        const addButton = getButton('Add');
+        const addButton = getButtonWithin(itemsControls, 'Add');
         expect(addButton).toBeInTheDocument();
         expect(addButton.className).toContain('MuiButton-outlined');
-        expect(itemsControls).toContainElement(addButton);
 
-        const removeButton = getButton('Remove');
+        const removeButton = getButtonWithin(itemsControls, 'Remove');
         expect(removeButton).toBeInTheDocument();
         expect(removeButton.className).toContain('MuiButton-outlined');
-        expect(itemsControls).toContainElement(removeButton);
     });
 
     test('"Remove" button is clicked', () => {
@@ -145,15 +140,11 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
             isRemoveClicked: true
         });
 
-        let allButton = queryButton('All');
-        expect(allButton).not.toBeInTheDocument();
-        expect(itemsControls).not.toContainElement(allButton);
+        expect(queryButtonWithin(itemsControls, 'All')).not.toBeInTheDocument();
 
         rerenderItemsControls({ showRemove: true });
 
-        allButton = queryButton('All');
-        expect(allButton).not.toBeInTheDocument();
-        expect(itemsControls).not.toContainElement(allButton);
+        expect(queryButtonWithin(itemsControls, 'All')).not.toBeInTheDocument();
     });
 });
 
@@ -167,20 +158,17 @@ describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
         expect(itemsControls).toBeInTheDocument();
         expect(itemsControls.childElementCount).toEqual(3);
 
-        const addButton = getButton('Add');
+        const addButton = getButtonWithin(itemsControls, 'Add');
         expect(addButton).toBeInTheDocument();
         expect(addButton.className).toContain('MuiButton-outlined');
-        expect(itemsControls).toContainElement(addButton);
 
-        const removeButton = getButton('Remove');
+        const removeButton = getButtonWithin(itemsControls, 'Remove');
         expect(removeButton).toBeInTheDocument();
         expect(removeButton.className).toContain('MuiButton-contained');
-        expect(itemsControls).toContainElement(removeButton);
 
-        const allButton = getButton('All');
+        const allButton = getButtonWithin(itemsControls, 'All');
         expect(allButton).toBeInTheDocument();
         expect(allButton.className).toContain('MuiButton-outlined');
-        expect(itemsControls).toContainElement(allButton);
     });
 
     test('"All" button is clicked', () => {

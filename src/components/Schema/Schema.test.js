@@ -1,10 +1,13 @@
 import React from 'react';
 import {
-    render, screen, mockUseMediaQuery,
-    getGrid, getGridCell, queryGridCell
+    render, within, mockUseMediaQuery,
+    getGrid, getGridCell, getGridCellWithin, queryGridCellWithin,
+    getByTextWithin
 } from 'test-utils';
 
 import Schema from './Schema';
+
+const queryByTextWithin = (element, text) => within(element).queryByText(text);
 
 const renderSchemasBoard = (schemaData = {}) => {
     const schema = {
@@ -20,53 +23,45 @@ const renderSchemasBoard = (schemaData = {}) => {
     );
 
     return {
-        schema: getGrid(),
-        name: screen.getByText('Schema 1')
+        schema: getGrid()
     };
 };
 
 describe('Schema', () => {
     test('Schema is displayed without description and items', () => {
-        const { schema, name } = renderSchemasBoard({ items: [] });
+        const { schema } = renderSchemasBoard({ items: [] });
 
         expect(schema).toBeInTheDocument();
 
-        expect(name).toBeInTheDocument();
-        expect(schema).toContainElement(name);
+        expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
 
-        expect(screen.queryByText('Description 1')).not.toBeInTheDocument();
+        expect(queryByTextWithin(schema, 'Description 1')).not.toBeInTheDocument();
 
-        expect(queryGridCell()).not.toBeInTheDocument();
+        expect(queryGridCellWithin(schema, 'Name Quantity Time')).not.toBeInTheDocument();
     });
 
     test('Schema is displayed with description and items', () => {
-        const { schema, name } = renderSchemasBoard({ description: 'Description 1' });
+        const { schema } = renderSchemasBoard({ description: 'Description 1' });
 
         expect(schema).toBeInTheDocument();
 
-        expect(name).toBeInTheDocument();
-        expect(schema).toContainElement(name);
+        expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
 
-        const schemaDesc = screen.getByText('Description 1');
-        expect(schemaDesc).toBeInTheDocument();
-        expect(schema).toContainElement(schemaDesc);
+        expect(getByTextWithin(schema, 'Description 1')).toBeInTheDocument();
 
-        const itemsRow = getGridCell('Name Quantity Time');
-        expect(itemsRow).toBeInTheDocument();
-        expect(schema).toContainElement(itemsRow);
+        expect(getGridCellWithin(schema, 'Name Quantity Time')).toBeInTheDocument();
     });
 
     test('Schema is displayed without item time', () => {
-        const { schema, name } = renderSchemasBoard({
+        const { schema } = renderSchemasBoard({
             items: [{ id: 1, name: 'Name', quantity: 'Quantity' }]
         });
 
         expect(schema).toBeInTheDocument();
-        expect(name).toBeInTheDocument();
 
-        const itemsRow = getGridCell('Name Quantity');
-        expect(itemsRow).toBeInTheDocument();
-        expect(schema).toContainElement(itemsRow);
+        expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
+
+        expect(getGridCellWithin(schema, 'Name Quantity')).toBeInTheDocument();
     });
 });
 

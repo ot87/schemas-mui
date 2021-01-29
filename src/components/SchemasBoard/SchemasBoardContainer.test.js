@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    render, waitFor, screen, mockStyleInjection,
-    getAllButtons, getButton, queryButton, getTable,
-    getGrid, getGridCell, queryGridCell, getTextBox
+    render, waitFor, mockStyleInjection,
+    getAllButtons, getButton, queryButton,
+    getTable, getTextBox, getTextBoxWithin,
+    getByTextWithin, getGrid, getGridCellWithin, queryGridCellWithin
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
@@ -40,9 +41,10 @@ describe('SchemasBoardContainer without "selectedSchemaId"', () => {
 
         userEvent.click(getAllButtons('Schema 1 2')[0].firstElementChild);
 
-        expect(getGrid()).toBeInTheDocument();
-        expect(screen.getByText('Schema 1')).toBeInTheDocument();
-        expect(getGridCell('2 3')).toBeInTheDocument();
+        const schema = getGrid();
+        expect(schema).toBeInTheDocument();
+        expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
+        expect(getGridCellWithin(schema, '2 3')).toBeInTheDocument();
     });
 
     test('SchemasBoard is displayed with two Cards with yellow theme ("mode" = "EDIT")', () => {
@@ -73,17 +75,18 @@ describe('SchemasBoardContainer without "selectedSchemaId"', () => {
 
         userEvent.click(getAllButtons('Schema 1 2')[0].firstElementChild);
 
-        expect(getTable()).toBeInTheDocument();
+        const form = getTable();
+        expect(form).toBeInTheDocument();
 
-        const nameField = getTextBox('Schema Name');
+        const nameField = getTextBoxWithin(form, 'Schema Name');
         expect(nameField).toBeInTheDocument();
         expect(nameField).toHaveValue('Schema 1');
 
-        const descField = getTextBox('Schema Description');
+        const descField = getTextBoxWithin(form, 'Schema Description');
         expect(descField).toBeInTheDocument();
         expect(descField).not.toHaveValue();
 
-        expect(getGridCell('Name 2 Quantity 3 Time')).toBeInTheDocument();
+        expect(getGridCellWithin(form, 'Name 2 Quantity 3 Time')).toBeInTheDocument();
 
         expect(getButton('Submit')).toBeInTheDocument();
         expect(getButton('Reset')).toBeInTheDocument();
@@ -132,16 +135,17 @@ describe('SchemasBoardContainer without "selectedSchemaId"', () => {
             initData: { ui: { mode: UiModes.ADD } }
         });
 
-        expect(getTable()).toBeInTheDocument();
+        const form = getTable();
+        expect(form).toBeInTheDocument();
 
-        const nameField = getTextBox('Schema Name');
-        const descField = getTextBox('Schema Description');
+        const nameField = getTextBoxWithin(form, 'Schema Name');
+        const descField = getTextBoxWithin(form, 'Schema Description');
         expect(nameField).toBeInTheDocument();
         expect(descField).toBeInTheDocument();
         expect(nameField).not.toHaveValue();
         expect(descField).not.toHaveValue();
 
-        expect(queryGridCell('Name Quantity Time')).not.toBeInTheDocument();
+        expect(queryGridCellWithin(form, 'Name Quantity Time')).not.toBeInTheDocument();
 
         expect(getButton('Submit')).toBeInTheDocument();
         expect(getButton('Reset')).toBeInTheDocument();
@@ -178,9 +182,10 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
             initData: { ui: { selectedSchemaId: 1 } }
         });
 
-        expect(getGrid()).toBeInTheDocument();
-        expect(screen.getByText('Schema 1')).toBeInTheDocument();
-        expect(getGridCell('2 3')).toBeInTheDocument();
+        const schema = getGrid();
+        expect(schema).toBeInTheDocument();
+        expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
+        expect(getGridCellWithin(schema, '2 3')).toBeInTheDocument();
     });
 
     test('SchemaForm is displayed ("mode" = "EDIT")', () => {
@@ -193,17 +198,18 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
             }
         });
 
-        expect(getTable()).toBeInTheDocument();
+        const form = getTable();
+        expect(form).toBeInTheDocument();
 
-        const nameField = getTextBox('Schema Name');
+        const nameField = getTextBoxWithin(form, 'Schema Name');
         expect(nameField).toBeInTheDocument();
         expect(nameField).toHaveValue('Schema 1');
 
-        const descField = getTextBox('Schema Description');
+        const descField = getTextBoxWithin(form, 'Schema Description');
         expect(descField).toBeInTheDocument();
         expect(descField).not.toHaveValue();
 
-        expect(getGridCell('Name 2 Quantity 3 Time')).toBeInTheDocument();
+        expect(getGridCellWithin(form, 'Name 2 Quantity 3 Time')).toBeInTheDocument();
 
         expect(getButton('Submit')).toBeInTheDocument();
         expect(getButton('Reset')).toBeInTheDocument();

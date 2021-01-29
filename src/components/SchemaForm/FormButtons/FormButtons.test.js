@@ -1,5 +1,8 @@
 import React from 'react';
-import { render, getTabList, getButton, mockStyleInjection } from 'test-utils';
+import {
+    render, mockStyleInjection,
+    getTabList, getButton, getButtonWithin
+} from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import FormButtons from './FormButtons';
@@ -40,22 +43,22 @@ const renderFormButtons = (renderProps) => {
 };
 
 test('FormButtons is displayed with three active buttons "Submit", "Reset" and "Cancel"', () => {
-    const { schemaFormButtons, submit, reset, cancel } = renderFormButtons();
+    const { schemaFormButtons } = renderFormButtons();
 
     expect(schemaFormButtons).toBeInTheDocument();
     expect(schemaFormButtons.childElementCount).toEqual(3);
 
-    expect(schemaFormButtons).toContainElement(submit.button);
-    expect(submit.button).toBeInTheDocument();
-    expect(submit.button.className).toContain('MuiButton-outlined');
+    const submitButton = getButtonWithin(schemaFormButtons, 'Submit');
+    expect(submitButton).toBeInTheDocument();
+    expect(submitButton.className).toContain('MuiButton-outlined');
 
-    expect(schemaFormButtons).toContainElement(reset.button);
-    expect(reset.button).toBeInTheDocument();
-    expect(reset.button.className).toContain('MuiButton-outlined');
+    const resetButton = getButtonWithin(schemaFormButtons, 'Reset');
+    expect(resetButton).toBeInTheDocument();
+    expect(resetButton.className).toContain('MuiButton-outlined');
 
-    expect(schemaFormButtons).toContainElement(cancel.button);
-    expect(cancel.button).toBeInTheDocument();
-    expect(cancel.button.className).toContain('MuiButton-outlined');
+    const cancelButton = getButtonWithin(schemaFormButtons, 'Cancel');
+    expect(cancelButton).toBeInTheDocument();
+    expect(cancelButton.className).toContain('MuiButton-outlined');
 });
 
 test('All three buttons "Submit", "Reset" and "Cancel" have colors "green", "yellow" and "red"', () => {
