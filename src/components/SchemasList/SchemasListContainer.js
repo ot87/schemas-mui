@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 import { selectSchema }                from 'redux/reducers/ui';
 import { selectSchemasForSchemasList } from 'redux/reducers/schemas';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab  from '@material-ui/core/Tab';
+
+const useStyles = makeStyles({
+    root: {
+        margin: '0 auto'
+    }
+});
 
 /**
  * Renders a horizontal list of Schemas to choose.
@@ -17,12 +24,15 @@ import Tab  from '@material-ui/core/Tab';
  * @param {function}    props.selectSchema     - A function to select schema.
  */
 const SchemasList = ({ schemas, selectedSchemaId, selectSchema }) => {
+    const classes = useStyles();
+
     const handleChange = (event, newId) => {
         selectSchema(newId);
     }
 
     return (
         <Tabs
+            className={classes.root}
             value={selectedSchemaId}
             onChange={handleChange}
             variant='scrollable'
