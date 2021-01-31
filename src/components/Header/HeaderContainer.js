@@ -30,22 +30,23 @@ const useStyles = makeStyles((theme) => ({
  * Header component with control buttons.
  * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasList]{@link SchemasList} or the control [SchemasPanel]{@link SchemasPanel}.
  * @param {Object}      props
- * @param {number|null} props.selectedSchemaId    - The id of the selected schema from the Redux State.
- * @param {string}      props.mode                - The current ui mode from the Redux State.
- * @param {function}    props.selectSchema        - The dispatch function to select schema.
  * @param {boolean}     props.isSchemasClicked    - Indicates whether the Schemas button is clicked.
+ * @param {string}      props.mode                - The current ui mode from the Redux State.
+ * @param {number|null} props.selectedSchemaId    - The id of the selected schema from the Redux State.
+ * @param {function}    props.selectSchema        - The dispatch function to select schema.
  * @param {function}    props.setIsSchemasClicked - Set value of the isSchemasClicked.
  */
 const Header = ({
-    selectedSchemaId,
+    isSchemasClicked,
     mode,
     // profile,
+    selectedSchemaId,
     selectSchema,
-    isSchemasClicked,
     setIsSchemasClicked
 }) => {
     const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
     const classes = useStyles({ isWrap: !isShowSchema && isSchemasClicked });
+
     const handleBackClick = () => selectSchema(null);
     const handleSchemasClick = () => setIsSchemasClicked(true);
 

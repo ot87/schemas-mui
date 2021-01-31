@@ -1,5 +1,4 @@
 const SELECT_SCHEMA  = 'ui/SELECT_SCHEMA';
-const SET_ADD_SCHEMA = 'ui/SET_ADD_SCHEMA';
 const SET_MODE       = 'ui/SET_MODE';
 
 /**
@@ -31,7 +30,6 @@ const ui = (
 };
 
 export const selectSchema = (id) => ({type: SELECT_SCHEMA, payload: {id}});
-export const setAddSchema = (isAdd) => ({type: SET_ADD_SCHEMA, payload: {isAdd}});
-export const setMode = (mode) => ({type: SET_MODE, payload: {mode}});
+export const setMode      = (mode) => ({type: SET_MODE, payload: {mode}});
 
 export default ui;
