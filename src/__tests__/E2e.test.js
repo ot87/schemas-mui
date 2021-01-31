@@ -1,39 +1,46 @@
 import React from 'react';
-import { render, screen, waitFor } from 'test-utils';
+import {
+      render, screen, waitFor,
+      getButton, queryButton, getAllButtons, getButtonWithin,
+      getTab, getTextBox, getAllTextBoxes, getTextBoxWithin,
+      getGrid, getGridCell, getAllGridCells, getGridCellWithin,
+      getTable, getByTextWithin
+} from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
 import App from 'App';
 
+const findAllButtons = (name) => screen.findAllByRole('button', { name });
+
 test('create Schema, edit it and then delete', async () => {
     render(<App />);
 
-    // test Schema creation
+    // TEST CREATION
 
-    // check that Add Plate is present
-    const addPlate = screen.getByRole('button', { name: 'Add' });
-    expect(addPlate).toBeInTheDocument();
-    expect(addPlate).toHaveClass('greenPlate');
+    // Add Button is present
+    const addButton = getButton('Add');
+    expect(addButton).toBeInTheDocument();
 
-    // check that Edit and Delete Plates aren't displayed
-    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
+    // Edit and Delete Buttons aren't displayed
+    expect(queryButton('Edit')).not.toBeInTheDocument();
+    expect(queryButton('Delete')).not.toBeInTheDocument();
 
-    // check that Cards aren't displayed
-    screen.getAllByRole('button').forEach(button => {
-        expect(button).not.toHaveClass('Card');
+    // Cards aren't displayed
+    getAllButtons().forEach(button => {
+        expect(button).not.toHaveClass('MuiCard-root');
     });
 
-    // check that Add Plate is clicked
-    userEvent.click(addPlate);
-    expect(addPlate).toHaveClass('greenPlate clickedPlate greenTheme');
+    // Add Button is clicked
+    userEvent.click(addButton);
+    expect(addButton.className).toContain('clicked');
 
-    // check that form is displayed and fill it
+    // form is displayed and fill it in
 
-    const schemaName = 'Test schema name',
-          schemaDesc = 'Test schema description';
+    const schemaName = 'Test schema name';
+    const schemaDesc = 'Test schema description';
 
-    const nameField = screen.getByPlaceholderText('Schema Name'),
-          descField = screen.getByPlaceholderText('Schema Description');
+    const nameField = getTextBox('Schema Name');
+    const descField = getTextBox('Schema Description');
 
     expect(nameField).toBeInTheDocument();
     expect(descField).toBeInTheDocument();
@@ -41,30 +48,30 @@ test('create Schema, edit it and then delete', async () => {
     userEvent.type(nameField, schemaName);
     userEvent.type(descField, schemaDesc);
 
-    // click Add Plate to add two Items Rows
-    userEvent.click(screen.getAllByRole('button', { name: 'Add' })[1]);
-    userEvent.click(screen.getAllByRole('button', { name: 'Add' })[1]);
+    // click Add Button to add two Items Rows
+    userEvent.click(getAllButtons('Add')[1]);
+    userEvent.click(getAllButtons('Add')[1]);
 
-    // check that Remove Plate is displayed
-    expect(screen.getByRole('button', { name: 'Remove' })).toBeInTheDocument();
+    // Remove Button is displayed
+    expect(getButton('Remove')).toBeInTheDocument();
 
-    const rowName     = 'Test name',
-          rowQuantity = 'Test quantity',
-          rowTime     = 'Test time';
+    const rowName     = 'Test name';
+    const rowQuantity = 'Test quantity';
+    const rowTime     = 'Test time';
 
-    const rows = screen.getAllByRole('row'),
-          rowNameFields     = screen.getAllByPlaceholderText('Name'),
-          rowQuantityFields = screen.getAllByPlaceholderText('Quantity'),
-          rowTimeFields     = screen.getAllByPlaceholderText('Time');
+    const itemsRows         = getAllGridCells();
+    const rowNameFields     = getAllTextBoxes('Name');
+    const rowQuantityFields = getAllTextBoxes('Quantity');
+    const rowTimeFields     = getAllTextBoxes('Time');
 
-    // check that the first Row is added
-    expect(rows[0]).toBeInTheDocument();
+    // the first Row is added
+    expect(itemsRows[0]).toBeInTheDocument();
     expect(rowNameFields[0]).toBeInTheDocument();
     expect(rowQuantityFields[0]).toBeInTheDocument();
     expect(rowTimeFields[0]).toBeInTheDocument();
 
-    // check that the second Row is added
-    expect(rows[1]).toBeInTheDocument();
+    // the second Row is added
+    expect(itemsRows[1]).toBeInTheDocument();
     expect(rowNameFields[1]).toBeInTheDocument();
     expect(rowQuantityFields[1]).toBeInTheDocument();
     expect(rowTimeFields[1]).toBeInTheDocument();
@@ -79,78 +86,80 @@ test('create Schema, edit it and then delete', async () => {
     userEvent.type(rowQuantityFields[1], `${rowQuantity} 2`);
     userEvent.type(rowTimeFields[1], `${rowTime} 2`);
 
-    // click Submit Plate
-    userEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    // click Submit Button
+    userEvent.click(getButton('Submit'));
 
     const addedCardName = `${schemaName} ${rowName} 1 ${rowName} 2`;
 
-    // check that Schema Card is created
-    let addedSchemaCard = await screen.findByRole('button', { name: addedCardName });
-    expect(addedSchemaCard).toBeInTheDocument();
+    // Schema Card is created
+    let addedSchemaCard = await findAllButtons(addedCardName);
+    expect(addedSchemaCard[0]).toBeInTheDocument();
 
 
     // click on the Card, check that its content is displayed and return back
 
-    userEvent.click(addedSchemaCard);
+    userEvent.click(addedSchemaCard[0].firstElementChild);
 
-    const addedSchemaPlate = await screen.findByRole('button', { name: schemaName });
-    expect(addedSchemaPlate).toBeInTheDocument();
-    expect(addedSchemaPlate).toHaveClass('clickedPlate');
+    const addedSchemaButton = getTab(schemaName);
+    expect(addedSchemaButton).toBeInTheDocument();
+    expect(addedSchemaButton).toHaveAttribute('aria-selected', 'true');
 
-    // check that Schema Card isn't displayed
-    expect(addedSchemaCard).not.toBeInTheDocument();
+    // Schema Card isn't displayed
+    expect(queryButton(addedCardName)).not.toBeInTheDocument();
 
-    const addedSchemaRows = screen.getAllByRole('row');
-    expect(addedSchemaRows[0]).toHaveTextContent(schemaName);
-    expect(addedSchemaRows[1]).toHaveTextContent(schemaDesc);
-    expect(addedSchemaRows[2]).toHaveTextContent(`${rowName} 1`);
-    expect(addedSchemaRows[2]).toHaveTextContent(`${rowQuantity} 1`);
-    expect(addedSchemaRows[2]).toHaveTextContent(`${rowTime} 1`);
-    expect(addedSchemaRows[3]).toHaveTextContent(`${rowName} 2`);
-    expect(addedSchemaRows[3]).toHaveTextContent(`${rowQuantity} 2`);
-    expect(addedSchemaRows[3]).toHaveTextContent(`${rowTime} 2`);
+    const addedSchema = getGrid();
+    expect(addedSchema).toBeInTheDocument();
+    expect(getByTextWithin(addedSchema, schemaName)).toBeInTheDocument();
+    expect(getByTextWithin(addedSchema, schemaDesc)).toBeInTheDocument();
+    expect(
+        getGridCellWithin(addedSchema, `${rowName} 1 ${rowQuantity} 1 ${rowTime} 1`)
+    ).toBeInTheDocument();
+    expect(
+        getGridCellWithin(addedSchema, `${rowName} 2 ${rowQuantity} 2 ${rowTime} 2`)
+    ).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole('button', { name: 'Back' }));
+    userEvent.click(getButton('Back'));
 
-    // check that Schema Card is displayed
-    addedSchemaCard = await screen.findByRole('button', { name: addedCardName });
-    expect(addedSchemaCard).toBeInTheDocument();
+    // Schema Card is displayed
+    addedSchemaCard = await findAllButtons(addedCardName);
+    expect(addedSchemaCard[0]).toBeInTheDocument();
 
 
-    // test Schema edit
+    // TEST EDIT
 
-    const editPlate = screen.getByRole('button', { name: 'Edit' });
-    expect(editPlate).toBeInTheDocument();
-    expect(editPlate).toHaveClass('goldPlate');
+    const editButton = getButton('Edit');
+    expect(editButton).toBeInTheDocument();
 
-    userEvent.click(editPlate);
-    expect(editPlate).toHaveClass('goldPlate toggledPlate goldTheme');
+    userEvent.click(editButton);
+    userEvent.click(addedSchemaCard[0].firstElementChild);
+    expect(editButton.className).toContain('clicked');
 
-    userEvent.click(addedSchemaCard);
-
-    // check that form is displayed and edit it
-    await waitFor(() => expect(screen.getByRole('table')).toBeInTheDocument());
-    screen.getAllByRole('textbox').forEach(textbox => expect(textbox).toBeEnabled());
+    // form is displayed and editable
+    expect(getTable()).toBeInTheDocument();
+    getAllTextBoxes().forEach((textbox) => {
+        expect(textbox).toBeEnabled();
+    });
 
     // remove the last row
-    const removePlate = screen.getByRole('button', { name: 'Remove' });
+    const removeButton = getButton('Remove');
+    expect(getAllGridCells()).toHaveLength(2);
 
-    expect(screen.getAllByRole('row').length).toBe(2);
+    userEvent.click(removeButton);
+    userEvent.click(getGridCell(`Name ${rowName} 2 Quantity ${rowQuantity} 2 Time ${rowTime} 2`));
+    userEvent.click(removeButton);
 
-    userEvent.click(removePlate);
-    userEvent.click(screen.getAllByRole('row')[1]);
-    userEvent.click(removePlate);
-
-    expect(screen.getAllByRole('row').length).toBe(1);
+    expect(getAllGridCells()).toHaveLength(1);
 
     // add a new row
-    userEvent.click(screen.getAllByRole('button', { name: 'Add' })[1]);
+    userEvent.click(getAllButtons('Add')[1]);
 
-    // check that a new Row is added
-    expect(screen.getAllByRole('row')[1]).toBeInTheDocument();
-    const newRowNameField     = screen.getAllByPlaceholderText('Name')[1],
-          newRowQuantityField = screen.getAllByPlaceholderText('Quantity')[1],
-          newRowTimeField     = screen.getAllByPlaceholderText('Time')[1];
+    // a new Row is added
+    const newItemsRow = getGridCell('Name Quantity Time');
+    expect(newItemsRow).toBeInTheDocument();
+
+    const newRowNameField     = getTextBoxWithin(newItemsRow, 'Name');
+    const newRowQuantityField = getTextBoxWithin(newItemsRow, 'Quantity');
+    const newRowTimeField     = getTextBoxWithin(newItemsRow, 'Time');
 
     expect(newRowNameField).toBeInTheDocument();
     expect(newRowQuantityField).toBeInTheDocument();
@@ -161,93 +170,129 @@ test('create Schema, edit it and then delete', async () => {
     userEvent.type(newRowQuantityField, `${rowQuantity} 3`);
     userEvent.type(newRowTimeField, `${rowTime} 3`);
 
-    // click Submit Plate
-    userEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    // click Submit Button
+    userEvent.click(getButton('Submit'));
 
     const editedCardName = `${schemaName} ${rowName} 1 ${rowName} 3`;
 
-    // check that Schema Card is edited
-    let editedSchemaCard = await screen.findByRole('button', { name: editedCardName });
-    expect(editedSchemaCard).toBeInTheDocument();
+    // Schema Card is edited
+    let editedSchemaCard = await findAllButtons(editedCardName);
+    expect(editedSchemaCard[0]).toBeInTheDocument();
 
     // uncheck Edit mode
-    userEvent.click(editPlate);
-    expect(editPlate).not.toHaveClass('toggledPlate goldTheme');
+    userEvent.click(editButton);
 
 
     // click on the Card, check that its content is displayed and return back
 
-    userEvent.click(editedSchemaCard);
+    userEvent.click(editedSchemaCard[0].firstElementChild);
 
-    const editedSchemaPlate = await screen.findByRole('button', { name: `${schemaName}` });
-    expect(editedSchemaPlate).toBeInTheDocument();
-    expect(editedSchemaPlate).toHaveClass('clickedPlate');
+    const editedSchemaButton = getTab(schemaName);
+    expect(editedSchemaButton).toBeInTheDocument();
+    expect(editedSchemaButton).toHaveAttribute('aria-selected', 'true');
 
-    // check that Card isn't displayed
-    expect(editedSchemaCard).not.toBeInTheDocument();
+    // Card isn't displayed
+    expect(queryButton(editedCardName)).not.toBeInTheDocument();
 
-    const editedSchemaRows = screen.getAllByRole('row');
-    expect(editedSchemaRows[0]).toHaveTextContent(schemaName);
-    expect(editedSchemaRows[1]).toHaveTextContent(schemaDesc);
-    expect(editedSchemaRows[2]).toHaveTextContent(`${rowName} 1`);
-    expect(editedSchemaRows[2]).toHaveTextContent(`${rowQuantity} 1`);
-    expect(editedSchemaRows[2]).toHaveTextContent(`${rowTime} 1`);
-    expect(editedSchemaRows[3]).toHaveTextContent(`${rowName} 3`);
-    expect(editedSchemaRows[3]).toHaveTextContent(`${rowQuantity} 3`);
-    expect(editedSchemaRows[3]).toHaveTextContent(`${rowTime} 3`);
+    const editedSchema = getGrid();
+    expect(editedSchema).toBeInTheDocument();
+    expect(
+        getGridCellWithin(editedSchema, `${rowName} 1 ${rowQuantity} 1 ${rowTime} 1`)
+    ).toBeInTheDocument();
+    expect(
+        getGridCellWithin(editedSchema, `${rowName} 3 ${rowQuantity} 3 ${rowTime} 3`)
+    ).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole('button', { name: 'Back' }));
+    userEvent.click(getButton('Back'));
 
-    // check that Schema Card is displayed
-    editedSchemaCard = await screen.findByRole('button', { name: editedCardName });
-    expect(editedSchemaCard).toBeInTheDocument();
+    // Schema Card is displayed
+    editedSchemaCard = await findAllButtons(editedCardName);
+    expect(editedSchemaCard[0]).toBeInTheDocument();
 
 
-    // test Schema delete
 
-    const deletePlate = screen.getByRole('button', { name: 'Delete' });
-    expect(deletePlate).toBeInTheDocument();
-    expect(deletePlate).toHaveClass('redPlate');
+    // TEST DELETION
 
-    userEvent.click(deletePlate);
-    expect(deletePlate).toHaveClass('redPlate toggledPlate redTheme');
+    const deleteButton = getButton('Delete');
+    expect(deleteButton).toBeInTheDocument();
 
-    expect(editedSchemaCard).toHaveClass('redCard');
+    userEvent.click(deleteButton);
+    userEvent.click(editedSchemaCard[0].firstElementChild);
+    expect(deleteButton.className).toContain('clicked');
 
-    // click Schema Card for deletion
-    userEvent.click(editedSchemaCard);
-
-    // check that Schema Card is clicked for deletion
-    let forDeleteSchemaCard = await screen.findByRole('button', { name: `${schemaName} Delete Cancel` });
+    // Schema Card is clicked for deletion
+    let forDeleteSchemaCard = getButton(`${schemaName} Delete Cancel`);
     expect(forDeleteSchemaCard).toBeInTheDocument();
-    expect(forDeleteSchemaCard).toHaveClass('redCard clicked');
 
-    // click Cancel Plate
-    userEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    // click Cancel Button
+    userEvent.click(getButtonWithin(forDeleteSchemaCard, 'Cancel'));
 
-    forDeleteSchemaCard = await screen.findByRole('button', { name: editedCardName });
-    expect(forDeleteSchemaCard).toBeInTheDocument();
-    expect(forDeleteSchemaCard).not.toHaveClass('clicked');
+    editedSchemaCard = getAllButtons(editedCardName);
+    expect(editedSchemaCard[0]).toBeInTheDocument();
 
     // click Schema Card for deletion again
-    userEvent.click(forDeleteSchemaCard);
+    userEvent.click(editedSchemaCard[0].firstElementChild);
 
-    // check that Schema Card is clicked for deletion
-    forDeleteSchemaCard = await screen.findByRole('button', { name: `${schemaName} Delete Cancel` });
+    // Schema Card is clicked for deletion
+    forDeleteSchemaCard = getButton(`${schemaName} Delete Cancel`);
     expect(forDeleteSchemaCard).toBeInTheDocument();
-    expect(forDeleteSchemaCard).toHaveClass('redCard clicked');
 
     // delete Schema Card
-    userEvent.click(screen.getAllByRole('button', { name: 'Delete' })[1]);
+    userEvent.click(getButtonWithin(forDeleteSchemaCard, 'Delete'));
 
-    // check that Schema Card is deleted
-    const deletedSchemaCard = await screen.findByRole('button', { name: editedCardName }).catch(()=>{});
-    expect(deletedSchemaCard).toBe(undefined);
+    await waitFor(() => {
+        expect(queryButton(editedCardName)).not.toBeInTheDocument();
+    });
 
-    // check that Add Plate is present
-    expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument();
+    // Add Button is present
+    expect(getButton('Add')).toBeInTheDocument();
 
-    // check that Edit and Delete Plates aren't displayed
-    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
+    // Edit and Delete Buttons aren't displayed
+    expect(queryButton('Edit')).not.toBeInTheDocument();
+    expect(queryButton('Delete')).not.toBeInTheDocument();
+}, 20000);
+
+test('add two schemas, delete one', async() => {
+    render(<App />);
+
+    const firstCardName  = 'Test schema name 1';
+    const secondCardName = 'Test schema name 2';
+
+
+    userEvent.click(getButton('Add'));
+
+    userEvent.type(getTextBox('Schema Name'), firstCardName);
+
+    userEvent.click(getButton('Submit'));
+
+    await waitFor(() => {
+        expect(getAllButtons(firstCardName)[0]).toBeInTheDocument();
+    });
+
+
+    userEvent.click(getButton('Add'));
+
+    userEvent.type(getTextBox('Schema Name'), secondCardName);
+
+    userEvent.click(getButton('Submit'));
+
+    const secondSchemaCard = await findAllButtons(secondCardName);
+    expect(secondSchemaCard[0]).toBeInTheDocument();
+
+    userEvent.click(getButton('Delete'));
+    userEvent.click(secondSchemaCard[0].firstElementChild);
+    userEvent.click(
+        getButtonWithin(
+            getButton(`${secondCardName} Delete Cancel`),
+            'Delete'
+        )
+    );
+
+    await waitFor(() => {
+        expect(queryButton(secondCardName)).not.toBeInTheDocument();
+    });
+
+    expect(getButton('Add')).toBeInTheDocument();
+    expect(getButton('Edit')).toBeInTheDocument();
+    expect(getButton('Delete')).toBeInTheDocument();
 });
