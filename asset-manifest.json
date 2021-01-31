@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/schemas-mui/static/css/main.42cc8b22.chunk.css",
-    "main.js": "/schemas-mui/static/js/main.4d410469.chunk.js",
-    "main.js.map": "/schemas-mui/static/js/main.4d410469.chunk.js.map",
+    "main.js": "/schemas-mui/static/js/main.ec2ce01d.chunk.js",
+    "main.js.map": "/schemas-mui/static/js/main.ec2ce01d.chunk.js.map",
     "runtime-main.js": "/schemas-mui/static/js/runtime-main.b10ee06c.js",
     "runtime-main.js.map": "/schemas-mui/static/js/runtime-main.b10ee06c.js.map",
     "static/js/2.72502b01.chunk.js": "/schemas-mui/static/js/2.72502b01.chunk.js",
     "static/js/2.72502b01.chunk.js.map": "/schemas-mui/static/js/2.72502b01.chunk.js.map",
     "index.html": "/schemas-mui/index.html",
-    "precache-manifest.c407e09789463215cfd5566f79821bb3.js": "/schemas-mui/precache-manifest.c407e09789463215cfd5566f79821bb3.js",
+    "precache-manifest.99e6347266a760ea9499abb5c81238c6.js": "/schemas-mui/precache-manifest.99e6347266a760ea9499abb5c81238c6.js",
     "service-worker.js": "/schemas-mui/service-worker.js",
     "static/css/main.42cc8b22.chunk.css.map": "/schemas-mui/static/css/main.42cc8b22.chunk.css.map",
     "static/js/2.72502b01.chunk.js.LICENSE.txt": "/schemas-mui/static/js/2.72502b01.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.b10ee06c.js",
     "static/js/2.72502b01.chunk.js",
     "static/css/main.42cc8b22.chunk.css",
-    "static/js/main.4d410469.chunk.js"
+    "static/js/main.ec2ce01d.chunk.js"
   ]
 }
