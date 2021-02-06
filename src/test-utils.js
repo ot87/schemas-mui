@@ -1,9 +1,7 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import configureAppStore from 'redux/store/configureAppStore';
 import { Provider } from 'react-redux';
-import reducer from 'redux/reducers';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 export const getByRole   = (type, name) => screen.getByRole(type, { name });
@@ -69,11 +67,7 @@ const customRender = (
     ui,
     {
         initialState = {},
-        store = createStore(
-            reducer,
-            initialState,
-            applyMiddleware(thunk)
-        ),
+        store = configureAppStore(initialState),
         ...renderOptions
     } = {}
 ) => {

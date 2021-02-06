@@ -250,7 +250,7 @@ test('create Schema, edit it and then delete', async () => {
     // Edit and Delete Buttons aren't displayed
     expect(queryButton('Edit')).not.toBeInTheDocument();
     expect(queryButton('Delete')).not.toBeInTheDocument();
-}, 20000);
+}, 40000);
 
 test('add two schemas, delete one', async() => {
     render(<App />);
@@ -295,4 +295,4 @@ test('add two schemas, delete one', async() => {
     expect(getButton('Add')).toBeInTheDocument();
     expect(getButton('Edit')).toBeInTheDocument();
     expect(getButton('Delete')).toBeInTheDocument();
-});
+}, 10000);
