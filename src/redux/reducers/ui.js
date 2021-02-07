@@ -1,5 +1,4 @@
-const SELECT_SCHEMA  = 'ui/SELECT_SCHEMA';
-const SET_MODE       = 'ui/SET_MODE';
+import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Enum for the modes of the ui.
@@ -12,24 +11,24 @@ export const UiModes = {
     DELETE: 'DELETE'
 };
 
-const ui = (
-    state = {
-        selectedSchemaId: null,
-        mode: UiModes.SHOW
-    },
-    action
-) => {
-    switch (action.type) {
-        case SELECT_SCHEMA:
-            return {...state, selectedSchemaId: action.payload.id};
-        case SET_MODE:
-            return {...state, mode: action.payload.mode};
-        default:
-            return state;
-    }
+const initialState = {
+    selectedSchemaId: null,
+    mode: UiModes.SHOW
 };
 
-export const selectSchema = (id) => ({type: SELECT_SCHEMA, payload: {id}});
-export const setMode      = (mode) => ({type: SET_MODE, payload: {mode}});
+const uiSlice = createSlice({
+    name: 'ui',
+    initialState,
+    reducers: {
+        selectSchema(state, action) {
+            state.selectedSchemaId = action.payload;
+        },
+        setMode(state, action) {
+            state.mode = action.payload;
+        }
+    }
+});
 
-export default ui;
+export const { selectSchema, setMode } = uiSlice.actions;
+
+export default uiSlice.reducer;

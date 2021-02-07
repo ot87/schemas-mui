@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 const SchemasList = ({ schemas, selectedSchemaId, selectSchema }) => {
     const classes = useStyles();
 
-    const handleChange = (event, newId) => {
+    const handleChange = (_, newId) => {
         selectSchema(newId);
     }
 

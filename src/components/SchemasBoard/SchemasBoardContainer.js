@@ -69,7 +69,7 @@ const SchemasBoard = ({
     const onDeleteClick = (id) => () => deleteSchema(id);
     const onCancelAddClick = () => setMode(UiModes.SHOW);
     const onClickResetSchema = () => selectSchema(null);
-    const selectClickedSchema = (id) => () => selectSchema(id)
+    const selectClickedSchema = (id) => () => selectSchema(id);
 
     let schemasBoard;
 
