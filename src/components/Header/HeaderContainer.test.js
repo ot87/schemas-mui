@@ -31,7 +31,7 @@ const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
     }
 };
 
-describe('HeaderContainer without "selectedSchemaId" and with "mode" = "SHOW"', () => {
+describe('HeaderContainer without "activeSchemaId" and with "mode" = "SHOW"', () => {
     test('Header is displayed with not clicked button "Schemas"', () => {
         renderHeader();
 
@@ -73,11 +73,11 @@ describe('HeaderContainer without "selectedSchemaId" and with "mode" = "SHOW"', 
     });
 });
 
-describe('HeaderContainer with "selectedSchemaId"', () => {
+describe('HeaderContainer with "activeSchemaId"', () => {
     test('"Back" button and TabList are displayed ("mode" = "SHOW")', () => {
         renderHeader({ initialState: {
             ui: {
-                selectedSchemaId: 1,
+                activeSchemaId: 1,
                 mode: UiModes.SHOW
             }
         } });
@@ -89,7 +89,7 @@ describe('HeaderContainer with "selectedSchemaId"', () => {
     test('"Schema" button is displayed when "Back" button is clicked ("mode" = "SHOW")', () => {
         renderHeader({ initialState: {
             ui: {
-                selectedSchemaId: 1,
+                activeSchemaId: 1,
                 mode: UiModes.SHOW
             }
          } });
@@ -118,11 +118,11 @@ describe('Responsiveness of HeaderContainer', () => {
         expect(getBanner().className).toContain('positionStatic');
     });
 
-    test('Header is static ("mode" = "EDIT" and "selectedSchemaId" is present)', () => {
+    test('Header is static ("mode" = "EDIT" and "activeSchemaId" is present)', () => {
         const applyJSSRules = mockStyleInjection();
         renderHeader({ initialState: {
             ui: {
-                selectedSchemaId: 1,
+                activeSchemaId: 1,
                 mode: UiModes.EDIT
             }
         } });

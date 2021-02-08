@@ -32,7 +32,7 @@ const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
 /*
   Mode is SHOW (by default),
   schemasCount is 0 as schemas is empty,
-  selectedSchemaId is null (by default)
+  activeSchemaId is null (by default)
 */
 test('"Add" CustomButton is displayed, clickable and not disabled', () => {
     const { addButton } = renderSchemasPanel();
@@ -54,7 +54,7 @@ test('"Add" CustomButton is displayed, clickable and not disabled', () => {
 /*
   Mode is SHOW (by default),
   schemasCount is 1 as schemas contains one item,
-  selectedSchemaId is null (by default)
+  activeSchemaId is null (by default)
 */
 test('"Add", "Edit" and "Delete" CustomButtons are displayed', () => {
     const { addButton, editButton, deleteButton } = renderSchemasPanel({ isStateInitial: false });
@@ -73,7 +73,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
     /*
       Mode is SHOW (by default),
       schemasCount is 1 as schemas contains one item,
-      selectedSchemaId is null (by default)
+      activeSchemaId is null (by default)
     */
     test.each`
         name1       | name2
@@ -96,7 +96,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
     /*
       Mode is EDIT or DELETE,
       schemasCount is 1 as schemas contains one item,
-      selectedSchemaId is null (by default)
+      activeSchemaId is null (by default)
     */
     test.each`
         name1       | name2       | mode
@@ -121,7 +121,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
     /*
       Mode is EDIT or DELETE,
       schemasCount is 0 as schemas is empty,
-      selectedSchemaId is null (by default)
+      activeSchemaId is null (by default)
     */
     test.each`
         name
@@ -141,7 +141,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
     /*
       Mode is SHOW (by default),
       schemasCount is 1 as schemas contains one item,
-      selectedSchemaId is null (by default)
+      activeSchemaId is null (by default)
     */
     test.each`
         name1       | name 2
@@ -171,7 +171,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
 /*
   Mode is SHOW (by default),
   schemasCount is 1 as schemas contains one item,
-  selectedSchemaId is null (by default)
+  activeSchemaId is null (by default)
 */
 describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomButtons are disabled and not clickable', () => {
     test('"Add" CustomButton is clicked', () => {
@@ -212,7 +212,7 @@ describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomB
 /*
   Mode is EDIT or DELETE,
   schemasCount is 1 as schemas contains one item,
-  selectedSchemaId is 1
+  activeSchemaId is 1
 */
 describe.each`
     clicked     | disabled1 | disabled2
@@ -226,7 +226,7 @@ describe.each`
                 isStateInitial: false,
                 initData: {
                     ui: {
-                        selectedSchemaId: 1,
+                        activeSchemaId: 1,
                         mode: UiModes[clicked.toUpperCase()]
                     }
                 }
@@ -246,7 +246,7 @@ describe.each`
                 isStateInitial: false,
                 initData: {
                     ui: {
-                        selectedSchemaId: 1,
+                        activeSchemaId: 1,
                         mode: UiModes[clicked.toUpperCase()]
                     }
                 }

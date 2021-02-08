@@ -23,7 +23,7 @@ test('SchemaList is displayed with two items and the item "Schema 1" is selected
             {id: 1, name: 'Schema 1', items: []},
             {id: 2, name: 'Schema 2', items: []}
         ],
-        ui: { selectedSchemaId: 1 }
+        ui: { activeSchemaId: 1 }
     });
     const schema1 = getTab('Schema 1');
     const schema2 = getTab('Schema 2');
@@ -44,7 +44,7 @@ test('Item "Schema 2" is selected after clicking', () => {
             {id: 1, name: 'Schema 1', items: []},
             {id: 2, name: 'Schema 2', items: []}
         ],
-        ui: { selectedSchemaId: 1 }
+        ui: { activeSchemaId: 1 }
     });
     const schema1 = getTab('Schema 1');
     const schema2 = getTab('Schema 2');

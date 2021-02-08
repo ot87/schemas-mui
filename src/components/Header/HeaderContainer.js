@@ -5,7 +5,7 @@ import CustomButton          from 'components/Common/CustomButton/CustomButton';
 import SchemasListContainer  from 'components/SchemasList/SchemasListContainer';
 import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
 
-import { selectSchema, UiModes } from 'redux/reducers/ui';
+import { setActiveSchemaId, UiModes } from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar         from '@material-ui/core/AppBar';
@@ -32,29 +32,29 @@ const useStyles = makeStyles((theme) => ({
  * @param {Object}      props
  * @param {boolean}     props.isSchemasClicked    - Indicates whether the Schemas button is clicked.
  * @param {string}      props.mode                - The current ui mode from the Redux State.
- * @param {number|null} props.selectedSchemaId    - The id of the selected schema from the Redux State.
- * @param {function}    props.selectSchema        - The dispatch function to select schema.
+ * @param {number|null} props.activeSchemaId      - The id of the selected schema from the Redux State.
+ * @param {function}    props.setActiveSchemaId   - The dispatch function to select schema.
  * @param {function}    props.setIsSchemasClicked - Set value of the isSchemasClicked.
  */
 const Header = ({
     isSchemasClicked,
     mode,
     // profile,
-    selectedSchemaId,
-    selectSchema,
+    activeSchemaId,
+    setActiveSchemaId,
     setIsSchemasClicked
 }) => {
-    const isShowSchema = selectedSchemaId && mode === UiModes.SHOW;
+    const isShowSchema = activeSchemaId && mode === UiModes.SHOW;
     const classes = useStyles({ isWrap: !isShowSchema && isSchemasClicked });
 
-    const handleBackClick = () => selectSchema(null);
+    const handleBackClick = () => setActiveSchemaId(null);
     const handleSchemasClick = () => setIsSchemasClicked(true);
 
     return (
         <AppBar
             color='inherit'
             position={(
-                mode === UiModes.ADD || (selectedSchemaId && mode === UiModes.EDIT) ?
+                mode === UiModes.ADD || (activeSchemaId && mode === UiModes.EDIT) ?
                     'static'
                 : 'sticky'
             )}
@@ -83,9 +83,9 @@ const Header = ({
 
 export default connect(
     (state) => ({
-        selectedSchemaId: state.ui.selectedSchemaId,
+        activeSchemaId: state.ui.activeSchemaId,
         mode: state.ui.mode,
         // profile: state.profile
     }),
-    { selectSchema }
+    { setActiveSchemaId }
 )(Header);

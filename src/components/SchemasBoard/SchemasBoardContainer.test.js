@@ -28,7 +28,7 @@ const renderSchemasBoard = ({ initData = {} } = {}) => {
     render(<SchemasBoardContainer />, { initialState });
 };
 
-describe('SchemasBoardContainer without "selectedSchemaId"', () => {
+describe('SchemasBoardContainer without "activeSchemaId"', () => {
     test('SchemasBoard is displayed with two Cards ("mode" = "SHOW")', () => {
         renderSchemasBoard();
 
@@ -176,10 +176,10 @@ describe('SchemasBoardContainer without "selectedSchemaId"', () => {
     });
 });
 
-describe('SchemasBoardContainer with "selectedSchemaId"', () => {
+describe('SchemasBoardContainer with "activeSchemaId"', () => {
     test('Schema is displayed ("mode" = "SHOW")', () => {
         renderSchemasBoard({
-            initData: { ui: { selectedSchemaId: 1 } }
+            initData: { ui: { activeSchemaId: 1 } }
         });
 
         const schema = getGrid();
@@ -192,7 +192,7 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    selectedSchemaId: 1,
+                    activeSchemaId: 1,
                     mode: UiModes.EDIT
                 }
             }
@@ -224,7 +224,7 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    selectedSchemaId: 1,
+                    activeSchemaId: 1,
                     mode: UiModes.EDIT
                 }
             }
@@ -241,7 +241,7 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    selectedSchemaId: 1,
+                    activeSchemaId: 1,
                     mode: UiModes.EDIT
                 }
             }
@@ -256,7 +256,7 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    selectedSchemaId: 1,
+                    activeSchemaId: 1,
                     mode: UiModes.DELETE
                 }
             }
@@ -271,7 +271,7 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    selectedSchemaId: 1,
+                    activeSchemaId: 1,
                     mode: UiModes.DELETE
                 }
             }
@@ -286,7 +286,7 @@ describe('SchemasBoardContainer with "selectedSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    selectedSchemaId: 1,
+                    activeSchemaId: 1,
                     mode: UiModes.DELETE
                 }
             }

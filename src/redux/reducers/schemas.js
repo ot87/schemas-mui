@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import API from 'api';
 
-import { selectSchema, setMode, UiModes } from './ui';
+import { setActiveSchemaId, setMode, UiModes } from './ui';
 
 const ADD_SCHEMA    = 'schemas/ADD_SCHEMA';
 const UPDATE_SCHEMA = 'schemas/UPDATE_SCHEMA';
@@ -42,13 +42,13 @@ export const updateSchema = (schema) => async (dispatch) => {
     const response = await API.updateSchema({schema});
 
     dispatch(updateSchemaSuccess(response.data));
-    dispatch(selectSchema(null));
+    dispatch(setActiveSchemaId(null));
 };
 export const deleteSchema = (id) => async (dispatch) => {
     await API.deleteSchema({id});
 
     dispatch(deleteSchemaSuccess(id));
-    dispatch(selectSchema(null));
+    dispatch(setActiveSchemaId(null));
 };
 
 

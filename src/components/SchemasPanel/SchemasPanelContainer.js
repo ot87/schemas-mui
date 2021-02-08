@@ -11,15 +11,15 @@ import Box from '@material-ui/core/Box';
 /**
  * Renders a control panel of [Buttons]{@link CustomButton} to set a mode of the ui.
  * @param {Object}      props
- * @param {string}      props.mode             - The current ui mode from the Redux State.
- * @param {number}      props.schemasCount     - The number of existing schemas.
- * @param {number|null} props.selectedSchemaId - The id of the selected schema from the Redux State.
- * @param {function}    props.setMode          - A function to set current ui mode.
+ * @param {string}      props.mode           - The current ui mode from the Redux State.
+ * @param {number}      props.schemasCount   - The number of existing schemas.
+ * @param {number|null} props.activeSchemaId - The id of the selected schema from the Redux State.
+ * @param {function}    props.setMode        - A function to set current ui mode.
  */
 const SchemasPanel = ({
     mode,
     schemasCount,
-    selectedSchemaId,
+    activeSchemaId,
     setMode
 }) => {
     const isAdd    = mode === UiModes.ADD;
@@ -31,7 +31,7 @@ const SchemasPanel = ({
     const handleDeleteClick = () => handleClick(UiModes.DELETE);
 
     const handleClick = (newMode) => {
-        if ((isEdit || isDelete) && mode === newMode && !selectedSchemaId) {
+        if ((isEdit || isDelete) && mode === newMode && !activeSchemaId) {
             setMode(UiModes.SHOW);
         } else {
             setMode(newMode);
@@ -47,7 +47,7 @@ const SchemasPanel = ({
                 type={(
                     isAdd ?
                         'clicked'
-                    : (selectedSchemaId && (isEdit || isDelete)) ?
+                    : (activeSchemaId && (isEdit || isDelete)) ?
                         'disabled'
                     : 'shown'
                 )}
@@ -59,11 +59,11 @@ const SchemasPanel = ({
                         onClick={handleEditClick}
                         text='Edit'
                         type={(
-                            (isEdit && selectedSchemaId) ?
+                            (isEdit && activeSchemaId) ?
                                 'clicked'
                             : isEdit ?
                                 'toggled'
-                            : (isAdd || (selectedSchemaId && isDelete)) ?
+                            : (isAdd || (activeSchemaId && isDelete)) ?
                                 'disabled'
                             : 'shown'
                         )}
@@ -73,11 +73,11 @@ const SchemasPanel = ({
                         onClick={handleDeleteClick}
                         text='Delete'
                         type={(
-                            (isDelete && selectedSchemaId) ?
+                            (isDelete && activeSchemaId) ?
                                 'clicked'
                             : isDelete ?
                                 'toggled'
-                            : (isAdd || (selectedSchemaId && isEdit)) ?
+                            : (isAdd || (activeSchemaId && isEdit)) ?
                                 'disabled'
                             : 'shown'
                         )}
@@ -92,7 +92,7 @@ export default connect(
     (state) => ({
         mode: state.ui.mode,
         schemasCount: getSchemasCount(state),
-        selectedSchemaId: state.ui.selectedSchemaId
+        activeSchemaId: state.ui.activeSchemaId
     }),
     { setMode }
 )(SchemasPanel);

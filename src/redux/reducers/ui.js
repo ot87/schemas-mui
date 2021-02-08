@@ -12,7 +12,7 @@ export const UiModes = {
 };
 
 const initialState = {
-    selectedSchemaId: null,
+    activeSchemaId: null,
     mode: UiModes.SHOW
 };
 
@@ -20,8 +20,8 @@ const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        selectSchema(state, action) {
-            state.selectedSchemaId = action.payload;
+        setActiveSchemaId(state, action) {
+            state.activeSchemaId = action.payload;
         },
         setMode(state, action) {
             state.mode = action.payload;
@@ -29,6 +29,6 @@ const uiSlice = createSlice({
     }
 });
 
-export const { selectSchema, setMode } = uiSlice.actions;
+export const { setActiveSchemaId, setMode } = uiSlice.actions;
 
 export default uiSlice.reducer;
