@@ -5,7 +5,7 @@ import Grid           from '@material-ui/core/Grid';
 import Paper          from '@material-ui/core/Paper';
 import useMediaQuery  from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
         textAlign: 'center'
@@ -38,12 +38,12 @@ const Schema = ({ schema }) => {
             justify='center'
             spacing={xsScreen ? 2 : 3}
         >
-            <Grid item xs={6}>
+            <Grid item xs={7}>
                 <Paper className={classes.paper}>
                     {schema.name}
                 </Paper>
             </Grid>
-            {typeof schema.description !== 'undefined' ?
+            {schema.description !== '' ?
                 <Grid item xs={11} sm={10} md={9}>
                     <Paper className={classes.paper}>
                         {schema.description}
@@ -70,7 +70,7 @@ const Schema = ({ schema }) => {
                             {item.quantity}
                         </Paper>
                     </Grid>
-                    {typeof item.time !== 'undefined' ?
+                    {item.time !== '' ?
                         <Grid item xs={12} md={4}>
                             <Paper className={classes.paper}>
                                 {item.time}

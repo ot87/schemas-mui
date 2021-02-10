@@ -11,7 +11,10 @@ const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
     if (isStateInitial) {
         render(<SchemasPanelContainer />);
     } else {
-        let initialState = { schemas: [{id: 1, name: 'schema 1', items: []}] };
+        let initialState = { schemas: {
+            ids: [ 1 ],
+            entities: { 1: { id: 1, name: 'schema 1', items: [] } }
+        }};
         if (Object.keys(initData).length) {
             initialState = {
                 ...initialState,

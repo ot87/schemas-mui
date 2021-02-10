@@ -4,8 +4,25 @@ import userEvent from '@testing-library/user-event';
 
 import SchemasListContainer from './SchemasListContainer';
 
-const renderSchemasList = (initialState = {}) => {
-    render(<SchemasListContainer />, { initialState });
+const renderSchemasList = ({ isStateInitial = true, initData = {} } = {}) => {
+    if (isStateInitial) {
+        render(<SchemasListContainer />);
+    } else {
+        let initialState = { schemas: {
+            ids: [ 1, 2 ],
+            entities: {
+                1: {id: 1, name: 'Schema 1', items: []},
+                2: {id: 2, name: 'Schema 2', items: []}
+            }
+        }};
+        if (Object.keys(initData).length) {
+            initialState = {
+                ...initialState,
+                ...initData
+            };
+        }
+        render(<SchemasListContainer />, { initialState });
+    }
 
     return getTabList();
 };
@@ -19,11 +36,8 @@ test('An empty SchemaList is displayed', () => {
 
 test('SchemaList is displayed with two items and the item "Schema 1" is selected', () => {
     const schemasList = renderSchemasList({
-        schemas: [
-            {id: 1, name: 'Schema 1', items: []},
-            {id: 2, name: 'Schema 2', items: []}
-        ],
-        ui: { activeSchemaId: 1 }
+        isStateInitial: false,
+        initData: { ui: { activeSchemaId: 1 } }
     });
     const schema1 = getTab('Schema 1');
     const schema2 = getTab('Schema 2');
@@ -40,11 +54,8 @@ test('SchemaList is displayed with two items and the item "Schema 1" is selected
 
 test('Item "Schema 2" is selected after clicking', () => {
     renderSchemasList({
-        schemas: [
-            {id: 1, name: 'Schema 1', items: []},
-            {id: 2, name: 'Schema 2', items: []}
-        ],
-        ui: { activeSchemaId: 1 }
+        isStateInitial: false,
+        initData: { ui: { activeSchemaId: 1 } }
     });
     const schema1 = getTab('Schema 1');
     const schema2 = getTab('Schema 2');

@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField      from '@material-ui/core/TextField';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     textfield: {
         backgroundColor: theme.palette.background.paper
     }
@@ -38,9 +38,10 @@ const FormField = ({
     validate
 }) => {
     const classes = useStyles();
+    const identity = value => value;
 
     return (
-        <Field name={name} type='text' validate={validate}>
+        <Field name={name} type='text' validate={validate} parse={identity}>
             {({ input, meta }) => (
                 <TextField
                     className={classes.textfield}

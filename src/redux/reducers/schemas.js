@@ -1,64 +1,66 @@
-import { createSelector } from 'reselect';
+import {
+    createSlice,
+    createSelector,
+    createAsyncThunk,
+    createEntityAdapter
+} from '@reduxjs/toolkit';
 
 import API from 'api';
 
-import { setActiveSchemaId, setMode, UiModes } from './ui';
+const schemasAdapter = createEntityAdapter();
 
-const ADD_SCHEMA    = 'schemas/ADD_SCHEMA';
-const UPDATE_SCHEMA = 'schemas/UPDATE_SCHEMA';
-const DELETE_SCHEMA = 'schemas/DELETE_SCHEMA';
-
-const schemas = (state = [], action) => {
-    switch (action.type) {
-        case ADD_SCHEMA:
-            return [...state, action.payload.schema];
-        case UPDATE_SCHEMA:
-            return state.map((schema) => {
-                if (schema.id === action.payload.schema.id) {
-                    return action.payload.schema;
-                }
-
-                return schema;
-            });
-        case DELETE_SCHEMA:
-            return state.filter((schema) => schema.id !== action.payload.id);
-        default:
-            return state;
+export const loadSchemas = createAsyncThunk(
+    'schemas/loadSchemas',
+    async () => {
+        const response = await API.loadSchemas();
+        return response.data;
     }
-};
+);
 
-const addSchemaSuccess = (schema) => ({type: ADD_SCHEMA, payload: {schema}});
-const updateSchemaSuccess = (schema) => ({type: UPDATE_SCHEMA, payload: {schema}});
-const deleteSchemaSuccess = (id) => ({type: DELETE_SCHEMA, payload: {id}});
+export const addSchema = createAsyncThunk(
+    'schemas/addSchema',
+    async (schema) => {
+        const response = await API.addSchema(schema);
+        return response.data;
+    }
+);
 
+export const updateSchema = createAsyncThunk(
+    'schemas/updateSchema',
+    async (schema) => {
+        const response = await API.updateSchema(schema);
+        return response.data;
+    }
+);
 
-export const addSchema = (schema) => async (dispatch) => {
-    const response = await API.addSchema({schema});
+export const deleteSchema = createAsyncThunk(
+    'schemas/deleteSchema',
+    async (id) => {
+        const response = await API.deleteSchema(id);
+        return response.data;
+    }
+);
 
-    dispatch(addSchemaSuccess(response.data));
-    dispatch(setMode(UiModes.SHOW));
-};
-export const updateSchema = (schema) => async (dispatch) => {
-    const response = await API.updateSchema({schema});
+const schemasSlice = createSlice({
+    name: 'schemas',
+    initialState: schemasAdapter.getInitialState(),
+    reducers: {},
+    extraReducers: {
+        [loadSchemas.fulfilled]:  schemasAdapter.setAll,
+        [addSchema.fulfilled]:    schemasAdapter.addOne,
+        [updateSchema.fulfilled]: schemasAdapter.upsertOne,
+        [deleteSchema.fulfilled]: schemasAdapter.removeOne
+    }
+});
 
-    dispatch(updateSchemaSuccess(response.data));
-    dispatch(setActiveSchemaId(null));
-};
-export const deleteSchema = (id) => async (dispatch) => {
-    await API.deleteSchema({id});
+export default schemasSlice.reducer;
 
-    dispatch(deleteSchemaSuccess(id));
-    dispatch(setActiveSchemaId(null));
-};
-
+export const {
+    selectAll:   selectSchemas,
+    selectTotal: selectSchemasCount
+} = schemasAdapter.getSelectors(state => state.schemas);
 
 export const selectSchemasForSchemasList = createSelector(
-    (state) => state.schemas,
-    (schemas) => schemas.map(({ id, name }) => ({ id, name }))
+    selectSchemas,
+    schemas => schemas.map(({ id, name }) => ({ id, name }))
 );
-export const getSchemasCount = createSelector(
-    (state) => state.schemas,
-    (schemas) => schemas.length
-);
-
-export default schemas;

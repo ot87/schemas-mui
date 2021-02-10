@@ -6,13 +6,18 @@ import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithBu
 import Schema                from 'components/Schema/Schema';
 import SchemaFormContainer   from 'components/SchemaForm/SchemaFormContainer';
 
-import { addSchema, updateSchema, deleteSchema } from 'redux/reducers/schemas';
-import { setActiveSchemaId, setMode, UiModes }   from 'redux/reducers/ui';
+import {
+    addSchema,
+    updateSchema,
+    deleteSchema,
+    selectSchemas
+} from 'redux/reducers/schemas';
+import { setActiveSchemaId, setMode, UiModes } from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box            from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         rowGap: '3vh',
         [theme.breakpoints.down('sm')]: {
@@ -66,10 +71,10 @@ const SchemasBoard = ({
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
 
-    const onDeleteClick = (id) => () => deleteSchema(id);
-    const onCancelAddClick = () => setMode(UiModes.SHOW);
-    const onClickResetSchema = () => setActiveSchemaId(null);
-    const selectClickedSchema = (id) => () => setActiveSchemaId(id);
+    const onDeleteClick       = id => () => deleteSchema(id);
+    const onCancelAddClick    = () => setMode(UiModes.SHOW);
+    const onClickResetSchema  = () => setActiveSchemaId(null);
+    const selectClickedSchema = id => () => setActiveSchemaId(id);
 
     let schemasBoard;
 
@@ -88,7 +93,7 @@ const SchemasBoard = ({
                     flexWrap='wrap'
                     justifyContent='space-evenly'
                 >
-                    {schemas.map((schema) => (
+                    {schemas.map(schema => (
                         <CustomCardWithButtons
                             buttons={({
                                 first: {
@@ -101,7 +106,7 @@ const SchemasBoard = ({
                                 }
                             })}
                             cardIsClicked={schema.id === activeSchemaId}
-                            content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
+                            content={schema.items.map(item => <div key={item.id}>{item.name}</div>)}
                             key={schema.id}
                             name={schema.name}
                             onClick={selectClickedSchema(schema.id)}
@@ -117,7 +122,11 @@ const SchemasBoard = ({
     } else {
         if (isAdd) {
             schemasBoard = <SchemaFormContainer
-                schema={{items: []}}
+                schema={{
+                    name: '',
+                    description: '',
+                    items: []
+                }}
                 onSubmit={addSchema}
                 onCancel={onCancelAddClick}
             />;
@@ -137,10 +146,10 @@ const SchemasBoard = ({
                     flexWrap='wrap'
                     justifyContent='space-evenly'
                 >
-                    {schemas.map((schema) => (
+                    {schemas.map(schema => (
                         <CustomCard
                             colorTheme={cardColorTheme}
-                            content={schema.items.map((item) => <div key={item.id}>{item.name}</div>)}
+                            content={schema.items.map(item => <div key={item.id}>{item.name}</div>)}
                             key={schema.id}
                             name={schema.name}
                             onClick={selectClickedSchema(schema.id)}
@@ -155,8 +164,8 @@ const SchemasBoard = ({
 }
 
 export default connect(
-    (state) => ({
-        schemas: state.schemas,
+    state => ({
+        schemas: selectSchemas(state),
         activeSchemaId: state.ui.activeSchemaId,
         mode: state.ui.mode
     }),

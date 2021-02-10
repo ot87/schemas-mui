@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
 
-import { setMode, UiModes} from 'redux/reducers/ui';
-import { getSchemasCount } from 'redux/reducers/schemas';
+import { setMode, UiModes}    from 'redux/reducers/ui';
+import { selectSchemasCount } from 'redux/reducers/schemas';
 
 import Box from '@material-ui/core/Box';
 
@@ -26,11 +26,11 @@ const SchemasPanel = ({
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
 
-    const handleAddClick = () => setMode(UiModes.ADD);
-    const handleEditClick = () => handleClick(UiModes.EDIT);
+    const handleAddClick    = () => setMode(UiModes.ADD);
+    const handleEditClick   = () => handleClick(UiModes.EDIT);
     const handleDeleteClick = () => handleClick(UiModes.DELETE);
 
-    const handleClick = (newMode) => {
+    const handleClick = newMode => {
         if ((isEdit || isDelete) && mode === newMode && !activeSchemaId) {
             setMode(UiModes.SHOW);
         } else {
@@ -89,9 +89,9 @@ const SchemasPanel = ({
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         mode: state.ui.mode,
-        schemasCount: getSchemasCount(state),
+        schemasCount: selectSchemasCount(state),
         activeSchemaId: state.ui.activeSchemaId
     }),
     { setMode }

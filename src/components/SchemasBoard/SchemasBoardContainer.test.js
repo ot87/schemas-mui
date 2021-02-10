@@ -14,11 +14,13 @@ import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
 const renderSchemasBoard = ({ initData = {} } = {}) => {
-    let initialState = {
-        schemas: [
-            {id: 1, name: 'Schema 1', items: [{ id: 1, name: '2', quantity: '3' }]},
-            {id: 2, name: 'Schema 2', items: []}
-        ] };
+    let initialState = { schemas: {
+        ids: [ 1, 2 ],
+        entities: {
+            1: {id: 1, name: 'Schema 1', items: [{ id: 1, name: '2', quantity: '3' }]},
+            2: {id: 2, name: 'Schema 2', items: []}
+        }
+    }};
     if (Object.keys(initData).length) {
         initialState = {
             ...initialState,

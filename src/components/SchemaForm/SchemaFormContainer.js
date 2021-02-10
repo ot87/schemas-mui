@@ -1,4 +1,5 @@
-import React from 'react';
+import React      from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 
 import { Form }      from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
@@ -14,7 +15,7 @@ import Box            from '@material-ui/core/Box';
 import Grid           from '@material-ui/core/Grid';
 import useMediaQuery  from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         flexDirection: 'row',
         [theme.breakpoints.down('sm')]: {
@@ -64,21 +65,14 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
         { removeOnClick, removeAllOnClick, onItemsRowClick }
     ] = useRemoveItems();
 
-    const addOnClick = (push, items) => {
+    const addOnClick = push => {
         push(
             'items',
-            {
-                id: (
-                    items.length ?
-                        items[items.length - 1].id + 1
-                    : 1
-                ),
-                name: '', quantity: '', time: ''
-            }
+            { id: nanoid(), name: '', quantity: '', time: '' }
         );
     };
 
-    const required = (value) => !value;
+    const required = value => !value;
 
     return (
         <Form
@@ -122,7 +116,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                                     isRemoveClicked={isRemoveClicked}
                                     showRemove={!!values.items.length}
                                     isRemoveAllClicked={isRemoveAllClicked}
-                                    addOnClick={() => addOnClick(push, values.items)}
+                                    addOnClick={() => addOnClick(push)}
                                     removeOnClick={() => removeOnClick(removeBatch)}
                                     removeAllOnClick={() => removeAllOnClick(values.items)}
                                 />
@@ -136,7 +130,7 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
                             justify='center'
                             spacing={xsScreen ? 2 : 3}
                         >
-                            <Grid item xs={6}>
+                            <Grid item xs={7}>
                                 <FormField
                                     disabled={isRemoveClicked}
                                     label='Schema Name'

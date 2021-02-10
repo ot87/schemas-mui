@@ -243,13 +243,6 @@ test('create Schema, edit it and then delete', async () => {
     await waitFor(() => {
         expect(queryButton(editedCardName)).not.toBeInTheDocument();
     });
-
-    // Add Button is present
-    expect(getButton('Add')).toBeInTheDocument();
-
-    // Edit and Delete Buttons aren't displayed
-    expect(queryButton('Edit')).not.toBeInTheDocument();
-    expect(queryButton('Delete')).not.toBeInTheDocument();
 }, 40000);
 
 test('add two schemas, delete one', async() => {

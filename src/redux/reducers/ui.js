@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { addSchema, updateSchema, deleteSchema } from './schemas';
+
 /**
  * Enum for the modes of the ui.
  * @enum {string}
@@ -25,6 +27,17 @@ const uiSlice = createSlice({
         },
         setMode(state, action) {
             state.mode = action.payload;
+        }
+    },
+    extraReducers: {
+        [addSchema.fulfilled]: (state) => {
+            state.mode = UiModes.SHOW;
+        },
+        [updateSchema.fulfilled]: (state) => {
+            state.activeSchemaId = null;
+        },
+        [deleteSchema.fulfilled]: (state) => {
+            state.activeSchemaId = null;
         }
     }
 });

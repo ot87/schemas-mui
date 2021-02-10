@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+
+import API from 'api';
+import { loadSchemas } from 'redux/reducers/schemas';
 
 import HeaderContainer  from 'components/Header/HeaderContainer';
 import ContentContainer from 'components/Content/ContentContainer';
@@ -8,7 +12,7 @@ import Container      from '@material-ui/core/Container';
 import Box            from '@material-ui/core/Box';
 import grey           from '@material-ui/core/colors/grey';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         minHeight: '100vh',
         backgroundColor: grey[50]
@@ -21,10 +25,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const App = () => {
+const App = ({ loadSchemas }) => {
     const classes = useStyles();
     // TODO isSchemasClicked is set true while profile isn't available
     const [isSchemasClicked, setIsSchemasClicked] = useState(true);
+
+    useEffect(() => {
+        // TODO demo profile
+        API.init('Profile 1');
+        loadSchemas();
+    }, [loadSchemas]);
 
     return (
         <Container className={classes.gutters}>
@@ -39,4 +49,7 @@ const App = () => {
     );
 };
 
-export default App;
+export default connect(
+    null,
+    { loadSchemas }
+)(App);
