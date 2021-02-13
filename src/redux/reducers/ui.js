@@ -13,7 +13,7 @@ export const UiModes = {
     DELETE: 'DELETE'
 };
 
-const initialState = {
+export const initialState = {
     activeSchemaId: null,
     mode: UiModes.SHOW
 };
@@ -45,3 +45,6 @@ const uiSlice = createSlice({
 export const { setActiveSchemaId, setMode } = uiSlice.actions;
 
 export default uiSlice.reducer;
+
+export const selectActiveSchemaId = (state) => state.ui.activeSchemaId;
+export const selectMode = (state) => state.ui.mode;
