@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import API from 'api';
 import { loadSchemas } from 'redux/reducers/schemas';
@@ -25,16 +25,17 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const App = ({ loadSchemas }) => {
-    const classes = useStyles();
+const App = () => {
+    const classes  = useStyles();
+    const dispatch = useDispatch();
     // TODO isSchemasClicked is set true while profile isn't available
     const [isSchemasClicked, setIsSchemasClicked] = useState(true);
 
     useEffect(() => {
         // TODO demo profile
         API.init('Profile 1');
-        loadSchemas();
-    }, [loadSchemas]);
+        dispatch(loadSchemas());
+    }, [dispatch]);
 
     return (
         <Container className={classes.gutters}>
@@ -49,7 +50,4 @@ const App = ({ loadSchemas }) => {
     );
 };
 
-export default connect(
-    null,
-    { loadSchemas }
-)(App);
+export default App;
