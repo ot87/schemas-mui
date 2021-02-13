@@ -6,13 +6,13 @@ import ui, {
     selectActiveSchemaId,
     selectMode
 } from './ui';
-import { addSchema, updateSchema, deleteSchema } from 'redux/reducers/schemas';
+import { addSchema, updateSchema, deleteSchema } from './schemas';
 import configureAppStore from 'redux/store/configureAppStore';
 import API from 'api';
 
 jest.mock('api');
 
-describe('ui slice case reducers and selectors', () => {
+describe('ui slice', () => {
     it('should handle initial state', () => {
         expect(ui(undefined, {})).toEqual(initialState);
     });

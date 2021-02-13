@@ -41,9 +41,11 @@ export const deleteSchema = createAsyncThunk(
     }
 );
 
+export const initialState = schemasAdapter.getInitialState();
+
 const schemasSlice = createSlice({
     name: 'schemas',
-    initialState: schemasAdapter.getInitialState(),
+    initialState,
     reducers: {},
     extraReducers: {
         [loadSchemas.fulfilled]:  schemasAdapter.setAll,
