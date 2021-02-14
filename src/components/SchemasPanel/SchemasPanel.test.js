@@ -2,14 +2,14 @@ import React from 'react';
 import { render, getButton, queryButton } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemasPanelContainer from './SchemasPanelContainer';
-import { UiModes }           from 'redux/reducers/ui';
+import SchemasPanel from './SchemasPanel';
+import { UiModes }  from 'redux/reducers/ui';
 
 const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
     let buttons = {};
 
     if (isStateInitial) {
-        render(<SchemasPanelContainer />);
+        render(<SchemasPanel />);
     } else {
         let initialState = { schemas: {
             ids: [ 1 ],
@@ -21,7 +21,7 @@ const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
                 ...initData
             };
         }
-        render(<SchemasPanelContainer />, { initialState });
+        render(<SchemasPanel />, { initialState });
 
         buttons['editButton']   = getButton('Edit');
         buttons['deleteButton'] = getButton('Delete');

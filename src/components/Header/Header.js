@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
 import SchemasList  from 'components/SchemasList/SchemasList';
-import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
+import SchemasPanel from 'components/SchemasPanel/SchemasPanel';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar         from '@material-ui/core/AppBar';
@@ -66,7 +66,7 @@ const Header = ({
                 {isShowSchema ?
                     <SchemasList />
                 : isSchemasClicked ?
-                    <SchemasPanelContainer />
+                    <SchemasPanel />
                 : <div />}
                 {/* TODO <Plate text={profile.name} onClick={() => setContent(profile)} /> */}
             </Toolbar>
