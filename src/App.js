@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import API from 'api';
 import { loadSchemas } from 'redux/reducers/schemas';
 
-import HeaderContainer  from 'components/Header/HeaderContainer';
+import Header from 'components/Header';
 import ContentContainer from 'components/Content/ContentContainer';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,7 +40,7 @@ const App = () => {
     return (
         <Container className={classes.gutters}>
             <Box display='flex' flexDirection='column' className={classes.root}>
-                <HeaderContainer
+                <Header
                     isSchemasClicked={isSchemasClicked}
                     setIsSchemasClicked={setIsSchemasClicked}
                 />

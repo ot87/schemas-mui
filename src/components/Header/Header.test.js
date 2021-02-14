@@ -5,8 +5,8 @@ import {
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import HeaderContainer from './HeaderContainer';
-import { UiModes }     from 'redux/reducers/ui';
+import Header from '.';
+import { UiModes } from 'redux/reducers/ui';
 
 const getBanner = (name) => getByRole('banner', name);
 
@@ -17,7 +17,7 @@ const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
         setIsSchemasClicked: setIsSchemasClickedHandler
     };
     const { rerender } = render(
-        <HeaderContainer {...initProps} {...renderProps}/>,
+        <Header {...initProps} {...renderProps}/>,
         Object.keys(initialState).length ?
             { initialState }
         : undefined
@@ -26,12 +26,12 @@ const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
     return {
         setIsSchemasClickedHandler,
         rerenderHeader: (rerenderProps) => {
-            rerender(<HeaderContainer {...initProps} {...rerenderProps}/>);
+            rerender(<Header {...initProps} {...rerenderProps}/>);
         }
     }
 };
 
-describe('HeaderContainer without "activeSchemaId" and with "mode" = "SHOW"', () => {
+describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
     test('Header is displayed with not clicked button "Schemas"', () => {
         renderHeader();
 
@@ -73,7 +73,7 @@ describe('HeaderContainer without "activeSchemaId" and with "mode" = "SHOW"', ()
     });
 });
 
-describe('HeaderContainer with "activeSchemaId"', () => {
+describe('Header with "activeSchemaId"', () => {
     test('"Back" button and TabList are displayed ("mode" = "SHOW")', () => {
         renderHeader({ initialState: {
             ui: {
@@ -101,7 +101,7 @@ describe('HeaderContainer with "activeSchemaId"', () => {
     });
 });
 
-describe('Responsiveness of HeaderContainer', () => {
+describe('Responsiveness of Header', () => {
     test('Header is sticky ("mode" = "SHOW")', () => {
         const applyJSSRules = mockStyleInjection();
         renderHeader({ initialState: { ui: { mode: UiModes.SHOW } } });
