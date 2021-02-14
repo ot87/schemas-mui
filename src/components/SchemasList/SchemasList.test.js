@@ -2,11 +2,11 @@ import React from 'react';
 import { render, getTabList, getTab } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemasListContainer from './SchemasListContainer';
+import SchemasList from './SchemasList';
 
 const renderSchemasList = ({ isStateInitial = true, initData = {} } = {}) => {
     if (isStateInitial) {
-        render(<SchemasListContainer />);
+        render(<SchemasList />);
     } else {
         let initialState = { schemas: {
             ids: [ 1, 2 ],
@@ -21,7 +21,7 @@ const renderSchemasList = ({ isStateInitial = true, initData = {} } = {}) => {
                 ...initData
             };
         }
-        render(<SchemasListContainer />, { initialState });
+        render(<SchemasList />, { initialState });
     }
 
     return getTabList();

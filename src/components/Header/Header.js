@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CustomButton          from 'components/Common/CustomButton/CustomButton';
-import SchemasListContainer  from 'components/SchemasList/SchemasListContainer';
+import CustomButton from 'components/Common/CustomButton/CustomButton';
+import SchemasList  from 'components/SchemasList/SchemasList';
 import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar         from '@material-ui/core/AppBar';
 import Toolbar        from '@material-ui/core/Toolbar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     toolbar: {
         flexWrap: ({ isWrap }) => isWrap ? 'wrap' : 'nowrap',
         justifyContent: 'space-between',
@@ -64,7 +64,7 @@ const Header = ({
                     )}
                 />
                 {isShowSchema ?
-                    <SchemasListContainer />
+                    <SchemasList />
                 : isSchemasClicked ?
                     <SchemasPanelContainer />
                 : <div />}

@@ -1,6 +1,5 @@
 import {
     createSlice,
-    createSelector,
     createAsyncThunk,
     createEntityAdapter
 } from '@reduxjs/toolkit';
@@ -61,8 +60,3 @@ export const {
     selectAll:   selectSchemas,
     selectTotal: selectSchemasCount
 } = schemasAdapter.getSelectors(state => state.schemas);
-
-export const selectSchemasForSchemasList = createSelector(
-    selectSchemas,
-    schemas => schemas.map(({ id, name }) => ({ id, name }))
-);
