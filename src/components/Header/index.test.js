@@ -40,14 +40,6 @@ describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
         expect(schemasButton.className).not.toContain('clicked');
     });
 
-    test('Header is displayed with the second empty element', () => {
-        renderHeader();
-
-        const nextToButton = getButton('Schemas').nextElementSibling;
-        expect(nextToButton).toBeInTheDocument();
-        expect(nextToButton).toBeEmptyDOMElement();
-    });
-
     test('Header is displayed with clicked button "Schemas" and "Add" button', () => {
         renderHeader({ renderProps: { isSchemasClicked: true } });
 

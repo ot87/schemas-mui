@@ -1,11 +1,9 @@
-import React       from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import CustomButton          from 'components/Common/CustomButton/CustomButton';
 import SchemasListContainer  from 'components/SchemasList/SchemasListContainer';
 import SchemasPanelContainer from 'components/SchemasPanel/SchemasPanelContainer';
-
-import { setActiveSchemaId, UiModes } from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar         from '@material-ui/core/AppBar';
@@ -17,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         padding: theme.spacing(1),
         [theme.breakpoints.down('xs')]: {
-          paddingLeft: 0,
-          paddingRight: 0
+            paddingLeft: 0,
+            paddingRight: 0
         }
     },
     button: {
@@ -27,49 +25,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
+ * Callback for events handling.
+ * @callback EventHandlerFunction
+ */
+
+/**
  * Header component with control buttons.
  * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasList]{@link SchemasList} or the control [SchemasPanel]{@link SchemasPanel}.
- * @param {Object}      props
- * @param {boolean}     props.isSchemasClicked    - Indicates whether the Schemas button is clicked.
- * @param {string}      props.mode                - The current ui mode from the Redux State.
- * @param {number|null} props.activeSchemaId      - The id of the selected schema from the Redux State.
- * @param {function}    props.setActiveSchemaId   - The dispatch function to select schema.
- * @param {function}    props.setIsSchemasClicked - Set value of the isSchemasClicked.
+ * @param {Object}               props
+ * @param {'static'|'sticky'}    props.appBarPosition    - AppBar position.
+ * @param {boolean}              props.isShowSchema      - The specific schema is shown.
+ * @param {boolean}              props.isSchemasClicked  - Indicates whether the Schemas button is clicked.
+ * @param {EventHandlerFunction} props.handleButtonClick - A click handler of the left button.
  */
 const Header = ({
+    appBarPosition,
+    isShowSchema,
     isSchemasClicked,
-    mode,
-    // profile,
-    activeSchemaId,
-    setActiveSchemaId,
-    setIsSchemasClicked
+    handleButtonClick
 }) => {
-    const isShowSchema = activeSchemaId && mode === UiModes.SHOW;
     const classes = useStyles({ isWrap: !isShowSchema && isSchemasClicked });
-
-    const handleBackClick = () => setActiveSchemaId(null);
-    const handleSchemasClick = () => setIsSchemasClicked(true);
 
     return (
         <AppBar
             color='inherit'
-            position={(
-                mode === UiModes.ADD || (activeSchemaId && mode === UiModes.EDIT) ?
-                    'static'
-                : 'sticky'
-            )}
+            position={appBarPosition}
         >
             <Toolbar className={classes.toolbar}>
-                {isShowSchema ?
-                    <CustomButton
-                        onClick={handleBackClick}
-                        text='Back'
-                    />
-                : <CustomButton
-                    onClick={handleSchemasClick}
-                    text='Schemas'
-                    type={isSchemasClicked ? 'clicked' : 'shown'}
-                />}
+                <CustomButton
+                    onClick={handleButtonClick}
+                    text={(isShowSchema ? 'Back' : 'Schemas')}
+                    type={(
+                        isShowSchema ?
+                            null
+                        : isSchemasClicked ?
+                            'clicked'
+                        : 'shown'
+                    )}
+                />
                 {isShowSchema ?
                     <SchemasListContainer />
                 : isSchemasClicked ?
@@ -81,11 +74,11 @@ const Header = ({
     );
 };
 
-export default connect(
-    (state) => ({
-        activeSchemaId: state.ui.activeSchemaId,
-        mode: state.ui.mode,
-        // profile: state.profile
-    }),
-    { setActiveSchemaId }
-)(Header);
+Header.propTypes = {
+    appBarPosition:    PropTypes.oneOf(['sticky', 'static']).isRequired,
+    isShowSchema:      PropTypes.bool.isRequired,
+    isSchemasClicked:  PropTypes.bool.isRequired,
+    handleButtonClick: PropTypes.func.isRequired
+};
+
+export default Header;

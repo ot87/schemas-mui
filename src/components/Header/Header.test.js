@@ -1,37 +1,33 @@
 import React from 'react';
 import {
     render, mockStyleInjection,
-    getByRole, getTabList, getButton, queryButton
+    getByRole, getButton
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import Header from '.';
-import { UiModes } from 'redux/reducers/ui';
+import Header from './Header';
 
 const getBanner = (name) => getByRole('banner', name);
 
-const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
-    const setIsSchemasClickedHandler = jest.fn();
-    const initProps = {
-        isSchemasClicked: false,
-        setIsSchemasClicked: setIsSchemasClickedHandler
-    };
-    const { rerender } = render(
-        <Header {...initProps} {...renderProps}/>,
-        Object.keys(initialState).length ?
-            { initialState }
-        : undefined
+const renderHeader = (renderProps = {}) => {
+    const handleButtonClick = jest.fn();
+
+    render(
+        <Header
+            appBarPosition='sticky'
+            isShowSchema={false}
+            isSchemasClicked={false}
+            handleButtonClick={handleButtonClick}
+            {...renderProps}
+        />
     );
 
     return {
-        setIsSchemasClickedHandler,
-        rerenderHeader: (rerenderProps) => {
-            rerender(<Header {...initProps} {...rerenderProps}/>);
-        }
+        handleButtonClick
     }
 };
 
-describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
+describe('Header with "false" properties', () => {
     test('Header is displayed with not clicked button "Schemas"', () => {
         renderHeader();
 
@@ -48,84 +44,42 @@ describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
         expect(nextToButton).toBeEmptyDOMElement();
     });
 
-    test('Header is displayed with clicked button "Schemas" and "Add" button', () => {
-        renderHeader({ renderProps: { isSchemasClicked: true } });
-
-        const schemasButton = getButton('Schemas');
-        expect(schemasButton).toBeInTheDocument();
-        expect(schemasButton.className).toContain('clicked');
-
-        expect(getButton('Add')).toBeInTheDocument();
-    });
-
-    test('"Schemas" button is clickable with "true" argument and rerenders', () => {
-        const { setIsSchemasClickedHandler, rerenderHeader } = renderHeader();
+    test('Handler handleButtonClick is called', () => {
+        const { handleButtonClick } = renderHeader();
 
         userEvent.click(getButton('Schemas'));
-        expect(setIsSchemasClickedHandler).toBeCalled();
-        expect(setIsSchemasClickedHandler).toBeCalledWith(true);
-
-        rerenderHeader({ isSchemasClicked: true });
-
-        const schemasButton = getButton('Schemas');
-        expect(schemasButton).toBeInTheDocument();
-        expect(schemasButton.className).toContain('clicked');
+        expect(handleButtonClick).toBeCalled();
     });
 });
 
-describe('Header with "activeSchemaId"', () => {
-    test('"Back" button and TabList are displayed ("mode" = "SHOW")', () => {
-        renderHeader({ initialState: {
-            ui: {
-                activeSchemaId: 1,
-                mode: UiModes.SHOW
-            }
-        } });
+describe('Header with "true" properties', () => {
+    test('Header is displayed with "Back" button', () => {
+        renderHeader({ isShowSchema: true });
 
         expect(getButton('Back')).toBeInTheDocument();
-        expect(getTabList()).toBeInTheDocument();
     });
 
-    test('"Schema" button is displayed when "Back" button is clicked ("mode" = "SHOW")', () => {
-        renderHeader({ initialState: {
-            ui: {
-                activeSchemaId: 1,
-                mode: UiModes.SHOW
-            }
-         } });
+    test('Header is displayed with clicked button "Schemas"', () => {
+        renderHeader({ isSchemasClicked: true });
 
-        userEvent.click(getButton('Back'));
-
-        expect(queryButton('Back')).not.toBeInTheDocument();
-        expect(getButton('Schemas')).toBeInTheDocument();
+        const schemasButton = getButton('Schemas');
+        expect(schemasButton).toBeInTheDocument();
+        expect(schemasButton.className).toContain('clicked');
     });
 });
 
 describe('Responsiveness of Header', () => {
-    test('Header is sticky ("mode" = "SHOW")', () => {
+    test('Header is sticky', () => {
         const applyJSSRules = mockStyleInjection();
-        renderHeader({ initialState: { ui: { mode: UiModes.SHOW } } });
+        renderHeader();
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionSticky');
     });
 
-    test('Header is static ("mode" = "ADD")', () => {
+    test('Header is static', () => {
         const applyJSSRules = mockStyleInjection();
-        renderHeader({ initialState: { ui: { mode: UiModes.ADD } } });
-        applyJSSRules();
-
-        expect(getBanner().className).toContain('positionStatic');
-    });
-
-    test('Header is static ("mode" = "EDIT" and "activeSchemaId" is present)', () => {
-        const applyJSSRules = mockStyleInjection();
-        renderHeader({ initialState: {
-            ui: {
-                activeSchemaId: 1,
-                mode: UiModes.EDIT
-            }
-        } });
+        renderHeader({ appBarPosition: 'static' });
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionStatic');
