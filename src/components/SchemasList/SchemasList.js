@@ -18,10 +18,10 @@ const useStyles = makeStyles({
  * Renders a horizontal list of Schemas to choose.
  */
 const SchemasList = () => {
-    const classes  = useStyles();
-    const dispatch = useDispatch();
-    const schemas  = useSelector(selectSchemas);
+    const classes = useStyles();
+    const schemas = useSelector(selectSchemas);
     const activeSchemaId = useSelector(selectActiveSchemaId);
+    const dispatch = useDispatch();
 
     const handleChange = (_, newId) => dispatch(setActiveSchemaId(newId));
 

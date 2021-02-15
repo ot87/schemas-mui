@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 const App = () => {
     const classes  = useStyles();
     const dispatch = useDispatch();
+
     // TODO isSchemasClicked is set true while profile isn't available
     const [isSchemasClicked, setIsSchemasClicked] = useState(true);
 

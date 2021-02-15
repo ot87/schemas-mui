@@ -24,7 +24,8 @@ const HeaderContainer = ({
     const activeSchemaId = useSelector(selectActiveSchemaId);
     const mode           = useSelector(selectMode);
     const dispatch       = useDispatch();
-    const isShowSchema   = Boolean(activeSchemaId && mode === UiModes.SHOW);
+
+    const isShowSchema   = Boolean(activeSchemaId) && mode === UiModes.SHOW;
     const appBarPosition = (
         mode === UiModes.ADD || (activeSchemaId && mode === UiModes.EDIT) ?
             'static'

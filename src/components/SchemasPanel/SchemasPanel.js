@@ -1,42 +1,43 @@
-import React       from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
 
-import { setMode, UiModes}    from 'redux/reducers/ui';
+import {
+    UiModes,
+    selectMode,
+    selectActiveSchemaId,
+    setMode
+} from 'redux/reducers/ui';
 import { selectSchemasCount } from 'redux/reducers/schemas';
 
 import Box from '@material-ui/core/Box';
 
 /**
  * Renders a control panel of [Buttons]{@link CustomButton} to set a mode of the ui.
- * @param {Object}      props
- * @param {string}      props.mode           - The current ui mode from the Redux State.
- * @param {number}      props.schemasCount   - The number of existing schemas.
- * @param {number|null} props.activeSchemaId - The id of the selected schema from the Redux State.
- * @param {function}    props.setMode        - A function to set current ui mode.
  */
-const SchemasPanel = ({
-    mode,
-    schemasCount,
-    activeSchemaId,
-    setMode
-}) => {
+const SchemasPanel = () => {
+    const activeSchemaId = useSelector(selectActiveSchemaId);
+    const mode           = useSelector(selectMode);
+    const schemasCount   = useSelector(selectSchemasCount);
+    const dispatch       = useDispatch();
+
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
 
-    const handleAddClick    = () => setMode(UiModes.ADD);
+    const dispatchSetMode   = mode => dispatch(setMode(mode));
+    const handleAddClick    = () => dispatchSetMode(UiModes.ADD);
     const handleEditClick   = () => handleClick(UiModes.EDIT);
     const handleDeleteClick = () => handleClick(UiModes.DELETE);
 
     const handleClick = newMode => {
         if ((isEdit || isDelete) && mode === newMode && !activeSchemaId) {
-            setMode(UiModes.SHOW);
+            dispatchSetMode(UiModes.SHOW);
         } else {
-            setMode(newMode);
+            dispatchSetMode(newMode);
         }
-    }
+    };
 
     return (
         <Box display='flex' mx='auto' my={0}>
@@ -52,8 +53,8 @@ const SchemasPanel = ({
                     : 'shown'
                 )}
             />
-            {schemasCount
-                ? <>
+            {schemasCount ?
+                <>
                     <CustomButton
                         colorTheme='yellow'
                         onClick={handleEditClick}
@@ -88,11 +89,4 @@ const SchemasPanel = ({
     );
 };
 
-export default connect(
-    state => ({
-        mode: state.ui.mode,
-        schemasCount: selectSchemasCount(state),
-        activeSchemaId: state.ui.activeSchemaId
-    }),
-    { setMode }
-)(SchemasPanel);
+export default SchemasPanel;
