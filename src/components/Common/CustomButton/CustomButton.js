@@ -1,5 +1,6 @@
 import React from 'react';
-import cn    from 'classnames';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button         from '@material-ui/core/Button';
@@ -9,7 +10,7 @@ import yellow         from '@material-ui/core/colors/yellow';
 import red            from '@material-ui/core/colors/red';
 import useMediaQuery  from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         margin: theme.spacing(1),
         [theme.breakpoints.down(390)]: {
@@ -113,6 +114,13 @@ const CustomButton = ({
     }
 
     return button;
+};
+
+CustomButton.propTypes = {
+    colorTheme: PropTypes.oneOf(['green', 'yellow', 'red', 'default']),
+    type:       PropTypes.oneOf(['clicked', 'toggled', 'disabled', 'shown']),
+    onClick:    PropTypes.func.isRequired,
+    text:       PropTypes.string.isRequired
 };
 
 export default CustomButton;

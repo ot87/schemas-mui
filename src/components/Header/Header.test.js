@@ -15,8 +15,7 @@ const renderHeader = (renderProps = {}) => {
     render(
         <Header
             appBarPosition='sticky'
-            isShowSchema={false}
-            isSchemasClicked={false}
+            showInHeader='panel'
             handleButtonClick={handleButtonClick}
             {...renderProps}
         />
@@ -27,44 +26,26 @@ const renderHeader = (renderProps = {}) => {
     }
 };
 
-describe('Header with "false" properties', () => {
-    test('Header is displayed with not clicked button "Schemas"', () => {
-        renderHeader();
-
-        const schemasButton = getButton('Schemas');
-        expect(schemasButton).toBeInTheDocument();
-        expect(schemasButton.className).not.toContain('clicked');
-    });
-
-    test('Header is displayed with the second empty element', () => {
-        renderHeader();
-
-        const nextToButton = getButton('Schemas').nextElementSibling;
-        expect(nextToButton).toBeInTheDocument();
-        expect(nextToButton).toBeEmptyDOMElement();
-    });
-
-    test('Handler handleButtonClick is called', () => {
-        const { handleButtonClick } = renderHeader();
-
-        userEvent.click(getButton('Schemas'));
-        expect(handleButtonClick).toBeCalled();
-    });
-});
-
-describe('Header with "true" properties', () => {
-    test('Header is displayed with "Back" button', () => {
-        renderHeader({ isShowSchema: true });
-
-        expect(getButton('Back')).toBeInTheDocument();
-    });
-
+describe('Header properties', () => {
     test('Header is displayed with clicked button "Schemas"', () => {
-        renderHeader({ isSchemasClicked: true });
+        renderHeader();
 
         const schemasButton = getButton('Schemas');
         expect(schemasButton).toBeInTheDocument();
         expect(schemasButton.className).toContain('clicked');
+    });
+
+    test('Header is displayed with "Back" button', () => {
+        renderHeader({ showInHeader: 'tabs' });
+
+        expect(getButton('Back')).toBeInTheDocument();
+    });
+
+    test('Handler handleButtonClick is called', () => {
+        const { handleButtonClick } = renderHeader({ showInHeader: 'tabs' });
+
+        userEvent.click(getButton('Back'));
+        expect(handleButtonClick).toBeCalled();
     });
 });
 

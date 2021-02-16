@@ -2,11 +2,11 @@ import React from 'react';
 import { render, getTabList, getTab } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemasList from './SchemasList';
+import SchemasTabs from './SchemasTabs';
 
-const renderSchemasList = ({ isStateInitial = true, initData = {} } = {}) => {
+const renderSchemasTabs = ({ isStateInitial = true, initData = {} } = {}) => {
     if (isStateInitial) {
-        render(<SchemasList />);
+        render(<SchemasTabs />);
     } else {
         let initialState = { schemas: {
             ids: [ 1, 2 ],
@@ -21,21 +21,21 @@ const renderSchemasList = ({ isStateInitial = true, initData = {} } = {}) => {
                 ...initData
             };
         }
-        render(<SchemasList />, { initialState });
+        render(<SchemasTabs />, { initialState });
     }
 
     return getTabList();
 };
 
 test('An empty SchemaList is displayed', () => {
-    const schemasList = renderSchemasList();
+    const schemasList = renderSchemasTabs();
 
     expect(schemasList).toBeInTheDocument();
     expect(schemasList).toBeEmptyDOMElement();
 });
 
 test('SchemaList is displayed with two items and the item "Schema 1" is selected', () => {
-    const schemasList = renderSchemasList({
+    const schemasList = renderSchemasTabs({
         isStateInitial: false,
         initData: { ui: { activeSchemaId: 1 } }
     });
@@ -53,7 +53,7 @@ test('SchemaList is displayed with two items and the item "Schema 1" is selected
 });
 
 test('Item "Schema 2" is selected after clicking', () => {
-    renderSchemasList({
+    renderSchemasTabs({
         isStateInitial: false,
         initData: { ui: { activeSchemaId: 1 } }
     });

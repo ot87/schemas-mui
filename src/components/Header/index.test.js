@@ -32,14 +32,6 @@ const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
 };
 
 describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
-    test('Header is displayed with not clicked button "Schemas"', () => {
-        renderHeader();
-
-        const schemasButton = getButton('Schemas');
-        expect(schemasButton).toBeInTheDocument();
-        expect(schemasButton.className).not.toContain('clicked');
-    });
-
     test('Header is displayed with clicked button "Schemas" and "Add" button', () => {
         renderHeader({ renderProps: { isSchemasClicked: true } });
 
@@ -50,6 +42,7 @@ describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
         expect(getButton('Add')).toBeInTheDocument();
     });
 
+    /* TODO profile
     test('"Schemas" button is clickable with "true" argument and rerenders', () => {
         const { setIsSchemasClickedHandler, rerenderHeader } = renderHeader();
 
@@ -63,6 +56,7 @@ describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
         expect(schemasButton).toBeInTheDocument();
         expect(schemasButton.className).toContain('clicked');
     });
+    */
 });
 
 describe('Header with "activeSchemaId"', () => {
@@ -79,12 +73,15 @@ describe('Header with "activeSchemaId"', () => {
     });
 
     test('"Schema" button is displayed when "Back" button is clicked ("mode" = "SHOW")', () => {
-        renderHeader({ initialState: {
-            ui: {
-                activeSchemaId: 1,
-                mode: UiModes.SHOW
+        renderHeader({
+            renderProps: { isSchemasClicked: true },
+            initialState: {
+                ui: {
+                    activeSchemaId: 1,
+                    mode: UiModes.SHOW
+                }
             }
-         } });
+        });
 
         userEvent.click(getButton('Back'));
 

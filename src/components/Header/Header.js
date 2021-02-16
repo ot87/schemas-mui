@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
-import SchemasList  from 'components/SchemasList/SchemasList';
+import SchemasTabs  from 'components/SchemasTabs/SchemasTabs';
 import SchemasPanel from 'components/SchemasPanel/SchemasPanel';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,20 +31,20 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Header component with control buttons.
- * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasList]{@link SchemasList} or the control [SchemasPanel]{@link SchemasPanel}.
+ * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasTabs]{@link SchemasTabs} or the control [SchemasPanel]{@link SchemasPanel}.
  * @param {Object}               props
  * @param {'static'|'sticky'}    props.appBarPosition    - AppBar position.
- * @param {boolean}              props.isShowSchema      - The specific schema is shown.
- * @param {boolean}              props.isSchemasClicked  - Indicates whether the Schemas button is clicked.
+ * @param {'panel'|'tabs'}       props.showInHeader      - Indicates a type of element to show - either a control panel or tabs of schemas.
  * @param {EventHandlerFunction} props.handleButtonClick - A click handler of the left button.
  */
 const Header = ({
     appBarPosition,
-    isShowSchema,
-    isSchemasClicked,
+    showInHeader,
     handleButtonClick
 }) => {
-    const classes = useStyles({ isWrap: !isShowSchema && isSchemasClicked });
+    const showPanel = showInHeader === 'panel';
+
+    const classes = useStyles({ isWrap: showPanel });
 
     return (
         <AppBar
@@ -54,20 +54,12 @@ const Header = ({
             <Toolbar className={classes.toolbar}>
                 <CustomButton
                     onClick={handleButtonClick}
-                    text={(isShowSchema ? 'Back' : 'Schemas')}
-                    type={(
-                        isShowSchema ?
-                            null
-                        : isSchemasClicked ?
-                            'clicked'
-                        : 'shown'
-                    )}
+                    text={(showPanel ? 'Schemas' : 'Back')}
+                    type={(showPanel ? 'clicked' : 'shown')}
                 />
-                {isShowSchema ?
-                    <SchemasList />
-                : isSchemasClicked ?
+                {showPanel ?
                     <SchemasPanel />
-                : <div />}
+                : <SchemasTabs />}
                 {/* TODO <Plate text={profile.name} onClick={() => setContent(profile)} /> */}
             </Toolbar>
         </AppBar>
@@ -76,8 +68,7 @@ const Header = ({
 
 Header.propTypes = {
     appBarPosition:    PropTypes.oneOf(['sticky', 'static']).isRequired,
-    isShowSchema:      PropTypes.bool.isRequired,
-    isSchemasClicked:  PropTypes.bool.isRequired,
+    showInHeader:      PropTypes.oneOf(['panel', 'tabs']).isRequired,
     handleButtonClick: PropTypes.func.isRequired
 };
 

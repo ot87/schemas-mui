@@ -32,18 +32,24 @@ const HeaderContainer = ({
         : 'sticky'
     );
 
-    const handleBackClick    = () => dispatch(setActiveSchemaId(null));
-    const handleSchemasClick = () => setIsSchemasClicked(true);
+    const handleBackClick = () => dispatch(setActiveSchemaId(null));
+    /* TODO profile  const handleSchemasClick = () => setIsSchemasClicked(true);*/
 
     return (
         <Header
             appBarPosition={appBarPosition}
-            isShowSchema={isShowSchema}
-            isSchemasClicked={isSchemasClicked}
+            showInHeader={(
+                isSchemasClicked && !isShowSchema ?
+                    'panel'
+                : 'tabs'
+            )}
             handleButtonClick={(
-                isShowSchema ?
+                handleBackClick
+                /* TODO profile
+                isSchemasClicked && isShowSchema ?
                     handleBackClick
                 : handleSchemasClick
+                */
             )}
         />
     );

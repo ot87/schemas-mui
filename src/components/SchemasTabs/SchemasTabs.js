@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 /**
  * Renders a horizontal list of Schemas to choose.
  */
-const SchemasList = () => {
+const SchemasTabs = () => {
     const classes = useStyles();
     const schemas = useSelector(selectSchemas);
     const activeSchemaId = useSelector(selectActiveSchemaId);
@@ -40,4 +40,4 @@ const SchemasList = () => {
     );
 };
 
-export default SchemasList;
+export default SchemasTabs;

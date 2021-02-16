@@ -41,15 +41,6 @@ test('CustomButton is displayed with default props and onClick handler is called
 });
 
 describe('Property colorTheme of CustomButton', () => {
-    test('CustomButton with "unknown" colorTheme has "default" color', () => {
-        const applyJSSRules = mockStyleInjection();
-        const { button } = renderButton({ colorTheme: 'unknown' });
-
-        applyJSSRules();
-
-        expect(button).not.toContain('Primary');
-    });
-
     test('CustomButton with "default" colorTheme has "default" color', () => {
         const applyJSSRules = mockStyleInjection();
         const { button } = renderButton({ colorTheme: 'default' });
@@ -105,7 +96,6 @@ describe('Properties colorTheme and type of CustomButton', () => {
 describe('Property type of CustomButton and onClick handler', () => {
     test.each`
         type          | toContain              | notToContain                    | calls
-        ${'unknown'}  | ${'outlined'}          | ${'contained|clicked|disabled'} | ${1}
         ${'shown'}    | ${'outlined'}          | ${'contained|clicked|disabled'} | ${1}
         ${'clicked'}  | ${'contained|clicked'} | ${'outlined|disabled'}          | ${0}
         ${'toggled'}  | ${'contained'}         | ${'outlined|clicked|disabled'}  | ${1}
