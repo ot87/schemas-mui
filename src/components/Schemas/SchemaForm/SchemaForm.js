@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
  * @param {EventHandlerFunction} props.onSubmit              - On click function for Submit Plate.
  * @param {EventHandlerFunction} props.onCancel              - On click function for Cancel Plate.
  */
-const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
+const SchemaForm = ({ schema, onSubmit, onCancel }) => {
     const classes = useStyles();
     const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
@@ -162,4 +162,4 @@ const SchemaFormContainer = ({ schema, onSubmit, onCancel }) => {
     );
 };
 
-export default SchemaFormContainer;
+export default SchemaForm;

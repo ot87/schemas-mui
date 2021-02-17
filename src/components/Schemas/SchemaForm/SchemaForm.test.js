@@ -7,7 +7,7 @@ import {
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemaFormContainer from './SchemaFormContainer';
+import SchemaForm from './SchemaForm';
 
 const renderSchemaForm = (items = null) => {
     const schema = {
@@ -19,7 +19,7 @@ const renderSchemaForm = (items = null) => {
     const onCancelHandler = jest.fn();
 
     render(
-        <SchemaFormContainer
+        <SchemaForm
             schema={schema}
             onSubmit={onSubmitHandler}
             onCancel={onCancelHandler}
@@ -34,7 +34,7 @@ const renderSchemaForm = (items = null) => {
     };
 };
 
-describe('SchemaFormContainer', () => {
+describe('SchemaForm', () => {
     test('Form with FormButtons and FormItemsControls is displayed', () => {
         const { form } = renderSchemaForm();
 

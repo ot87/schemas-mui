@@ -30,7 +30,7 @@ const FormItems = ({
     onItemsRowClick,
     onValidate
 }) => {
-    const onRowClick = (id) => () => onItemsRowClick(id);
+    const onRowClick = id => () => onItemsRowClick(id);
 
     return (
         <FieldArray

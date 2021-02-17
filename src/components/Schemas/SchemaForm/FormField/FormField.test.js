@@ -6,7 +6,7 @@ import FormField from './FormField';
 
 import { Form } from 'react-final-form';
 
-const renderFormField = (renderProps) => {
+const renderFormField = renderProps => {
     const label = 'FormField Label';
     const name  = 'FormFieldName';
     const initProps = { label, name };
@@ -21,7 +21,7 @@ const renderFormField = (renderProps) => {
         field: getTextBox(label),
         label,
         name,
-        rerenderFormField: (rerenderProps) => {
+        rerenderFormField: rerenderProps => {
             rerender(
                 <Form
                     onSubmit={jest.fn()}

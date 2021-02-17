@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import API from 'api';
 import { loadSchemas } from 'redux/reducers/schemas';
 
-import Header from 'components/Header';
-import ContentContainer from 'components/Content/ContentContainer';
+import Header  from 'components/Header';
+import Content from 'components/Content/Content';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container      from '@material-ui/core/Container';
@@ -45,7 +45,7 @@ const App = () => {
                     isSchemasClicked={isSchemasClicked}
                     setIsSchemasClicked={setIsSchemasClicked}
                 />
-                <ContentContainer isSchemasClicked={isSchemasClicked} />
+                <Content isSchemasClicked={isSchemasClicked} />
             </Box>
         </Container>
     );

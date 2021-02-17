@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
-import SchemasTabs  from 'components/SchemasTabs/SchemasTabs';
-import SchemasPanel from 'components/SchemasPanel/SchemasPanel';
+import SchemasTabs  from 'components/Schemas/SchemasTabs/SchemasTabs';
+import SchemasPanel from 'components/Schemas/SchemasPanel/SchemasPanel';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar         from '@material-ui/core/AppBar';

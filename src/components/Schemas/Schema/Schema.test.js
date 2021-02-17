@@ -9,7 +9,7 @@ import Schema from './Schema';
 
 const queryByTextWithin = (element, text) => within(element).queryByText(text);
 
-const renderSchemasBoard = (schemaData = {}) => {
+const renderSchema = (schemaData = {}) => {
     const schema = {
         id: 1, name: 'Schema 1',
         items: [{ id: 1, name: 'Name', quantity: 'Quantity', time: 'Time' }]
@@ -29,7 +29,7 @@ const renderSchemasBoard = (schemaData = {}) => {
 
 describe('Schema', () => {
     test('Schema is displayed without description and items', () => {
-        const { schema } = renderSchemasBoard({ items: [] });
+        const { schema } = renderSchema({ items: [] });
 
         expect(schema).toBeInTheDocument();
 
@@ -41,7 +41,7 @@ describe('Schema', () => {
     });
 
     test('Schema is displayed with description and items', () => {
-        const { schema } = renderSchemasBoard({ description: 'Description 1' });
+        const { schema } = renderSchema({ description: 'Description 1' });
 
         expect(schema).toBeInTheDocument();
 
@@ -53,7 +53,7 @@ describe('Schema', () => {
     });
 
     test('Schema is displayed without item time', () => {
-        const { schema } = renderSchemasBoard({
+        const { schema } = renderSchema({
             items: [{ id: 1, name: 'Name', quantity: 'Quantity' }]
         });
 
@@ -68,21 +68,21 @@ describe('Schema', () => {
 describe('Responsiveness of Schema', () => {
     test('Margin of container of Schema is "-8px" for screen width less than 600px', () => {
         mockUseMediaQuery(500);
-        const { schema } = renderSchemasBoard();
+        const { schema } = renderSchema();
 
         expect(schema).toHaveStyle('margin: -8px');
     });
 
     test('Margin of container of Schema is "-12px" for screen width more than 600px', () => {
         mockUseMediaQuery(700);
-        const { schema } = renderSchemasBoard();
+        const { schema } = renderSchema();
 
         expect(schema).toHaveStyle('margin: -12px');
     });
 
     test('Spacing of Schema items children is "4px" for screen width less than 960px', () => {
         mockUseMediaQuery(900);
-        renderSchemasBoard();
+        renderSchema();
 
         Array.from(getGridCell('Name Quantity Time').children).map((element) => {
             expect(element).toHaveStyle('padding: 4px');
@@ -91,7 +91,7 @@ describe('Responsiveness of Schema', () => {
 
     test('Spacing of Schema items children is "8px" for screen width more than 960px', () => {
         mockUseMediaQuery(1000);
-        renderSchemasBoard();
+        renderSchema();
 
         Array.from(getGridCell('Name Quantity Time').children).map((element) => {
             expect(element).toHaveStyle('padding: 8px');

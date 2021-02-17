@@ -5,7 +5,7 @@ import CustomButton from 'components/Common/CustomButton/CustomButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Box            from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         flexDirection: 'column',
         [theme.breakpoints.down('sm')]: {

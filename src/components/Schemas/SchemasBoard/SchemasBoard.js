@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import CustomCard            from 'components/Common/CustomCard/CustomCard';
 import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithButtons';
-import Schema                from 'components/Schema/Schema';
-import SchemaFormContainer   from 'components/SchemaForm/SchemaFormContainer';
+import Schema                from 'components/Schemas/Schema/Schema';
+import SchemaForm            from 'components/Schemas/SchemaForm/SchemaForm';
 
 import {
     addSchema,
@@ -80,7 +80,7 @@ const SchemasBoard = ({
 
     if (activeSchemaId) {
         if (isEdit) {
-            schemasBoard = <SchemaFormContainer
+            schemasBoard = <SchemaForm
                 schema={schemas.find(schema => schema.id === activeSchemaId)}
                 onSubmit={updateSchema}
                 onCancel={onClickResetSchema}
@@ -121,7 +121,7 @@ const SchemasBoard = ({
         }
     } else {
         if (isAdd) {
-            schemasBoard = <SchemaFormContainer
+            schemasBoard = <SchemaForm
                 schema={{
                     name: '',
                     description: '',

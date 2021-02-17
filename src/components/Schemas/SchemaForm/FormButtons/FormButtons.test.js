@@ -11,7 +11,7 @@ import green  from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
-const renderFormButtons = (renderProps) => {
+const renderFormButtons = renderProps => {
     const submitOnClick = jest.fn();
     const resetOnClick  = jest.fn();
     const cancelOnClick = jest.fn();

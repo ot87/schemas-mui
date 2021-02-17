@@ -1,14 +1,14 @@
 import React from 'react';
 import cn    from 'classnames';
 
-import FormField from 'components/SchemaForm/FormField/FormField';
+import FormField from 'components/Schemas/SchemaForm/FormField/FormField';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid           from '@material-ui/core/Grid';
 import useMediaQuery  from '@material-ui/core/useMediaQuery';
 import red            from '@material-ui/core/colors/red';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     row: {
         '&:hover': {
             backgroundColor: red[300],

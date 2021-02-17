@@ -10,7 +10,7 @@ import FormItemsControls from './FormItemsControls';
 import green from '@material-ui/core/colors/green';
 import red   from '@material-ui/core/colors/red';
 
-const renderFormItemsControls = (renderProps) => {
+const renderFormItemsControls = renderProps => {
     const addOnClick       = jest.fn();
     const removeOnClick    = jest.fn();
     const removeAllOnClick = jest.fn();
@@ -29,7 +29,7 @@ const renderFormItemsControls = (renderProps) => {
         addOnClick,
         removeOnClick,
         removeAllOnClick,
-        rerenderItemsControls: (rerenderProps) => {
+        rerenderItemsControls: rerenderProps => {
             rerender(<FormItemsControls {...initProps} {...rerenderProps} />);
         }
     };

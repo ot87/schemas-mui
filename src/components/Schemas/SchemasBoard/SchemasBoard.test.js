@@ -7,8 +7,8 @@ import {
 } from 'test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SchemasBoardContainer from './SchemasBoardContainer';
-import { UiModes }           from 'redux/reducers/ui';
+import SchemasBoard from './SchemasBoard';
+import { UiModes }  from 'redux/reducers/ui';
 
 import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
@@ -27,10 +27,10 @@ const renderSchemasBoard = ({ initData = {} } = {}) => {
             ...initData
         };
     }
-    render(<SchemasBoardContainer />, { initialState });
+    render(<SchemasBoard />, { initialState });
 };
 
-describe('SchemasBoardContainer without "activeSchemaId"', () => {
+describe('SchemasBoard without "activeSchemaId"', () => {
     test('SchemasBoard is displayed with two Cards ("mode" = "SHOW")', () => {
         renderSchemasBoard();
 
@@ -178,7 +178,7 @@ describe('SchemasBoardContainer without "activeSchemaId"', () => {
     });
 });
 
-describe('SchemasBoardContainer with "activeSchemaId"', () => {
+describe('SchemasBoard with "activeSchemaId"', () => {
     test('Schema is displayed ("mode" = "SHOW")', () => {
         renderSchemasBoard({
             initData: { ui: { activeSchemaId: 1 } }

@@ -5,7 +5,7 @@ const useRemoveItems = () => {
     const [itemsIdsToRemove, setItemsIdsToRemove] = useState([]);
     const [isRemoveAllClicked, setIsRemoveAllClicked] = useState(false);
 
-    const removeOnClick = (removeBatch) => {
+    const removeOnClick = removeBatch => {
         if (isRemoveClicked && itemsIdsToRemove.length) {
             removeBatch('items', itemsIdsToRemove);
             setItemsIdsToRemove([]);
@@ -14,7 +14,7 @@ const useRemoveItems = () => {
         setIsRemoveClicked(!isRemoveClicked);
     };
 
-    const removeAllOnClick = (items) => {
+    const removeAllOnClick = items => {
         if (isRemoveAllClicked) {
             setItemsIdsToRemove([]);
         } else {
@@ -23,7 +23,7 @@ const useRemoveItems = () => {
         setIsRemoveAllClicked(!isRemoveAllClicked);
     };
 
-    const onItemsRowClick = (items) => (index) => {
+    const onItemsRowClick = items => index => {
         if (isRemoveClicked) {
             let newItemsIdsToRemove = [...itemsIdsToRemove];
 
