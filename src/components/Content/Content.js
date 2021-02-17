@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SchemasBoard from 'components/Schemas/SchemasBoard/SchemasBoard';
 
@@ -14,5 +15,9 @@ const Content = ({ isSchemasClicked }) => (
         {isSchemasClicked && <SchemasBoard />}
     </Box>
 );
+
+Content.propTypes = {
+    isSchemasClicked: PropTypes.bool.isRequired
+};
 
 export default Content;
