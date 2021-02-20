@@ -4,38 +4,36 @@ import {
     createEntityAdapter
 } from '@reduxjs/toolkit';
 
-import API from 'api';
-
 const schemasAdapter = createEntityAdapter();
 
 export const loadSchemas = createAsyncThunk(
     'schemas/loadSchemas',
-    async () => {
-        const response = await API.loadSchemas();
+    async (_, { extra }) => {
+        const response = await extra.loadSchemas();
         return response.data;
     }
 );
 
 export const addSchema = createAsyncThunk(
     'schemas/addSchema',
-    async (schema) => {
-        const response = await API.addSchema(schema);
+    async (schema, { extra }) => {
+        const response = await extra.addSchema(schema);
         return response.data;
     }
 );
 
 export const updateSchema = createAsyncThunk(
     'schemas/updateSchema',
-    async (schema) => {
-        const response = await API.updateSchema(schema);
+    async (schema, { extra }) => {
+        const response = await extra.updateSchema(schema);
         return response.data;
     }
 );
 
 export const deleteSchema = createAsyncThunk(
     'schemas/deleteSchema',
-    async (id) => {
-        const response = await API.deleteSchema(id);
+    async (id, { extra }) => {
+        const response = await extra.deleteSchema(id);
         return response.data;
     }
 );
