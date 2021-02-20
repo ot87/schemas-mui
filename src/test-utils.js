@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 import configureAppStore from 'redux/store/configureAppStore';
 import { Provider } from 'react-redux';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import configureMockStore from 'redux-mock-store';
+import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 export const mockUseMediaQuery = width => {
     Object.defineProperty(window, 'matchMedia', {
@@ -29,6 +31,11 @@ export function mockStyleInjection() {
       window.CSSStyleSheet.prototype.insertRule = defaultInsertRule;
       document.head.innerHTML = document.head.innerHTML;
     };
+};
+
+export const configureMockAppStore = (async = false) => {
+    const middlewares = async ? [getDefaultMiddleware()[1]] : [];
+    return configureMockStore(middlewares);
 };
 
 const customRender = (

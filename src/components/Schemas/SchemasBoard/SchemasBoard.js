@@ -5,14 +5,14 @@ import CustomCard            from 'components/Common/CustomCard/CustomCard';
 import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithButtons';
 import Schema                from 'components/Schemas/Schema/Schema';
 import SchemaForm            from 'components/Schemas/SchemaForm/SchemaForm';
+import AddSchemaForm         from 'components/Schemas/AddSchemaForm/AddSchemaForm';
 
 import {
-    addSchema,
     updateSchema,
     deleteSchema,
     selectSchemas
 } from 'redux/reducers/schemas';
-import { setActiveSchemaId, setMode, UiModes } from 'redux/reducers/ui';
+import { setActiveSchemaId, UiModes } from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box            from '@material-ui/core/Box';
@@ -50,21 +50,17 @@ const useStyles = makeStyles(theme => ({
  *
  * @param {number|null}          props.activeSchemaId         - The id of the selected schema from the Redux State.
  * @param {string}               props.mode                   - The current ui mode from the Redux State.
- * @param {EventHandlerFunction} props.addSchema              - A function to add schema.
  * @param {EventHandlerFunction} props.updateSchema           - A function to update schema.
  * @param {function}             props.deleteSchema           - A function to delete schema.
  * @param {function}             props.setActiveSchemaId      - A function to select schema.
- * @param {function}             props.setMode                - A function to set current ui mode.
  */
 const SchemasBoard = ({
     schemas,
     activeSchemaId,
     mode,
-    addSchema,
     updateSchema,
     deleteSchema,
     setActiveSchemaId,
-    setMode
 }) => {
     const classes = useStyles();
     const isAdd    = mode === UiModes.ADD;
@@ -72,7 +68,6 @@ const SchemasBoard = ({
     const isDelete = mode === UiModes.DELETE;
 
     const onDeleteClick       = id => () => deleteSchema(id);
-    const onCancelAddClick    = () => setMode(UiModes.SHOW);
     const onClickResetSchema  = () => setActiveSchemaId(null);
     const selectClickedSchema = id => () => setActiveSchemaId(id);
 
@@ -121,15 +116,7 @@ const SchemasBoard = ({
         }
     } else {
         if (isAdd) {
-            schemasBoard = <SchemaForm
-                schema={{
-                    name: '',
-                    description: '',
-                    items: []
-                }}
-                onSubmit={addSchema}
-                onCancel={onCancelAddClick}
-            />;
+            schemasBoard = <AddSchemaForm />;
         } else {
             const cardColorTheme = (
                 isEdit ?
@@ -169,5 +156,5 @@ export default connect(
         activeSchemaId: state.ui.activeSchemaId,
         mode: state.ui.mode
     }),
-    { addSchema, updateSchema, deleteSchema, setActiveSchemaId, setMode }
+    { updateSchema, deleteSchema, setActiveSchemaId }
 )(SchemasBoard);

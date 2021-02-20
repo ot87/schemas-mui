@@ -139,32 +139,8 @@ describe('SchemasBoard without "activeSchemaId"', () => {
 
         const form = getTable();
         expect(form).toBeInTheDocument();
-
-        const nameField = getTextBoxWithin(form, 'Schema Name');
-        const descField = getTextBoxWithin(form, 'Schema Description');
-        expect(nameField).toBeInTheDocument();
-        expect(descField).toBeInTheDocument();
-        expect(nameField).not.toHaveValue();
-        expect(descField).not.toHaveValue();
-
-        expect(queryGridCellWithin(form, 'Name Quantity Time')).not.toBeInTheDocument();
-
-        expect(getButton('Submit')).toBeInTheDocument();
-        expect(getButton('Reset')).toBeInTheDocument();
-        expect(getButton('Cancel')).toBeInTheDocument();
-
-        expect(getButton('Add')).toBeInTheDocument();
-        expect(queryButton('Remove')).not.toBeInTheDocument();
-        expect(queryButton('All')).not.toBeInTheDocument();
-    });
-
-    test('"Schema Name" has an error when "Submit" button is clicked ("mode" = "ADD")', () => {
-        renderSchemasBoard({
-            initData: { ui: { mode: UiModes.ADD } }
-        });
-
-        userEvent.click(getButton('Submit'));
-        expect(getTextBox('Schema Name')).toHaveAttribute('aria-invalid', 'true');
+        expect(getTextBoxWithin(form, 'Schema Name')).toBeInTheDocument();
+        expect(getTextBoxWithin(form, 'Schema Description')).toBeInTheDocument();
     });
 
     test('SchemasBoard is displayed back when "Cancel" button is clicked ("mode" = "ADD")', () => {
