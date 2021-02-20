@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-    render, getAllTextBoxes, getGridCell,
-    mockStyleInjection, mockUseMediaQuery
-} from 'test-utils';
+import { render, mockStyleInjection, mockUseMediaQuery } from 'test-utils';
+import { getAllTextBoxes, getGridCell } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import FormItemsRow from './FormItemsRow';

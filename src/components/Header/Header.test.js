@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-    render, mockStyleInjection,
-    getByRole, getButton
-} from 'test-utils';
+import { render, mockStyleInjection } from 'test-utils';
+import { getByRole, getButton } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import Header from './Header';

@@ -1,9 +1,9 @@
 import React from 'react';
+import { render } from 'test-utils';
 import {
-    render,
     getAllButtons, queryButton,
     getButtonWithin, queryButtonWithin
-} from 'test-utils';
+} from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import CustomCardWithButtons from './CustomCardWithButtons';

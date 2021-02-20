@@ -47,9 +47,13 @@ const schemasSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
+        //@ts-ignore
         [loadSchemas.fulfilled]:  schemasAdapter.setAll,
+        //@ts-ignore
         [addSchema.fulfilled]:    schemasAdapter.addOne,
+        //@ts-ignore
         [updateSchema.fulfilled]: schemasAdapter.upsertOne,
+        //@ts-ignore
         [deleteSchema.fulfilled]: schemasAdapter.removeOne
     }
 });

@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, getButton, mockUseMediaQuery, mockStyleInjection } from 'test-utils';
+import { render, mockUseMediaQuery, mockStyleInjection } from 'test-utils';
+import { getButton } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import CustomButton from './CustomButton';

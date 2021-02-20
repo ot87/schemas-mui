@@ -1,9 +1,9 @@
 import React from 'react';
+import { render, within, mockUseMediaQuery } from 'test-utils';
 import {
-    render, within, mockUseMediaQuery,
     getGrid, getGridCell, getGridCellWithin, queryGridCellWithin,
     getByTextWithin
-} from 'test-utils';
+} from 'test-helpers';
 
 import Schema from './Schema';
 

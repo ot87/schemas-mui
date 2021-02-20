@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, getTextBox } from 'test-utils';
+import { render } from 'test-utils';
+import { getTextBox } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import FormField from './FormField';

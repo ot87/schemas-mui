@@ -1,11 +1,11 @@
 import React from 'react';
+import { render, screen, waitFor } from 'test-utils';
 import {
-      render, screen, waitFor,
       getButton, queryButton, getAllButtons, getButtonWithin,
       getTab, getTextBox, getAllTextBoxes, getTextBoxWithin,
       getGrid, getGridCell, getAllGridCells, getGridCellWithin,
       getTable, getByTextWithin
-} from 'test-utils';
+} from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import App from 'App';

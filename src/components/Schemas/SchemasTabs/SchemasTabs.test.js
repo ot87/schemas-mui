@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, getTabList, getTab } from 'test-utils';
+import { render } from 'test-utils';
+import { getTabList, getTab } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import SchemasTabs from './SchemasTabs';

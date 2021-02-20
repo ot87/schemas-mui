@@ -1,10 +1,10 @@
 import React from 'react';
+import { render, mockUseMediaQuery } from 'test-utils';
 import {
-    render, mockUseMediaQuery,
     getTable, getGridCell, getAllGridCells, queryGridCell,
     getGridCellWithin, queryGridCellWithin,
     getButton, queryButton, getTextBox, getAllTextBoxes, getTextBoxWithin
-} from 'test-utils';
+} from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import SchemaForm from './SchemaForm';

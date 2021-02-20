@@ -30,12 +30,15 @@ const uiSlice = createSlice({
         }
     },
     extraReducers: {
+        //@ts-ignore
         [addSchema.fulfilled]: (state) => {
             state.mode = UiModes.SHOW;
         },
+        //@ts-ignore
         [updateSchema.fulfilled]: (state) => {
             state.activeSchemaId = null;
         },
+        //@ts-ignore
         [deleteSchema.fulfilled]: (state) => {
             state.activeSchemaId = null;
         }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, getButton, queryButton } from 'test-utils';
+import { render } from 'test-utils';
+import { getButton, queryButton } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import SchemasPanel from './SchemasPanel';

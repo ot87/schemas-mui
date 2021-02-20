@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, getAllButtons, mockStyleInjection } from 'test-utils';
+import { render, mockStyleInjection } from 'test-utils';
+import { getAllButtons } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import CustomCard from './CustomCard';

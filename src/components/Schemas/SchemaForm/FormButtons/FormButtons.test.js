@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-    render, mockStyleInjection,
-    getTabList, getButton, getButtonWithin
-} from 'test-utils';
+import { render, mockStyleInjection } from 'test-utils';
+import { getTabList, getButton, getButtonWithin } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import FormButtons from './FormButtons';

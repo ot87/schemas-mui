@@ -1,10 +1,10 @@
 import React from 'react';
+import { render, waitFor, mockStyleInjection } from 'test-utils';
 import {
-    render, waitFor, mockStyleInjection,
     getAllButtons, getButton, queryButton,
     getTable, getTextBox, getTextBoxWithin,
     getByTextWithin, getGrid, getGridCellWithin, queryGridCellWithin
-} from 'test-utils';
+} from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import SchemasBoard from './SchemasBoard';

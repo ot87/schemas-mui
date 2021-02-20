@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, getAllGridCells, getAllTextBoxes, mockStyleInjection } from 'test-utils';
+import { render, mockStyleInjection } from 'test-utils';
+import { getAllGridCells, getAllTextBoxes } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import FormItems from './FormItems';
