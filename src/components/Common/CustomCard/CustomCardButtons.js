@@ -11,7 +11,8 @@ import Box from '@material-ui/core/Box';
  */
 
 /**
- * Functional component which wraps the [CustomCard]{@link CustomCard} element. When it is clicked, CustomCardWithButtons passes into the [CustomCard]{@link CustomCard} two clickable [CustomButton]{@link CustomButton} as the content.
+ * Functional component which wraps the [CustomCard]{@link CustomCard} element.
+ * When it is clicked, CustomCardButtons passes into the [CustomCard]{@link CustomCard} two clickable [CustomButton]{@link CustomButton} as the content.
  * @param {Object}               props
  * @param {Object}               props.buttons                - Props of the CustomButton to display as the Card's content.
  * @param {Object}               props.buttons.first          - The first CustomButton's props.
@@ -26,7 +27,7 @@ import Box from '@material-ui/core/Box';
  * @param {string}               props.name          - Name of the CustomCard.
  * @param {EventHandlerFunction} props.onClick       - On click function for the CustomCard.
  */
-const CustomCardWithButtons = ({
+const CustomCardButtons = ({
     buttons: { first, second },
     cardIsClicked,
     content,
@@ -61,4 +62,4 @@ const CustomCardWithButtons = ({
     );
 };
 
-export default CustomCardWithButtons;
+export default CustomCardButtons;

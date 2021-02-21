@@ -1,11 +1,11 @@
 import React       from 'react';
 import { connect } from 'react-redux';
 
-import CustomCard            from 'components/Common/CustomCard/CustomCard';
-import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithButtons';
-import Schema                from 'components/Schemas/Schema/Schema';
-import AddSchemaForm         from 'components/Schemas/AddSchemaForm/AddSchemaForm';
-import EditSchemaForm        from 'components/Schemas/EditSchemaForm/EditSchemaForm';
+import CustomCard        from 'components/Common/CustomCard/CustomCard';
+import CustomCardButtons from 'components/Common/CustomCard/CustomCardButtons';
+import Schema            from 'components/Schemas/Schema/Schema';
+import AddSchemaForm     from 'components/Schemas/AddSchemaForm/AddSchemaForm';
+import EditSchemaForm    from 'components/Schemas/EditSchemaForm/EditSchemaForm';
 
 import {
     deleteSchema,
@@ -77,7 +77,7 @@ const SchemasBoard = ({
                     justifyContent='space-evenly'
                 >
                     {schemas.map(schema => (
-                        <CustomCardWithButtons
+                        <CustomCardButtons
                             buttons={({
                                 first: {
                                     onClick: onDeleteClick(schema.id),

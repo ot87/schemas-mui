@@ -6,7 +6,7 @@ import {
 } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
-import CustomCardWithButtons from './CustomCardWithButtons';
+import CustomCardButtons from './CustomCardButtons';
 
 const cardContent = [
     {id: 1, name: 'item 1'},
@@ -37,7 +37,7 @@ const renderCard = (renderProps) => {
         onClick:       onClickHandler,
         buttons:       buttons
     };
-    const { rerender } = render(<CustomCardWithButtons {...initProps} {...renderProps} />);
+    const { rerender } = render(<CustomCardButtons {...initProps} {...renderProps} />);
 
     return {
         card: getAllButtons(notClickedName)[0],
@@ -45,18 +45,18 @@ const renderCard = (renderProps) => {
         onButton1ClickHandler,
         onButton2ClickHandler,
         rerenderCard: (rerenderProps) => {
-            rerender(<CustomCardWithButtons {...initProps} {...rerenderProps} />);
+            rerender(<CustomCardButtons {...initProps} {...rerenderProps} />);
         }
     };
 };
 
-test('CustomCardWithButtons is displayed without CustomButtons', () => {
+test('CustomCardButtons is displayed without CustomButtons', () => {
     const { card, onClickHandler } = renderCard();
 
-    // CustomCardWithButtons is displayed
+    // CustomCardButtons is displayed
     expect(card).toBeInTheDocument();
 
-    // CustomCardWithButtons does not contain CustomButton 1 and CustomButton 2
+    // CustomCardButtons does not contain CustomButton 1 and CustomButton 2
     expect(queryButtonWithin(card, 'Button 1')).not.toBeInTheDocument();
     expect(queryButtonWithin(card, 'Button 2')).not.toBeInTheDocument();
 
@@ -65,7 +65,7 @@ test('CustomCardWithButtons is displayed without CustomButtons', () => {
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 });
 
-test('CustomCardWithButtons is displayed with two clickable CustomButtons', () => {
+test('CustomCardButtons is displayed with two clickable CustomButtons', () => {
     const {
         card, onClickHandler,
         onButton1ClickHandler, onButton2ClickHandler,
@@ -74,11 +74,11 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
 
     rerenderCard({ cardIsClicked: true });
 
-    // CustomCardWithButtons is rerendered with a new content when is clicked
+    // CustomCardButtons is rerendered with a new content when is clicked
     expect(queryButton(notClickedName)).not.toBeInTheDocument();
     expect(card).toBeInTheDocument();
 
-    // CustomCardWithButtons contains CustomButton 1 and CustomButton 2
+    // CustomCardButtons contains CustomButton 1 and CustomButton 2
     const button1 = getButtonWithin(card, 'Button 1');
     const button2 = getButtonWithin(card, 'Button 2');
 
@@ -86,7 +86,7 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
     expect(button1).toBeInTheDocument();
     expect(button2).toBeInTheDocument();
 
-    // CustomCardWithButtons's onClickHandler hasn't been called for already clicked CustomCardWithButtons
+    // CustomCardButtons's onClickHandler hasn't been called for already clicked CustomCardButtons
     userEvent.click(card);
     userEvent.click(card.firstElementChild);
     expect(onClickHandler).toHaveBeenCalledTimes(0);
@@ -101,11 +101,11 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
 
     rerenderCard({ cardIsClicked: false });
 
-    // CustomCardWithButtons is rerendered with new content again when is unclicked
+    // CustomCardButtons is rerendered with new content again when is unclicked
     expect(queryButton(clickedName)).not.toBeInTheDocument();
     expect(card).toBeInTheDocument();
 
-    // CustomCardWithButtons does not contain CustomButton 1 and CustomButton 2
+    // CustomCardButtons does not contain CustomButton 1 and CustomButton 2
     expect(queryButtonWithin(card, 'Button 1')).not.toBeInTheDocument();
     expect(queryButtonWithin(card, 'Button 2')).not.toBeInTheDocument();
 
@@ -113,7 +113,7 @@ test('CustomCardWithButtons is displayed with two clickable CustomButtons', () =
     expect(queryButton('Button 1')).not.toBeInTheDocument();
     expect(queryButton('Button 2')).not.toBeInTheDocument();
 
-    // CustomCardWithButtons is clickable again
+    // CustomCardButtons is clickable again
     userEvent.click(card.firstElementChild);
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 });

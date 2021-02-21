@@ -111,7 +111,7 @@ describe('SchemasBoard without "activeSchemaId"', () => {
         ).toHaveStyle(`background-color: ${red[600]}`);
     });
 
-    test('CustomCardWithButtons is displayed when Card is clicked ("mode" = "DELETE")', () => {
+    test('CustomCardButtons is displayed when Card is clicked ("mode" = "DELETE")', () => {
         renderSchemasBoard({
             initData: { ui: { mode: UiModes.DELETE } }
         });
@@ -219,7 +219,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         expect(getAllButtons('Schema 2')[0]).toBeInTheDocument();
     });
 
-    test('CustomCardWithButtons is displayed ("mode" = "DELETE")', () => {
+    test('CustomCardButtons is displayed ("mode" = "DELETE")', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
