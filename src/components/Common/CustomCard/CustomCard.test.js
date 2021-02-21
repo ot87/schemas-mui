@@ -14,28 +14,30 @@ const cardContent = [
 ].map((item) => <div key={item.id}>{item.name}</div>);
 
 const renderCard = (renderProps) => {
-    const onClickHandler = jest.fn();
     const initProps      = {
         name:    'CustomCard 1',
-        content: cardContent,
-        onClick: onClickHandler,
+        content: cardContent
     };
     const { rerender } = render(<CustomCard {...initProps} {...renderProps} />);
 
     return {
         card: getAllButtons('CustomCard 1 item 1 item 2')[0],
-        onClickHandler,
         rerenderCard: (rerenderProps) => {
             rerender(<CustomCard {...initProps} {...rerenderProps} />);
         }
     };
 };
 
-test('CustomCard is displayed and onClick handler is called by clicking inner part of the Card', () => {
-    const { card, onClickHandler } = renderCard();
+test('CustomCard is displayed', () => {
+    const { card } = renderCard();
 
     // check that CustomCard is displayed
     expect(card).toBeInTheDocument();
+});
+
+test('"onClick" handler is called by clicking inner part of the Card', () => {
+    const onClickHandler = jest.fn();
+    const { card } = renderCard({ onClick: onClickHandler });
 
     // check that CustomCard's onClickHandler has been called
     userEvent.click(card.firstElementChild);
@@ -43,7 +45,8 @@ test('CustomCard is displayed and onClick handler is called by clicking inner pa
 });
 
 test('onClick handler is not called by clicking the outer part of the Card', () => {
-    const { card, onClickHandler } = renderCard();
+    const onClickHandler = jest.fn();
+    const { card } = renderCard({ onClick: onClickHandler });
 
     // check that CustomCard's onClickHandler has been called
     userEvent.click(card);
@@ -51,7 +54,8 @@ test('onClick handler is not called by clicking the outer part of the Card', () 
 });
 
 test('if isClicked is true CustomCard is not clickable', () => {
-    const { card, onClickHandler, rerenderCard } = renderCard({ isClicked: false });
+    const onClickHandler = jest.fn();
+    const { card, rerenderCard } = renderCard({ isClicked: false, onClick: onClickHandler });
 
     // check that CustomCard's onClickHandler has been called
     userEvent.click(card.firstElementChild);

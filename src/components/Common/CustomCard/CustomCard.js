@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card           from '@material-ui/core/Card';
@@ -9,7 +10,7 @@ import Typography     from '@material-ui/core/Typography';
 import yellow         from '@material-ui/core/colors/yellow';
 import red            from '@material-ui/core/colors/red';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         textAlign: 'center',
         padding: theme.spacing(3),
@@ -66,14 +67,14 @@ const useStyles = makeStyles((theme) => ({
  * @param {*}                    props.content      - Content of the CustomCard.
  * @param {boolean}              [props.isClicked]  - Indicates whether the CustomCard is clicked.
  * @param {string}               props.name         - Name of the CustomCard.
- * @param {EventHandlerFunction} props.onClick      - On click function for the CustomCard.
+ * @param {EventHandlerFunction} [props.onClick]    - On click function for the CustomCard.
  */
 const CustomCard = ({
-    colorTheme,
+    colorTheme = null,
     content,
     isClicked = false,
     name,
-    onClick
+    onClick = null
 }) => {
     const classes = useStyles({ color: colorTheme, isClicked });
 
@@ -114,6 +115,14 @@ const CustomCard = ({
             {cardContent}
         </Card>
     );
+};
+
+CustomCard.propTypes = {
+    colorTheme: PropTypes.oneOf(['yellow', 'red']),
+    content:    PropTypes.any.isRequired,
+    isClicked:  PropTypes.bool,
+    name:       PropTypes.string.isRequired,
+    onClick:    PropTypes.func
 };
 
 export default CustomCard;
