@@ -1,11 +1,11 @@
 import React       from 'react';
 import { connect } from 'react-redux';
 
-import CustomCard        from 'components/Common/CustomCard/CustomCard';
-import CustomCardButtons from 'components/Common/CustomCard/CustomCardButtons';
-import Schema            from 'components/Schemas/Schema/Schema';
-import AddSchemaForm     from 'components/Schemas/AddSchemaForm/AddSchemaForm';
-import EditSchemaForm    from 'components/Schemas/EditSchemaForm/EditSchemaForm';
+import CustomCardButtons  from 'components/Common/CustomCard/CustomCardButtons';
+import Schema             from 'components/Schemas/Schema/Schema';
+import AddSchemaForm      from 'components/Schemas/AddSchemaForm/AddSchemaForm';
+import EditSchemaForm     from 'components/Schemas/EditSchemaForm/EditSchemaForm';
+import CustomCardGridItem from 'components/Schemas/CustomCardGridItem/CustomCardGridItem';
 
 import {
     deleteSchema,
@@ -119,13 +119,11 @@ const SchemasBoard = ({
                     flexWrap='wrap'
                     justifyContent='space-evenly'
                 >
-                    {schemas.map(schema => (
-                        <CustomCard
+                    {schemas.map(({ id }) => (
+                        <CustomCardGridItem
+                            id={id}
                             colorTheme={cardColorTheme}
-                            content={schema.items.map(item => <div key={item.id}>{item.name}</div>)}
-                            key={schema.id}
-                            name={schema.name}
-                            onClick={selectClickedSchema(schema.id)}
+                            key={id}
                         />
                     ))}
                 </Box>
