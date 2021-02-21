@@ -119,7 +119,7 @@ const CustomCard = ({
 
 CustomCard.propTypes = {
     colorTheme: PropTypes.oneOf(['yellow', 'red']),
-    content:    PropTypes.any.isRequired,
+    content:    PropTypes.node.isRequired,
     isClicked:  PropTypes.bool,
     name:       PropTypes.string.isRequired,
     onClick:    PropTypes.func
