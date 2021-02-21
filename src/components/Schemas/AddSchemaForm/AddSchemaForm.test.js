@@ -11,16 +11,19 @@ import AddSchemaForm from './AddSchemaForm';
 import { setMode, UiModes }  from 'redux/reducers/ui';
 import { addSchema } from 'redux/reducers/schemas';
 
-const renderAddSchemaForm = ({
-    initialState = { ui: { mode: UiModes.ADD } },
-    store = undefined
-} = {}) => {
+const renderAddSchemaForm = ({ mock = false, async = false } = {}) => {
+    const initialState = { ui: { mode: UiModes.ADD } };
+    const store = mock ?
+        configureMockAppStore(async)(initialState)
+    : undefined;
+
     render(<AddSchemaForm />, { initialState, store });
 
     return {
         form: getTable(),
         submitButton: getButton('Submit'),
-        cancelButton: getButton('Cancel')
+        cancelButton: getButton('Cancel'),
+        store
     };
 };
 
@@ -48,7 +51,7 @@ describe('AddSchemaForm', () => {
         expect(queryButton('All')).not.toBeInTheDocument();
     });
 
-    test('"Schema Name" has an error when "Submit" button is clicked', () => {
+    test('Empty "Schema Name" has an error when "Submit" button is clicked', () => {
         const { submitButton } = renderAddSchemaForm();
 
         userEvent.click(submitButton);
@@ -56,8 +59,7 @@ describe('AddSchemaForm', () => {
     });
 
     test('"AddSchema" is dispatched', () => {
-        const store = configureMockAppStore(true)();
-        const { submitButton } = renderAddSchemaForm({ store });
+        const { submitButton, store } = renderAddSchemaForm({ mock: true, async: true });
         const actionPayload = {
             name: 'name',
             description: '',
@@ -73,8 +75,7 @@ describe('AddSchemaForm', () => {
     });
 
     test('"setMode" is dispatched', () => {
-        const store = configureMockAppStore()();
-        const { cancelButton } = renderAddSchemaForm({ store });
+        const { cancelButton, store } = renderAddSchemaForm({ mock: true });
 
         userEvent.click(cancelButton);
 

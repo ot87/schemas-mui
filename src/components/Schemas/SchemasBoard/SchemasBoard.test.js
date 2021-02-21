@@ -3,7 +3,7 @@ import { render, waitFor, mockStyleInjection } from 'test-utils';
 import {
     getAllButtons, getButton, queryButton,
     getTable, getTextBox, getTextBoxWithin,
-    getByTextWithin, getGrid, getGridCellWithin, queryGridCellWithin
+    getByTextWithin, getGrid, getGridCellWithin
 } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 

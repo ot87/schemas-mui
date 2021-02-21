@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
  * @callback EventHandlerFunction
  */
 
-/** 
+/**
  * Component to display a list of all Schemas by [Card]{@link Card} or [CardWithButtons]{@link CardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaFormContainer]{@link SchemaFormContainer}.
  * The displayed content depends on value of the activeSchemaId and mode parameters.
  * @param {Object}               props
@@ -60,7 +60,7 @@ const SchemasBoard = ({
     mode,
     updateSchema,
     deleteSchema,
-    setActiveSchemaId,
+    setActiveSchemaId
 }) => {
     const classes = useStyles();
     const isAdd    = mode === UiModes.ADD;
@@ -146,7 +146,7 @@ const SchemasBoard = ({
     }
 
     return schemasBoard;
-}
+};
 
 export default connect(
     state => ({

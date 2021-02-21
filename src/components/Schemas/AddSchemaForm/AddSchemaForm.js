@@ -6,7 +6,7 @@ import SchemaForm from 'components/Schemas/SchemaForm/SchemaForm';
 import { addSchema }        from 'redux/reducers/schemas';
 import { setMode, UiModes } from 'redux/reducers/ui';
 
-/** 
+/**
  * Component to add new schema with [SchemaFormContainer]{@link SchemaFormContainer}.
  */
 const AddSchemaForm = () => {
@@ -28,6 +28,6 @@ const AddSchemaForm = () => {
             onCancel={onCancel}
         />
     );
-}
+};
 
 export default AddSchemaForm;

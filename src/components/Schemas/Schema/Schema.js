@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /**
- * Renders passed schema with all its items.
+ * Shows schema with all its items.
  * @param {Object} props
  * @param {string} props.id - Schema id.
  */
