@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import CustomCard            from 'components/Common/CustomCard/CustomCard';
 import CustomCardWithButtons from 'components/Common/CustomCard/CustomCardWithButtons';
 import Schema                from 'components/Schemas/Schema/Schema';
-import SchemaForm            from 'components/Schemas/SchemaForm/SchemaForm';
 import AddSchemaForm         from 'components/Schemas/AddSchemaForm/AddSchemaForm';
+import EditSchemaForm        from 'components/Schemas/EditSchemaForm/EditSchemaForm';
 
 import {
-    updateSchema,
     deleteSchema,
     selectSchemas
 } from 'redux/reducers/schemas';
@@ -30,11 +29,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /**
- * Callback for events handling.
- * @callback EventHandlerFunction
- */
-
-/**
  * Component to display a list of all Schemas by [Card]{@link Card} or [CardWithButtons]{@link CardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaFormContainer]{@link SchemaFormContainer}.
  * The displayed content depends on value of the activeSchemaId and mode parameters.
  * @param {Object}               props
@@ -50,7 +44,6 @@ const useStyles = makeStyles(theme => ({
  *
  * @param {string|null}          props.activeSchemaId         - The id of the selected schema from the Redux State.
  * @param {string}               props.mode                   - The current ui mode from the Redux State.
- * @param {EventHandlerFunction} props.updateSchema           - A function to update schema.
  * @param {function}             props.deleteSchema           - A function to delete schema.
  * @param {function}             props.setActiveSchemaId      - A function to select schema.
  */
@@ -58,7 +51,6 @@ const SchemasBoard = ({
     schemas,
     activeSchemaId,
     mode,
-    updateSchema,
     deleteSchema,
     setActiveSchemaId
 }) => {
@@ -75,11 +67,7 @@ const SchemasBoard = ({
 
     if (activeSchemaId) {
         if (isEdit) {
-            schemasBoard = <SchemaForm
-                schema={schemas.find(schema => schema.id === activeSchemaId)}
-                onSubmit={updateSchema}
-                onCancel={onClickResetSchema}
-            />;
+            schemasBoard = <EditSchemaForm id={activeSchemaId} />;
         } else if (isDelete) {
             schemasBoard = (
                 <Box
@@ -154,5 +142,5 @@ export default connect(
         activeSchemaId: state.ui.activeSchemaId,
         mode: state.ui.mode
     }),
-    { updateSchema, deleteSchema, setActiveSchemaId }
+    { deleteSchema, setActiveSchemaId }
 )(SchemasBoard);

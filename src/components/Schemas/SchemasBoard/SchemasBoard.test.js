@@ -85,24 +85,9 @@ describe('SchemasBoard without "activeSchemaId"', () => {
 
         const form = getTable();
         expect(form).toBeInTheDocument();
-
-        const nameField = getTextBoxWithin(form, 'Schema Name');
-        expect(nameField).toBeInTheDocument();
-        expect(nameField).toHaveValue('Schema 1');
-
-        const descField = getTextBoxWithin(form, 'Schema Description');
-        expect(descField).toBeInTheDocument();
-        expect(descField).not.toHaveValue();
-
+        expect(getTextBoxWithin(form, 'Schema Name')).toBeInTheDocument();
+        expect(getTextBoxWithin(form, 'Schema Description')).toBeInTheDocument();
         expect(getGridCellWithin(form, 'Name 2 Quantity 3 Time')).toBeInTheDocument();
-
-        expect(getButton('Submit')).toBeInTheDocument();
-        expect(getButton('Reset')).toBeInTheDocument();
-        expect(getButton('Cancel')).toBeInTheDocument();
-
-        expect(getButton('Add')).toBeInTheDocument();
-        expect(getButton('Remove')).toBeInTheDocument();
-        expect(queryButton('All')).not.toBeInTheDocument();
     });
 
     test('SchemasBoard is displayed with two Cards with red theme ("mode" = "DELETE")', () => {
@@ -197,24 +182,9 @@ describe('SchemasBoard with "activeSchemaId"', () => {
 
         const form = getTable();
         expect(form).toBeInTheDocument();
-
-        const nameField = getTextBoxWithin(form, 'Schema Name');
-        expect(nameField).toBeInTheDocument();
-        expect(nameField).toHaveValue('Schema 1');
-
-        const descField = getTextBoxWithin(form, 'Schema Description');
-        expect(descField).toBeInTheDocument();
-        expect(descField).not.toHaveValue();
-
+        expect(getTextBoxWithin(form, 'Schema Name')).toBeInTheDocument();
+        expect(getTextBoxWithin(form, 'Schema Description')).toBeInTheDocument();
         expect(getGridCellWithin(form, 'Name 2 Quantity 3 Time')).toBeInTheDocument();
-
-        expect(getButton('Submit')).toBeInTheDocument();
-        expect(getButton('Reset')).toBeInTheDocument();
-        expect(getButton('Cancel')).toBeInTheDocument();
-
-        expect(getButton('Add')).toBeInTheDocument();
-        expect(getButton('Remove')).toBeInTheDocument();
-        expect(queryButton('All')).not.toBeInTheDocument();
     });
 
     test('SchemasBoard is displayed back when Schema is updated ("mode" = "EDIT")', async () => {
