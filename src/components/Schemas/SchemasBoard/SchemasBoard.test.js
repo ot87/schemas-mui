@@ -149,6 +149,19 @@ describe('SchemasBoard without "activeSchemaId"', () => {
         expect(getTextBoxWithin(form, 'Schema Description')).toBeInTheDocument();
     });
 
+    test('SchemasBoard is displayed back when Schema is added ("mode" = "ADD")', async () => {
+        renderSchemasBoard({
+            initData: { ui: { mode: UiModes.ADD } }
+        });
+
+        userEvent.type(getTextBox('Schema Name'), 'Schema 3');
+        userEvent.click(getButton('Submit'));
+
+        await waitFor(() => expect(getAllButtons('Schema 1 2')[0]).toBeInTheDocument());
+        expect(getAllButtons('Schema 2')[0]).toBeInTheDocument();
+        expect(getAllButtons('Schema 3')[0]).toBeInTheDocument();
+    });
+
     test('SchemasBoard is displayed back when "Cancel" button is clicked ("mode" = "ADD")', () => {
         renderSchemasBoard({
             initData: { ui: { mode: UiModes.ADD } }
