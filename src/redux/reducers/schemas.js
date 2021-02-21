@@ -58,7 +58,12 @@ const schemasSlice = createSlice({
 
 export default schemasSlice.reducer;
 
-export const {
-    selectAll:   selectSchemas,
+const {
+    selectAll: selectSchemas,
+    selectById,
     selectTotal: selectSchemasCount
 } = schemasAdapter.getSelectors(state => state.schemas);
+
+export { selectSchemas, selectSchemasCount };
+
+export const selectSchemaById = id => state => selectById(state, id);

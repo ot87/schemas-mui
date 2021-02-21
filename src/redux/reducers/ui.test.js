@@ -18,7 +18,7 @@ describe('ui slice', () => {
     });
 
     it('should handle "setActiveSchemaId"', () => {
-        const payload = 1;
+        const payload = '1';
 
         const nextState = ui(initialState, setActiveSchemaId(payload));
 
@@ -38,7 +38,7 @@ describe('ui slice', () => {
 
 describe('ui slice extra reducers', () => {
     it('should update "mode" to default when schema is added', async () => {
-        const responsePayload = { data: { id: 1 } };
+        const responsePayload = { data: { id: '1' } };
         const store = configureAppStore({ ui: { mode: UiModes.ADD } });
         API.addSchema.mockResolvedValueOnce(responsePayload);
 
@@ -48,8 +48,8 @@ describe('ui slice extra reducers', () => {
     });
 
     it('should nullify "activeSchemaId" when schema is updated', async () => {
-        const responsePayload = { data: { id: 1 } };
-        const store = configureAppStore({ ui: { activeSchemaId: 1 } });
+        const responsePayload = { data: { id: '1' } };
+        const store = configureAppStore({ ui: { activeSchemaId: '1' } });
         API.updateSchema.mockResolvedValueOnce(responsePayload);
 
         await store.dispatch(updateSchema({}));
@@ -58,8 +58,8 @@ describe('ui slice extra reducers', () => {
     });
 
     it('should nullify "activeSchemaId" when schema is deleted', async () => {
-        const responsePayload = { data: 1 };
-        const store = configureAppStore({ ui: { activeSchemaId: 1 } });
+        const responsePayload = { data: '1' };
+        const store = configureAppStore({ ui: { activeSchemaId: '1' } });
         API.deleteSchema.mockResolvedValueOnce(responsePayload);
 
         await store.dispatch(deleteSchema({}));

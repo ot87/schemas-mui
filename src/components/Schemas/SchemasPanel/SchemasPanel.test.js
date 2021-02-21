@@ -12,16 +12,21 @@ const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
     if (isStateInitial) {
         render(<SchemasPanel />);
     } else {
-        let initialState = { schemas: {
-            ids: [ 1 ],
-            entities: { 1: { id: 1, name: 'schema 1', items: [] } }
-        }};
-        if (Object.keys(initData).length) {
-            initialState = {
-                ...initialState,
-                ...initData
-            };
-        }
+        const initialState = {
+            ...{
+                schemas: {
+                    ids: [ '1' ],
+                    entities: {
+                        '1': {
+                            id: '1', name: 'schema 1', description: '',
+                            items: []
+                        }
+                    },
+                }
+            },
+            ...initData
+        };
+
         render(<SchemasPanel />, { initialState });
 
         buttons['editButton']   = getButton('Edit');
@@ -230,7 +235,7 @@ describe.each`
                 isStateInitial: false,
                 initData: {
                     ui: {
-                        activeSchemaId: 1,
+                        activeSchemaId: '1',
                         mode: UiModes[clicked.toUpperCase()]
                     }
                 }
@@ -250,7 +255,7 @@ describe.each`
                 isStateInitial: false,
                 initData: {
                     ui: {
-                        activeSchemaId: 1,
+                        activeSchemaId: '1',
                         mode: UiModes[clicked.toUpperCase()]
                     }
                 }

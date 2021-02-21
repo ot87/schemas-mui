@@ -5,7 +5,8 @@ import schemas, {
     updateSchema,
     deleteSchema,
     selectSchemas,
-    selectSchemasCount
+    selectSchemasCount,
+    selectSchemaById
 } from './schemas';
 import configureAppStore from 'redux/store/configureAppStore';
 import API from 'api';
@@ -21,8 +22,8 @@ describe('schemas slice', () => {
 describe('schemas slice extra reducers', () => {
     it('should load schemas', async () => {
         const responsePayload = { data: [
-            { id: 1 },
-            { id: 2 }
+            { id: '1' },
+            { id: '2' }
         ] };
         const store = configureAppStore();
         API.loadSchemas.mockResolvedValueOnce(responsePayload);
@@ -33,11 +34,11 @@ describe('schemas slice extra reducers', () => {
     });
 
     it('should add schema', async () => {
-        const responsePayload = { data: { id: 2 } };
+        const responsePayload = { data: { id: '2' } };
         const store = configureAppStore({ schemas: {
-            ids: [ 1 ],
+            ids: [ '1' ],
             entities: {
-                1: { id: 1 }
+                '1': { id: '1' }
             }
         } });
         API.addSchema.mockResolvedValueOnce(responsePayload);
@@ -48,26 +49,28 @@ describe('schemas slice extra reducers', () => {
     });
 
     it('should update schema', async () => {
-        const responsePayload = { data: { id: 1, name: 'test 2' } };
+        const responsePayload = { data: { id: '1', name: 'test 2' } };
         const store = configureAppStore({ schemas: {
-            ids: [ 1 ],
+            ids: [ '1' ],
             entities: {
-                1: { id: 1, name: 'test 1' }
+                '1': { id: '1', name: 'test 1' }
             }
         } });
         API.updateSchema.mockResolvedValueOnce(responsePayload);
 
         await store.dispatch(updateSchema({}));
 
-        expect(selectSchemas(store.getState())[0].name).toEqual(responsePayload.data.name);
+        expect(
+            selectSchemaById(responsePayload.data.id)(store.getState())
+        ).toEqual(responsePayload.data);
     });
 
     it('should delete schema', async () => {
-        const responsePayload = { data: 1 };
+        const responsePayload = { data: '1' };
         const store = configureAppStore({ schemas: {
-            ids: [ 1 ],
+            ids: [ '1' ],
             entities: {
-                1: { id: 1, name: 'test 1' }
+                '1': { id: '1', name: 'test 1' }
             }
         } });
         API.deleteSchema.mockResolvedValueOnce(responsePayload);

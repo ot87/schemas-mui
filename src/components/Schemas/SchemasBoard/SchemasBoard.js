@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
  * The displayed content depends on value of the activeSchemaId and mode parameters.
  * @param {Object}               props
  * @param {Object[]}             props.schemas                - The data of the all schemas from the Redux State.
- * @param {number}               props.schemas.id             - Schema id.
+ * @param {string}               props.schemas.id             - Schema id.
  * @param {string}               props.schemas.name           - Schema name.
  * @param {string}               [props.schemas.description]  - Schema description.
  * @param {Object[]}             props.schemas.items          - Array of schema items.
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
  * @param {string}               props.schemas.items.quantity - Schema item quantity.
  * @param {string}               props.schemas.items.time     - Schema item time.
  *
- * @param {number|null}          props.activeSchemaId         - The id of the selected schema from the Redux State.
+ * @param {string|null}          props.activeSchemaId         - The id of the selected schema from the Redux State.
  * @param {string}               props.mode                   - The current ui mode from the Redux State.
  * @param {EventHandlerFunction} props.updateSchema           - A function to update schema.
  * @param {function}             props.deleteSchema           - A function to delete schema.
@@ -110,9 +110,7 @@ const SchemasBoard = ({
                 </Box>
             );
         } else {
-            schemasBoard = <Schema
-                schema={schemas.find(schema => schema.id === activeSchemaId)}
-            />;
+            schemasBoard = <Schema id={activeSchemaId} />;
         }
     } else {
         if (isAdd) {

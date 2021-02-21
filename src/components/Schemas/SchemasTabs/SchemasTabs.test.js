@@ -9,19 +9,19 @@ const renderSchemasTabs = ({ isStateInitial = true, initData = {} } = {}) => {
     if (isStateInitial) {
         render(<SchemasTabs />);
     } else {
-        let initialState = { schemas: {
-            ids: [ 1, 2 ],
-            entities: {
-                1: {id: 1, name: 'Schema 1', items: []},
-                2: {id: 2, name: 'Schema 2', items: []}
-            }
-        }};
-        if (Object.keys(initData).length) {
-            initialState = {
-                ...initialState,
-                ...initData
-            };
-        }
+        const initialState = {
+            ...{
+                schemas: {
+                    ids: [ '1', '2' ],
+                    entities: {
+                        '1': {id: '1', name: 'Schema 1', description: '', items: []},
+                        '2': {id: '2', name: 'Schema 2', description: '', items: []}
+                    }
+                }
+            },
+            ...initData
+        };
+
         render(<SchemasTabs />, { initialState });
     }
 
@@ -38,7 +38,7 @@ test('An empty SchemaList is displayed', () => {
 test('SchemaList is displayed with two items and the item "Schema 1" is selected', () => {
     const schemasList = renderSchemasTabs({
         isStateInitial: false,
-        initData: { ui: { activeSchemaId: 1 } }
+        initData: { ui: { activeSchemaId: '1' } }
     });
     const schema1 = getTab('Schema 1');
     const schema2 = getTab('Schema 2');
@@ -56,7 +56,7 @@ test('SchemaList is displayed with two items and the item "Schema 1" is selected
 test('Item "Schema 2" is selected after clicking', () => {
     renderSchemasTabs({
         isStateInitial: false,
-        initData: { ui: { activeSchemaId: 1 } }
+        initData: { ui: { activeSchemaId: '1' } }
     });
     const schema1 = getTab('Schema 1');
     const schema2 = getTab('Schema 2');

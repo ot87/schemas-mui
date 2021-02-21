@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
  * [React Final Form]{@link https://final-form.org/react} library is used.
  * @param {Object}               props
  * @param {Object}               props.schema                - Initial data for the form.
- * @param {number}               [props.schema.id]           - Schema id.
+ * @param {string}               [props.schema.id]           - Schema id.
  * @param {string}               [props.schema.name]         - Schema name.
  * @param {string}               [props.schema.description]  - Schema description.
  * @param {Object[]}             props.schema.items          - Array of schema items.

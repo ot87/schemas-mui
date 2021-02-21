@@ -10,17 +10,20 @@ import Schema from './Schema';
 const queryByTextWithin = (element, text) => within(element).queryByText(text);
 
 const renderSchema = (schemaData = {}) => {
-    const schema = {
-        id: 1, name: 'Schema 1',
-        items: [{ id: 1, name: 'Name', quantity: 'Quantity', time: 'Time' }]
-    };
+    const initialState = { schemas: {
+        ids: [ '1' ],
+        entities: {
+            '1': {
+                ...{
+                    id: '1', name: 'Schema 1', description: '',
+                    items: [{ id: 1, name: 'Name', quantity: 'Quantity', time: 'Time' }]
+                },
+                ...schemaData
+            }
+        }
+    }};
 
-    render(
-        <Schema schema={{
-            ...schema,
-            ...schemaData
-        }} />
-    );
+    render(<Schema id='1' />, { initialState });
 
     return {
         schema: getGrid()
@@ -32,11 +35,8 @@ describe('Schema', () => {
         const { schema } = renderSchema({ items: [] });
 
         expect(schema).toBeInTheDocument();
-
         expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
-
         expect(queryByTextWithin(schema, 'Description 1')).not.toBeInTheDocument();
-
         expect(queryGridCellWithin(schema, 'Name Quantity Time')).not.toBeInTheDocument();
     });
 
@@ -44,23 +44,18 @@ describe('Schema', () => {
         const { schema } = renderSchema({ description: 'Description 1' });
 
         expect(schema).toBeInTheDocument();
-
         expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
-
         expect(getByTextWithin(schema, 'Description 1')).toBeInTheDocument();
-
         expect(getGridCellWithin(schema, 'Name Quantity Time')).toBeInTheDocument();
     });
 
     test('Schema is displayed without item time', () => {
         const { schema } = renderSchema({
-            items: [{ id: 1, name: 'Name', quantity: 'Quantity' }]
+            items: [{ id: 1, name: 'Name', quantity: 'Quantity', time: '' }]
         });
 
         expect(schema).toBeInTheDocument();
-
         expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
-
         expect(getGridCellWithin(schema, 'Name Quantity')).toBeInTheDocument();
     });
 });

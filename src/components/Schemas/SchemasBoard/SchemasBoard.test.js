@@ -14,19 +14,25 @@ import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
 const renderSchemasBoard = ({ initData = {} } = {}) => {
-    let initialState = { schemas: {
-        ids: [ 1, 2 ],
-        entities: {
-            1: {id: 1, name: 'Schema 1', items: [{ id: 1, name: '2', quantity: '3' }]},
-            2: {id: 2, name: 'Schema 2', items: []}
-        }
-    }};
-    if (Object.keys(initData).length) {
-        initialState = {
-            ...initialState,
-            ...initData
-        };
-    }
+    const initialState = {
+        ...{
+            schemas: {
+                ids: [ '1', '2' ],
+                entities: {
+                    '1': {
+                        id: '1', name: 'Schema 1', description: '',
+                        items: [{ id: 1, name: '2', quantity: '3', time: '' }]
+                    },
+                    '2': {
+                        id: '2', name: 'Schema 2', description: '',
+                        items: []
+                    }
+                }
+            }
+        },
+        ...initData
+    };
+
     render(<SchemasBoard />, { initialState });
 };
 
@@ -157,7 +163,7 @@ describe('SchemasBoard without "activeSchemaId"', () => {
 describe('SchemasBoard with "activeSchemaId"', () => {
     test('Schema is displayed ("mode" = "SHOW")', () => {
         renderSchemasBoard({
-            initData: { ui: { activeSchemaId: 1 } }
+            initData: { ui: { activeSchemaId: '1' } }
         });
 
         const schema = getGrid();
@@ -170,7 +176,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.EDIT
                 }
             }
@@ -202,7 +208,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.EDIT
                 }
             }
@@ -219,7 +225,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.EDIT
                 }
             }
@@ -234,7 +240,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.DELETE
                 }
             }
@@ -249,7 +255,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.DELETE
                 }
             }
@@ -264,7 +270,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         renderSchemasBoard({
             initData: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.DELETE
                 }
             }

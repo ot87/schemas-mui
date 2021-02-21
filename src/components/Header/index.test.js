@@ -14,12 +14,7 @@ const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
         isSchemasClicked: false,
         setIsSchemasClicked: setIsSchemasClickedHandler
     };
-    const { rerender } = render(
-        <Header {...initProps} {...renderProps}/>,
-        Object.keys(initialState).length ?
-            { initialState }
-        : undefined
-    );
+    const { rerender } = render( <Header {...initProps} {...renderProps}/>, { initialState });
 
     return {
         setIsSchemasClickedHandler,
@@ -61,7 +56,7 @@ describe('Header with "activeSchemaId"', () => {
     test('"Back" button and TabList are displayed ("mode" = "SHOW")', () => {
         renderHeader({ initialState: {
             ui: {
-                activeSchemaId: 1,
+                activeSchemaId: '1',
                 mode: UiModes.SHOW
             }
         } });
@@ -75,7 +70,7 @@ describe('Header with "activeSchemaId"', () => {
             renderProps: { isSchemasClicked: true },
             initialState: {
                 ui: {
-                    activeSchemaId: 1,
+                    activeSchemaId: '1',
                     mode: UiModes.SHOW
                 }
             }
@@ -109,7 +104,7 @@ describe('Responsiveness of Header', () => {
         const applyJSSRules = mockStyleInjection();
         renderHeader({ initialState: {
             ui: {
-                activeSchemaId: 1,
+                activeSchemaId: '1',
                 mode: UiModes.EDIT
             }
         } });

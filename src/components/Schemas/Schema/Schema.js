@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+
+import { selectSchemaById } from 'redux/reducers/schemas';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid           from '@material-ui/core/Grid';
@@ -14,19 +18,13 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Renders passed schema with all its items.
- * @param {Object}   props
- * @param {Object}   props.schema                - Schema information.
- * @param {number}   props.schema.id             - Schema id.
- * @param {string}   props.schema.name           - Schema name.
- * @param {string}   [props.schema.description]  - Schema description.
- * @param {Object[]} props.schema.items          - Array of schema items.
- * @param {number}   props.schema.items.id       - Schema item id.
- * @param {string}   props.schema.items.name     - Schema item name.
- * @param {string}   props.schema.items.quantity - Schema item quantity.
- * @param {string}   [props.schema.items.time]   - Schema item time.
+ * @param {Object} props
+ * @param {string} props.id - Schema id.
  */
-const Schema = ({ schema }) => {
+const Schema = ({ id }) => {
     const classes = useStyles();
+    const schema  = useSelector(selectSchemaById(id));
+
     const smScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
     const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'));
 
@@ -81,6 +79,10 @@ const Schema = ({ schema }) => {
             ))}
         </Grid>
     );
+};
+
+Schema.propTypes = {
+    id: PropTypes.string.isRequired
 };
 
 export default Schema;
