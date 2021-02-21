@@ -88,7 +88,7 @@ const SchemasBoard = ({
                                     text: 'Cancel'
                                 }
                             })}
-                            cardIsClicked={schema.id === activeSchemaId}
+                            isCardClicked={schema.id === activeSchemaId}
                             content={schema.items.map(item => <div key={item.id}>{item.name}</div>)}
                             key={schema.id}
                             name={schema.name}

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CustomCard   from './CustomCard';
 import CustomButton from 'components/Common/CustomButton/CustomButton';
@@ -22,19 +23,19 @@ import Box from '@material-ui/core/Box';
  * @param {EventHandlerFunction} props.buttons.second.onClick - On click function for the second CustomButton.
  * @param {string}               props.buttons.second.text    - Text to display on the second CustomButton.
  *
- * @param {boolean}              props.cardIsClicked - If CustomCard is clicked, then CustomCard onClick will be nullified and two CustomButton will be displayed instead of the content prop.
- * @param {*}                    props.content       - Content of the CustomCard.
- * @param {string}               props.name          - Name of the CustomCard.
- * @param {EventHandlerFunction} props.onClick       - On click function for the CustomCard.
+ * @param {boolean}              [props.isCardClicked] - If CustomCard is clicked, then CustomCard onClick will be nullified and two CustomButton will be displayed instead of the content prop.
+ * @param {*}                    props.content         - Content of the CustomCard.
+ * @param {string}               props.name            - Name of the CustomCard.
+ * @param {EventHandlerFunction} [props.onClick]       - On click function for the CustomCard.
  */
 const CustomCardButtons = ({
     buttons: { first, second },
-    cardIsClicked,
+    isCardClicked = false,
     content,
     name,
     onClick
 }) => {
-    if (cardIsClicked) {
+    if (isCardClicked) {
         onClick = null;
         content = (
             <Box display='flex' flexDirection='column'>
@@ -55,11 +56,28 @@ const CustomCardButtons = ({
         <CustomCard
             colorTheme='red'
             content={content}
-            isClicked={cardIsClicked}
+            isClicked={isCardClicked}
             name={name}
             onClick={onClick}
         />
     );
+};
+
+CustomCardButtons.propTypes = {
+    buttons: PropTypes.shape({
+        first: PropTypes.shape({
+            onClick: PropTypes.func.isRequired,
+            text: PropTypes.string.isRequired
+        }).isRequired,
+        second: PropTypes.shape({
+            onClick: PropTypes.func.isRequired,
+            text: PropTypes.string.isRequired
+        }).isRequired,
+    }).isRequired,
+    isCardClicked: PropTypes.bool,
+    content:       PropTypes.any.isRequired,
+    name:          PropTypes.string.isRequired,
+    onClick:       PropTypes.func
 };
 
 export default CustomCardButtons;

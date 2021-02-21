@@ -31,11 +31,10 @@ const renderCard = (renderProps) => {
         }
     };
     const initProps = {
-        name:          'CustomCard 1',
-        content:       cardContent,
-        cardIsClicked: false,
-        onClick:       onClickHandler,
-        buttons:       buttons
+        name:    'CustomCard 1',
+        content: cardContent,
+        onClick: onClickHandler,
+        buttons: buttons
     };
     const { rerender } = render(<CustomCardButtons {...initProps} {...renderProps} />);
 
@@ -72,7 +71,7 @@ test('CustomCardButtons is displayed with two clickable CustomButtons', () => {
         rerenderCard
     } = renderCard();
 
-    rerenderCard({ cardIsClicked: true });
+    rerenderCard({ isCardClicked: true });
 
     // CustomCardButtons is rerendered with a new content when is clicked
     expect(queryButton(notClickedName)).not.toBeInTheDocument();
@@ -99,7 +98,7 @@ test('CustomCardButtons is displayed with two clickable CustomButtons', () => {
     userEvent.click(button2);
     expect(onButton2ClickHandler).toHaveBeenCalledTimes(1);
 
-    rerenderCard({ cardIsClicked: false });
+    rerenderCard({ isCardClicked: false });
 
     // CustomCardButtons is rerendered with new content again when is unclicked
     expect(queryButton(clickedName)).not.toBeInTheDocument();
