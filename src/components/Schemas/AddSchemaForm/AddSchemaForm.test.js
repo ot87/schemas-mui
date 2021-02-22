@@ -58,7 +58,7 @@ describe('AddSchemaForm', () => {
         expect(getTextBox('Schema Name')).toHaveAttribute('aria-invalid', 'true');
     });
 
-    test('"AddSchema" is dispatched', () => {
+    test('"AddSchema" is dispatched when "Submit" button is clicked', () => {
         const { submitButton, store } = renderAddSchemaForm({ mock: true, async: true });
         const actionPayload = {
             name: 'name',
@@ -74,11 +74,12 @@ describe('AddSchemaForm', () => {
         expect(dispatchedAction.meta.arg).toEqual(actionPayload);
     });
 
-    test('"setMode" is dispatched', () => {
+    test('"setMode" is dispatched when "Cancel" button is clicked', () => {
         const { cancelButton, store } = renderAddSchemaForm({ mock: true });
+        const actionPayload = UiModes.SHOW;
 
         userEvent.click(cancelButton);
 
-        expect(store.getActions()).toEqual([setMode(UiModes.SHOW)]);
+        expect(store.getActions()).toEqual([setMode(actionPayload)]);
     });
 });

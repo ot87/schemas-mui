@@ -52,11 +52,12 @@ describe('CustomCardGridItem', () => {
         ).toHaveStyle(`background-color: ${yellow[600]}`);
     });
 
-    test('"setActiveSchemaId" is dispatched', () => {
+    test('"setActiveSchemaId" is dispatched when Card is clicked', () => {
         const { card, store } = renderCustomCardGridItem({ mock: true });
+        const actionPayload = '1';
 
         userEvent.click(card.firstElementChild);
 
-        expect(store.getActions()).toEqual([setActiveSchemaId('1')]);
+        expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
     });
 });

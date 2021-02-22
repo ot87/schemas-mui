@@ -71,7 +71,7 @@ describe('EditSchemaForm', () => {
         expect(getTextBox('Schema Name')).toHaveAttribute('aria-invalid', 'true');
     });
 
-    test('"updateSchema" is dispatched', () => {
+    test('"updateSchema" is dispatched when "Submit" button is clicked', () => {
         const { submitButton, store } = renderEditSchemaForm({ mock: true, async: true });
         const actionPayload = {
             id: '1',
@@ -88,11 +88,12 @@ describe('EditSchemaForm', () => {
         expect(dispatchedAction.meta.arg).toEqual(actionPayload);
     });
 
-    test('"setActiveSchemaId" is dispatched', () => {
+    test('"setActiveSchemaId" is dispatched when "Cancel" button is clicked', () => {
         const { cancelButton, store } = renderEditSchemaForm({ mock: true });
+        const actionPayload = null;
 
         userEvent.click(cancelButton);
 
-        expect(store.getActions()).toEqual([setActiveSchemaId(null)]);
+        expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
     })
 });
