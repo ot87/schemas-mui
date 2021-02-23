@@ -1,5 +1,5 @@
-import React       from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Schema                    from '../Schema/Schema';
 import SchemasGrid               from '../SchemasGrid/SchemasGrid';
@@ -8,19 +8,20 @@ import EditSchemaForm            from '../EditSchemaForm/EditSchemaForm';
 import CustomCardGridItem        from '../CustomCardGridItem/CustomCardGridItem';
 import CustomCardButtonsGridItem from '../CustomCardButtonsGridItem/CustomCardButtonsGridItem';
 
-import { UiModes } from 'redux/reducers/ui';
+import {
+    UiModes,
+    selectActiveSchemaId,
+    selectMode
+} from 'redux/reducers/ui';
 
 /**
  * Component to display a list of all Schemas by [Card]{@link Card} or [CardWithButtons]{@link CardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaFormContainer]{@link SchemaFormContainer}.
  * The displayed content depends on value of the activeSchemaId and mode parameters.
- * @param {Object}      props
- * @param {string|null} props.activeSchemaId - The id of the selected schema from the Redux State.
- * @param {string}      props.mode           - The current ui mode from the Redux State.
  */
-const SchemasBoard = ({
-    activeSchemaId,
-    mode
-}) => {
+const SchemasBoard = () => {
+    const activeSchemaId = useSelector(selectActiveSchemaId);
+    const mode = useSelector(selectMode);
+
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
@@ -74,9 +75,4 @@ const SchemasBoard = ({
     return schemasBoard;
 };
 
-export default connect(
-    state => ({
-        activeSchemaId: state.ui.activeSchemaId,
-        mode: state.ui.mode
-    })
-)(SchemasBoard);
+export default SchemasBoard;
