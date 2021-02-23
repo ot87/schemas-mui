@@ -234,6 +234,23 @@ describe('SchemasBoard with "activeSchemaId"', () => {
         expect(getButton('Cancel')).toBeInTheDocument();
     });
 
+    test('CustomCardButtons is displayed when another Card is clicked ("mode" = "DELETE")', () => {
+        renderSchemasBoard({
+            initData: {
+                ui: {
+                    activeSchemaId: '1',
+                    mode: UiModes.DELETE
+                }
+            }
+        });
+
+        userEvent.click(getAllButtons('Schema 2')[0].firstElementChild);
+
+        expect(getButton('Schema 2 Delete Cancel')).toBeInTheDocument();
+        expect(getButton('Delete')).toBeInTheDocument();
+        expect(getButton('Cancel')).toBeInTheDocument();
+    });
+
     test('Card is deleted when "Delete" button is clicked ("mode" = "DELETE")', () => {
         renderSchemasBoard({
             initData: {

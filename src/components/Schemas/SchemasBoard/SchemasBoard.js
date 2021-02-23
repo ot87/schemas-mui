@@ -1,17 +1,14 @@
 import React       from 'react';
 import { connect } from 'react-redux';
 
-import CustomCardButtons  from 'components/Common/CustomCard/CustomCardButtons';
-import Schema             from 'components/Schemas/Schema/Schema';
-import AddSchemaForm      from 'components/Schemas/AddSchemaForm/AddSchemaForm';
-import EditSchemaForm     from 'components/Schemas/EditSchemaForm/EditSchemaForm';
-import CustomCardGridItem from 'components/Schemas/CustomCardGridItem/CustomCardGridItem';
+import Schema                    from '../Schema/Schema';
+import AddSchemaForm             from '../AddSchemaForm/AddSchemaForm';
+import EditSchemaForm            from '../EditSchemaForm/EditSchemaForm';
+import CustomCardGridItem        from '../CustomCardGridItem/CustomCardGridItem';
+import CustomCardButtonsGridItem from '../CustomCardButtonsGridItem/CustomCardButtonsGridItem';
 
-import {
-    deleteSchema,
-    selectSchemas
-} from 'redux/reducers/schemas';
-import { setActiveSchemaId, UiModes } from 'redux/reducers/ui';
+import { selectSchemas } from 'redux/reducers/schemas';
+import { UiModes } from 'redux/reducers/ui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box            from '@material-ui/core/Box';
@@ -44,24 +41,16 @@ const useStyles = makeStyles(theme => ({
  *
  * @param {string|null}          props.activeSchemaId         - The id of the selected schema from the Redux State.
  * @param {string}               props.mode                   - The current ui mode from the Redux State.
- * @param {function}             props.deleteSchema           - A function to delete schema.
- * @param {function}             props.setActiveSchemaId      - A function to select schema.
  */
 const SchemasBoard = ({
     schemas,
     activeSchemaId,
-    mode,
-    deleteSchema,
-    setActiveSchemaId
+    mode
 }) => {
     const classes = useStyles();
     const isAdd    = mode === UiModes.ADD;
     const isEdit   = mode === UiModes.EDIT;
     const isDelete = mode === UiModes.DELETE;
-
-    const onDeleteClick       = id => () => deleteSchema(id);
-    const onClickResetSchema  = () => setActiveSchemaId(null);
-    const selectClickedSchema = id => () => setActiveSchemaId(id);
 
     let schemasBoard;
 
@@ -76,23 +65,11 @@ const SchemasBoard = ({
                     flexWrap='wrap'
                     justifyContent='space-evenly'
                 >
-                    {schemas.map(schema => (
-                        <CustomCardButtons
-                            buttons={({
-                                first: {
-                                    onClick: onDeleteClick(schema.id),
-                                    text: 'Delete'
-                                },
-                                second: {
-                                    onClick: onClickResetSchema,
-                                    text: 'Cancel'
-                                }
-                            })}
-                            isCardClicked={schema.id === activeSchemaId}
-                            content={schema.items.map(item => <div key={item.id}>{item.name}</div>)}
-                            key={schema.id}
-                            name={schema.name}
-                            onClick={selectClickedSchema(schema.id)}
+                    {schemas.map(({ id }) => (
+                        <CustomCardButtonsGridItem
+                            id={id}
+                            isCardClicked={id === activeSchemaId}
+                            key={id}
                         />
                     ))}
                 </Box>
@@ -139,6 +116,5 @@ export default connect(
         schemas: selectSchemas(state),
         activeSchemaId: state.ui.activeSchemaId,
         mode: state.ui.mode
-    }),
-    { deleteSchema, setActiveSchemaId }
+    })
 )(SchemasBoard);
