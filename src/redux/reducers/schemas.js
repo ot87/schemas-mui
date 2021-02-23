@@ -60,10 +60,11 @@ export default schemasSlice.reducer;
 
 const {
     selectAll: selectSchemas,
+    selectIds: selectSchemasIds,
     selectById,
     selectTotal: selectSchemasCount
 } = schemasAdapter.getSelectors(state => state.schemas);
 
-export { selectSchemas, selectSchemasCount };
+export { selectSchemas, selectSchemasIds, selectSchemasCount };
 
 export const selectSchemaById = id => state => selectById(state, id);

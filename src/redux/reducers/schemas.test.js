@@ -5,6 +5,7 @@ import schemas, {
     updateSchema,
     deleteSchema,
     selectSchemas,
+    selectSchemasIds,
     selectSchemasCount,
     selectSchemaById
 } from './schemas';
@@ -45,7 +46,7 @@ describe('schemas slice extra reducers', () => {
 
         await store.dispatch(addSchema({}));
 
-        expect(selectSchemasCount(store.getState())).toBe(2);
+        expect(selectSchemasIds(store.getState())).toEqual([ '1', '2' ]);
     });
 
     it('should update schema', async () => {
