@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Box            from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,18 +18,18 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Callback for events handling.
- * @callback EventHandlerFunction
+ * @callback EventHandler
  */
 
 /**
- * Renders [Plates]{@link {Plate}} to add new or remove existing items rows during work with [SchemaFormContainer]{@link SchemaFormContainer}.
- * @param {Object}               props
- * @param {boolean}              props.isRemoveClicked    - Indicates whether Remove Plate is clicked.
- * @param {boolean}              props.showRemove         - If true, show Remove and All Plates.
- * @param {boolean}              props.isRemoveAllClicked - Indicates whether All Plate is clicked.
- * @param {EventHandlerFunction} props.addOnClick         - On click function for Add Plate.
- * @param {EventHandlerFunction} props.removeOnClick      - On click function for Remove Plate.
- * @param {EventHandlerFunction} props.removeAllOnClick   - On click function for All Plate.
+ * Renders [CustomButtons]{@link {CustomButton}} to add new or remove existing items rows while working with [SchemaForm]{@link SchemaForm}.
+ * @param {Object}       props
+ * @param {boolean}      props.isRemoveClicked    - Indicates whether Remove CustomButton is clicked.
+ * @param {boolean}      props.showRemove         - If true, show Remove and All CustomButtons.
+ * @param {boolean}      props.isRemoveAllClicked - Indicates whether All CustomButton is clicked.
+ * @param {EventHandler} props.addOnClick         - On click function for Add CustomButton.
+ * @param {EventHandler} props.removeOnClick      - On click function for Remove CustomButton.
+ * @param {EventHandler} props.removeAllOnClick   - On click function for All CustomButton.
  */
 const FormItemsControls = ({
     isRemoveClicked,
@@ -70,6 +71,15 @@ const FormItemsControls = ({
             : null}
         </Box>
     );
+};
+
+FormItemsControls.propTypes = {
+    isRemoveClicked:    PropTypes.bool.isRequired,
+    showRemove:         PropTypes.bool.isRequired,
+    isRemoveAllClicked: PropTypes.bool.isRequired,
+    addOnClick:         PropTypes.func.isRequired,
+    removeOnClick:      PropTypes.func.isRequired,
+    removeAllOnClick:   PropTypes.func.isRequired
 };
 
 export default FormItemsControls;

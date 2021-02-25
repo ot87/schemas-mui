@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CustomButton from 'components/Common/CustomButton/CustomButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Box            from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,21 +18,21 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Callback for events handling.
- * @callback EventHandlerFunction
+ * @callback EventHandler
  */
 
 /**
  * Renders [CustomButtons]{@link CustomButton} as form buttons.
- * @param {Object}               props
- * @param {Object}               props.submit            - Props for the Submit CustomButton.
- * @param {boolean}              props.submit.isDisabled - Indicates whether CustomButton is disabled.
- * @param {EventHandlerFunction} props.submit.onClick    - On click function for Submit CustomButton.
- * @param {Object}               props.reset             - Props for the Reset CustomButton.
- * @param {boolean}              props.reset.isDisabled  - Indicates whether CustomButton is disabled.
- * @param {EventHandlerFunction} props.reset.onClick     - On click function for Reset CustomButton.
- * @param {Object}               props.cancel            - Props for the Cancel CustomButton.
- * @param {boolean}              props.cancel.isDisabled - Indicates whether CustomButton is disabled.
- * @param {EventHandlerFunction} props.cancel.onClick    - On click function for Cancel CustomButton.
+ * @param {Object}       props
+ * @param {Object}       props.submit            - Props for the Submit CustomButton.
+ * @param {boolean}      props.submit.isDisabled - Indicates whether CustomButton is disabled.
+ * @param {EventHandler} props.submit.onClick    - On click function for Submit CustomButton.
+ * @param {Object}       props.reset             - Props for the Reset CustomButton.
+ * @param {boolean}      props.reset.isDisabled  - Indicates whether CustomButton is disabled.
+ * @param {EventHandler} props.reset.onClick     - On click function for Reset CustomButton.
+ * @param {Object}       props.cancel            - Props for the Cancel CustomButton.
+ * @param {boolean}      props.cancel.isDisabled - Indicates whether CustomButton is disabled.
+ * @param {EventHandler} props.cancel.onClick    - On click function for Cancel CustomButton.
  */
 const FormButtons = ({ submit, reset, cancel }) => {
     const classes = useStyles();
@@ -62,6 +63,21 @@ const FormButtons = ({ submit, reset, cancel }) => {
             />
         </Box>
     );
+};
+
+FormButtons.propTypes = {
+    submit: PropTypes.shape({
+        isDisabled: PropTypes.bool.isRequired,
+        onClick:    PropTypes.func.isRequired
+    }).isRequired,
+    reset: PropTypes.shape({
+        isDisabled: PropTypes.bool.isRequired,
+        onClick:    PropTypes.func.isRequired
+    }).isRequired,
+    cancel: PropTypes.shape({
+        isDisabled: PropTypes.bool.isRequired,
+        onClick:    PropTypes.func.isRequired
+    }).isRequired
 };
 
 export default FormButtons;

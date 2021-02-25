@@ -1,8 +1,9 @@
-import React     from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 
 import { makeStyles } from '@material-ui/core/styles';
-import TextField      from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
     textfield: {
@@ -60,6 +61,16 @@ const FormField = ({
             )}
         </Field>
     );
+};
+
+FormField.propTypes = {
+    disabled:    PropTypes.bool,
+    label:       PropTypes.string.isRequired,
+    multiline:   PropTypes.bool,
+    name:        PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    rows:        PropTypes.number,
+    validate:    PropTypes.func
 };
 
 export default FormField;

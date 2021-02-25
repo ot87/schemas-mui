@@ -48,7 +48,7 @@ const getColor = (colorTheme, isDisabled) => {
 
 /**
  * Callback for events handling.
- * @callback EventHandlerFunction
+ * @callback EventHandler
  */
 
 /**
@@ -56,7 +56,7 @@ const getColor = (colorTheme, isDisabled) => {
  * @param {Object}                                 props
  * @param {'green'|'yellow'|'red'|'default'}       [props.colorTheme] - Color theme of the CustomButton.
  * @param {'clicked'|'toggled'|'disabled'|'shown'} [props.type]       - Indicates a type of the CustomButton. If it's clicked, onClick is nullified; if it's toggled, the CustomButton is clicked and stayed clickable; if it's disabled, the CustomButton is disabled.
- * @param {EventHandlerFunction}                   props.onClick      - On click function for the CustomButton.
+ * @param {EventHandler}                           props.onClick      - On click function for the CustomButton.
  * @param {string}                                 props.text         - Text to display on the CustomButton.
  */
 const CustomButton = ({

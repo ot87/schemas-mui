@@ -7,7 +7,7 @@ import { addSchema }        from 'redux/reducers/schemas';
 import { setMode, UiModes } from 'redux/reducers/ui';
 
 /**
- * Component to add new schema with [SchemaFormContainer]{@link SchemaFormContainer}.
+ * Component to add new schema with [SchemaForm]{@link SchemaForm}.
  */
 const AddSchemaForm = () => {
     const dispatch = useDispatch();

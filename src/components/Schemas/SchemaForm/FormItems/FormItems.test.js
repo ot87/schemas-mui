@@ -14,8 +14,8 @@ const renderFormItems = (renderProps = {}) => {
     const onItemsRowClickHandler = jest.fn();
     const onValidateHandler = jest.fn();
     const initItems = [
-        { id: 1, name: '1', quantity: '1', time: '1' },
-        { id: 2, name: '1', quantity: '1', time: '1' }
+        { id: '1', name: '1', quantity: '1', time: '1' },
+        { id: '2', name: '1', quantity: '1', time: '1' }
     ];
 
     render(

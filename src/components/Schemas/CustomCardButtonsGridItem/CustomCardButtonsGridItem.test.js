@@ -21,7 +21,7 @@ const renderCustomCardButtonsGridItem = ({
         entities: {
             '1': {
                 id: '1', name: 'Schema 1', description: '',
-                items: [{ id: 1, name: '2', quantity: '3', time: '' }]
+                items: [{ id: '1', name: '2', quantity: '3', time: '' }]
             },
             '2': {
                 id: '2', name: 'Schema 2', description: '',

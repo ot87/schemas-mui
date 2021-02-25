@@ -9,8 +9,8 @@ import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
 const cardContent = [
-    {id: 1, name: 'item 1'},
-    {id: 2, name: 'item 2'}
+    {id: '1', name: 'item 1'},
+    {id: '2', name: 'item 2'}
 ].map((item) => <div key={item.id}>{item.name}</div>);
 
 const renderCard = (renderProps) => {

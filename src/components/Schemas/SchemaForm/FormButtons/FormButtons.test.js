@@ -9,17 +9,16 @@ import green  from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
-const renderFormButtons = renderProps => {
+const renderFormButtons = (renderProps = {}) => {
     const submitOnClick = jest.fn();
     const resetOnClick  = jest.fn();
     const cancelOnClick = jest.fn();
 
     render(
         <FormButtons
-            submit={({ isDisabled: false, onClick: submitOnClick })}
-            reset={({ isDisabled: false, onClick: resetOnClick })}
-            cancel={({ isDisabled: false, onClick: cancelOnClick })}
-            {...renderProps}
+            submit={({ isDisabled: false, onClick: submitOnClick, ...renderProps.submit })}
+            reset={({ isDisabled: false, onClick: resetOnClick, ...renderProps.reset })}
+            cancel={({ isDisabled: false, onClick: cancelOnClick, ...renderProps.cancel })}
         />
     );
 

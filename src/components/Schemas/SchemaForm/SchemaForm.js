@@ -1,4 +1,5 @@
-import React      from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { Form }      from 'react-final-form';
@@ -37,24 +38,24 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Callback for events handling.
- * @callback EventHandlerFunction
+ * @callback EventHandler
  */
 
 /**
  * Form container to add or edit schemas.
  * [React Final Form]{@link https://final-form.org/react} library is used.
- * @param {Object}               props
- * @param {Object}               props.schema                - Initial data for the form.
- * @param {string}               [props.schema.id]           - Schema id.
- * @param {string}               [props.schema.name]         - Schema name.
- * @param {string}               [props.schema.description]  - Schema description.
- * @param {Object[]}             props.schema.items          - Array of schema items.
- * @param {number}               props.schema.items.id       - Schema item id.
- * @param {string}               props.schema.items.name     - Schema item name.
- * @param {string}               props.schema.items.quantity - Schema item quantity.
- * @param {string}               [props.schema.items.time]   - Schema item time.
- * @param {EventHandlerFunction} props.onSubmit              - On click function for Submit Plate.
- * @param {EventHandlerFunction} props.onCancel              - On click function for Cancel Plate.
+ * @param {Object}       props
+ * @param {Object}       props.schema                - Initial data for the form.
+ * @param {string}       [props.schema.id]           - Schema id.
+ * @param {string}       props.schema.name           - Schema name.
+ * @param {string}       props.schema.description    - Schema description.
+ * @param {Object[]}     props.schema.items          - Array of schema items.
+ * @param {string}       props.schema.items.id       - Schema item id.
+ * @param {string}       props.schema.items.name     - Schema item name.
+ * @param {string}       props.schema.items.quantity - Schema item quantity.
+ * @param {string}       props.schema.items.time     - Schema item time.
+ * @param {EventHandler} props.onSubmit              - On click function for Submit Button.
+ * @param {EventHandler} props.onCancel              - On click function for Cancel Button.
  */
 const SchemaForm = ({ schema, onSubmit, onCancel }) => {
     const classes = useStyles();
@@ -160,6 +161,22 @@ const SchemaForm = ({ schema, onSubmit, onCancel }) => {
             )}
         />
     );
+};
+
+SchemaForm.propTypes = {
+    schema: PropTypes.shape({
+        id:          PropTypes.string,
+        name:        PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        items: PropTypes.arrayOf(PropTypes.shape({
+            id:       PropTypes.string.isRequired,
+            name:     PropTypes.string.isRequired,
+            quantity: PropTypes.string.isRequired,
+            time:     PropTypes.string.isRequired
+        })).isRequired
+    }).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired
 };
 
 export default SchemaForm;

@@ -57,17 +57,17 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Callback for events handling.
- * @callback EventHandlerFunction
+ * @callback EventHandler
  */
 
 /**
  * Functional component which renders a custom CustomCard element.
- * @param {Object}               props
- * @param {'yellow'|'red'}       [props.colorTheme] - Color theme of the CustomCard.
- * @param {*}                    props.content      - Content of the CustomCard.
- * @param {boolean}              [props.isClicked]  - Indicates whether the CustomCard is clicked.
- * @param {string}               props.name         - Name of the CustomCard.
- * @param {EventHandlerFunction} [props.onClick]    - On click function for the CustomCard.
+ * @param {Object}         props
+ * @param {'yellow'|'red'} [props.colorTheme] - Color theme of the CustomCard.
+ * @param {*}              props.content      - Content of the CustomCard.
+ * @param {boolean}        [props.isClicked]  - Indicates whether the CustomCard is clicked.
+ * @param {string}         props.name         - Name of the CustomCard.
+ * @param {EventHandler}   [props.onClick]    - On click function for the CustomCard.
  */
 const CustomCard = ({
     colorTheme = null,

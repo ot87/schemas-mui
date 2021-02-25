@@ -53,7 +53,7 @@ describe('FormItemsRow', () => {
 
     test('All items with value are displayed', () => {
         const { itemsRow } = renderFormItemsRow({
-            items: [{ id: 1, name: '1', quantity: '1', time: '1' }],
+            items: [{ id: '1', name: '1', quantity: '1', time: '1' }],
             searchRowText: 'Name 1 Quantity 1 Time 1'
         });
 
@@ -62,7 +62,7 @@ describe('FormItemsRow', () => {
 
     test('Part of the items with value are displayed', () => {
         const { itemsRow } = renderFormItemsRow({
-            items: [{ id: 1, name: '1', quantity: '1' }],
+            items: [{ id: '1', name: '1', quantity: '1', time: '' }],
             searchRowText: 'Name 1 Quantity 1 Time'
         });
 

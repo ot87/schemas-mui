@@ -16,7 +16,7 @@ const renderSchema = (schemaData = {}) => {
             '1': {
                 ...{
                     id: '1', name: 'Schema 1', description: '',
-                    items: [{ id: 1, name: 'Name', quantity: 'Quantity', time: 'Time' }]
+                    items: [{ id: '1', name: 'Name', quantity: 'Quantity', time: 'Time' }]
                 },
                 ...schemaData
             }
@@ -51,7 +51,7 @@ describe('Schema', () => {
 
     test('Schema is displayed without item time', () => {
         const { schema } = renderSchema({
-            items: [{ id: 1, name: 'Name', quantity: 'Quantity', time: '' }]
+            items: [{ id: '1', name: 'Name', quantity: 'Quantity', time: '' }]
         });
 
         expect(schema).toBeInTheDocument();

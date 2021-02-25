@@ -9,8 +9,8 @@ import userEvent from '@testing-library/user-event';
 import CustomCardButtons from './CustomCardButtons';
 
 const cardContent = [
-    {id: 1, name: 'item 1'},
-    {id: 2, name: 'item 2'}
+    {id: '1', name: 'item 1'},
+    {id: '2', name: 'item 2'}
 ].map((item) => <div key={item.id}>{item.name}</div>);
 
 const notClickedName = 'CustomCard 1 item 1 item 2';

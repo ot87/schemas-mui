@@ -18,7 +18,7 @@ const renderEditSchemaForm = ({ mock = false, async = false } = {}) => {
             entities: {
                 '1': {
                     id: '1', name: 'Schema 1', description: '',
-                    items: [{ id: 1, name: '2', quantity: '3', time: '' }]
+                    items: [{ id: '1', name: '2', quantity: '3', time: '' }]
                 }
             }
         },
@@ -77,7 +77,7 @@ describe('EditSchemaForm', () => {
             id: '1',
             name: 'Schema 12',
             description: '',
-            items: [{ id: 1, name: '2', quantity: '3', time: '' }]
+            items: [{ id: '1', name: '2', quantity: '3', time: '' }]
         };
 
         userEvent.type(getTextBox('Schema Name'), '2');

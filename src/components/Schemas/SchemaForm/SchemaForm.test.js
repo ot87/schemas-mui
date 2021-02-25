@@ -11,9 +11,10 @@ import SchemaForm from './SchemaForm';
 
 const renderSchemaForm = (items = null) => {
     const schema = {
-        id: 1,
+        id: '1',
         name: 'Schema 1',
-        items: items || [{ id: 1, name: '1', quantity: '1' }]
+        description: '',
+        items: items || [{ id: '1', name: '1', quantity: '1', time: '' }]
     };
     const onSubmitHandler = jest.fn();
     const onCancelHandler = jest.fn();

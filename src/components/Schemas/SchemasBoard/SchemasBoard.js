@@ -15,8 +15,8 @@ import {
 } from 'redux/reducers/ui';
 
 /**
- * Component to display a list of all Schemas by [Card]{@link Card} or [CardWithButtons]{@link CardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaFormContainer]{@link SchemaFormContainer}.
- * The displayed content depends on value of the activeSchemaId and mode parameters.
+ * Component to display a list of all Schemas by [CustomCard]{@link CustomCard} or [CustomCardWithButtons]{@link CustomCardWithButtons} or a single selected [Schema]{@link Schema} or [SchemaForm]{@link SchemaForm}.
+ * The displayed content depends on value of the activeSchemaId and mode parameters from the store.
  */
 const SchemasBoard = () => {
     const activeSchemaId = useSelector(selectActiveSchemaId);

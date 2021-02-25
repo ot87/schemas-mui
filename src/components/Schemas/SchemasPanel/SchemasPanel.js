@@ -14,7 +14,7 @@ import { selectSchemasCount } from 'redux/reducers/schemas';
 import Box from '@material-ui/core/Box';
 
 /**
- * Renders a control panel of [Buttons]{@link CustomButton} to set a mode of the ui.
+ * Renders a control panel of [CustomButtons]{@link CustomButton} to set a mode of the ui.
  */
 const SchemasPanel = () => {
     const activeSchemaId = useSelector(selectActiveSchemaId);

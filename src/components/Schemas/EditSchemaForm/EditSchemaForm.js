@@ -8,7 +8,7 @@ import { selectSchemaById, updateSchema } from 'redux/reducers/schemas';
 import { setActiveSchemaId }              from 'redux/reducers/ui';
 
 /**
- * Component to edit schema with [SchemaFormContainer]{@link SchemaFormContainer}.
+ * Component to edit schema with [SchemaForm]{@link SchemaForm}.
  * @param {Object} props
  * @param {string} props.id - Schema id.
  */

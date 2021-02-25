@@ -1,5 +1,6 @@
 import React from 'react';
-import cn    from 'classnames';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import FormField from 'components/Schemas/SchemaForm/FormField/FormField';
 
@@ -23,9 +24,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /**
- * On click handler.
- * @callback OnClickFunction
- * @returns {void}
+ * Callback for events handling.
+ * @callback EventHandler
  */
 
 /**
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
  * @param {boolean}            props.isClicked  - Indicates whether the FormItemsRow is clicked.
  * @param {boolean}            props.isDisabled - Indicates whether fields of the FormItemsRow are disabled.
  * @param {string}             props.name       - Name of the FormItemsRow in the Form.
- * @param {OnClickFunction}    props.onRowClick - On FormItemsRow Click handler.
+ * @param {EventHandler}       props.onRowClick - On FormItemsRow Click handler.
  * @param {ValidationFunction} props.onValidate - Field validation function.
  */
 const FormItemsRow = ({
@@ -92,6 +92,14 @@ const FormItemsRow = ({
             </Grid>
         </Grid>
     );
+};
+
+FormItemsRow.propTypes = {
+    isClicked:  PropTypes.bool.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
+    name:       PropTypes.string.isRequired,
+    onRowClick: PropTypes.func.isRequired,
+    onValidate: PropTypes.func.isRequired
 };
 
 export default FormItemsRow;

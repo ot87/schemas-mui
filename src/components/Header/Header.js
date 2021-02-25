@@ -26,16 +26,16 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Callback for events handling.
- * @callback EventHandlerFunction
+ * @callback EventHandler
  */
 
 /**
  * Header component with control buttons.
  * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasTabs]{@link SchemasTabs} or the control [SchemasPanel]{@link SchemasPanel}.
- * @param {Object}               props
- * @param {'static'|'sticky'}    props.appBarPosition    - AppBar position.
- * @param {'panel'|'tabs'}       props.showInHeader      - Indicates a type of element to show - either a control panel or tabs of schemas.
- * @param {EventHandlerFunction} props.handleButtonClick - A click handler of the left button.
+ * @param {Object}            props
+ * @param {'static'|'sticky'} props.appBarPosition    - AppBar position.
+ * @param {'panel'|'tabs'}    props.showInHeader      - Indicates a type of element to show - either a control panel or tabs of schemas.
+ * @param {EventHandler}      props.handleButtonClick - A click handler of the left button.
  */
 const Header = ({
     appBarPosition,
