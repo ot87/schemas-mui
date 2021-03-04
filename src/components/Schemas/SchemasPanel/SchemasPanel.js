@@ -11,7 +11,10 @@ import {
 } from 'redux/reducers/ui';
 import { selectSchemasCount } from 'redux/reducers/schemas';
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Box from '@material-ui/core/Box';
+
+const xxxsScreenWidth = 350;
 
 /**
  * Renders a control panel of [CustomButtons]{@link CustomButton} to set a mode of the ui.
@@ -39,8 +42,10 @@ const SchemasPanel = () => {
         }
     };
 
+    const xxxsScreen = useMediaQuery(theme => theme.breakpoints.down(xxxsScreenWidth));
+
     return (
-        <Box display='flex' mx='auto' my={0}>
+        <Box display='flex' mx='auto' my={0} order={xxxsScreen ? 3 : null}>
             <CustomButton
                 colorTheme='green'
                 onClick={handleAddClick}

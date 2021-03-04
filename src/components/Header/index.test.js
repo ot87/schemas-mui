@@ -14,7 +14,10 @@ const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
         isSchemasClicked: false,
         setIsSchemasClicked: setIsSchemasClickedHandler
     };
-    const { rerender } = render( <Header {...initProps} {...renderProps}/>, { initialState });
+    const { rerender } = render(
+        <Header {...initProps} {...renderProps}/>,
+        { initialState }
+    );
 
     return {
         setIsSchemasClickedHandler,

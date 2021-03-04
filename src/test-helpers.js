@@ -31,3 +31,5 @@ export const getTable = (name) => screen.getByRole('table', { name });
 export const getGrid = (name) => screen.getByRole('grid', { name });
 
 export const getByTextWithin = (element, text) => within(element).getByText(text);
+
+export const getBanner = (name) => getByRole('banner', name);

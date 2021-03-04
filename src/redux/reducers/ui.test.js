@@ -1,10 +1,12 @@
 import ui, {
     initialState,
+    UiModes,
     setActiveSchemaId,
     setMode,
-    UiModes,
+    toggleDarkTheme,
     selectActiveSchemaId,
-    selectMode
+    selectMode,
+    selectDarkTheme
 } from './ui';
 import { addSchema, updateSchema, deleteSchema } from './schemas';
 import configureAppStore from 'redux/store/configureAppStore';
@@ -33,6 +35,15 @@ describe('ui slice', () => {
 
         const rootState = { ui: nextState };
         expect(selectMode(rootState)).toEqual(payload);
+    });
+
+    it('should handle "toggleDarkTheme', () => {
+        const payload = true;
+
+        const nextState = ui(initialState, toggleDarkTheme());
+
+        const rootState = { ui: nextState };
+        expect(selectDarkTheme(rootState)).toEqual(payload);
     });
 });
 

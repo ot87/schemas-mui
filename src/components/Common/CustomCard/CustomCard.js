@@ -14,15 +14,17 @@ const useStyles = makeStyles(theme => ({
     root: {
         textAlign: 'center',
         padding: theme.spacing(3),
-        width: 150,
-        height: 200,
+        width: 200,
+        height: 250,
         [theme.breakpoints.down('sm')]: {
-            padding: theme.spacing(2)
+            padding: theme.spacing(2),
+            width: 180,
+            height: 230,
         },
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(1),
-            width: 145,
-            height: 190,
+            width: 160,
+            height: 205
         }
     },
     actionArea: {

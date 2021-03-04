@@ -4,7 +4,7 @@ import {
       getButton, queryButton, getAllButtons, getButtonWithin,
       getTab, getTextBox, getAllTextBoxes, getTextBoxWithin,
       getGrid, getGridCell, getAllGridCells, getGridCellWithin,
-      getTable, getByTextWithin
+      getTable, getByTextWithin, getBanner
 } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
@@ -251,11 +251,8 @@ test('add two schemas, delete one', async() => {
     const firstCardName  = 'Test schema name 1';
     const secondCardName = 'Test schema name 2';
 
-
     userEvent.click(getButton('Add'));
-
     userEvent.type(getTextBox('Schema Name'), firstCardName);
-
     userEvent.click(getButton('Submit'));
 
     await waitFor(() => {
@@ -264,9 +261,7 @@ test('add two schemas, delete one', async() => {
 
 
     userEvent.click(getButton('Add'));
-
     userEvent.type(getTextBox('Schema Name'), secondCardName);
-
     userEvent.click(getButton('Submit'));
 
     const secondSchemaCard = await findAllButtons(secondCardName);
@@ -288,4 +283,15 @@ test('add two schemas, delete one', async() => {
     expect(getButton('Add')).toBeInTheDocument();
     expect(getButton('Edit')).toBeInTheDocument();
     expect(getButton('Delete')).toBeInTheDocument();
-}, 10000);
+}, 20000);
+
+test('Light and dark themes are toggled', () => {
+    render(<App />);
+    const header = getBanner();
+
+    expect(header).toHaveStyle('background-color: #fff');
+
+    userEvent.click(getButton('mode'));
+
+    expect(header).toHaveStyle('background-color: #424242');
+});

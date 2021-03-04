@@ -83,7 +83,7 @@ describe('CustomCardButtonsGridItem', () => {
         userEvent.click(getButton('Cancel'));
 
         expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
-    })
+    });
 
     test('"setActiveSchemaId" is dispatched when Card is clicked', () => {
         const { store } = renderCustomCardButtonsGridItem({ mock: true });
@@ -92,5 +92,5 @@ describe('CustomCardButtonsGridItem', () => {
         userEvent.click(getAllButtons('Schema 1 2')[0].firstElementChild);
 
         expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
-    })
+    });
 });

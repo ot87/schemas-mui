@@ -1,11 +1,9 @@
 import React from 'react';
-import { render, mockStyleInjection } from 'test-utils';
-import { getByRole, getButton } from 'test-helpers';
+import { render, mockStyleInjection, mockUseMediaQuery } from 'test-utils';
+import { getButton, getBanner } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import Header from './Header';
-
-const getBanner = (name) => getByRole('banner', name);
 
 const renderHeader = (renderProps = {}) => {
     const handleButtonClick = jest.fn();
@@ -62,5 +60,19 @@ describe('Responsiveness of Header', () => {
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionStatic');
+    });
+
+    test('SchemasPanel is displayed the third for screen width less than 350px', () => {
+        mockUseMediaQuery(300);
+        renderHeader();
+
+        expect(getButton('Schemas').nextElementSibling).toHaveStyle('order: 3');
+    });
+
+    test('SchemasPanel is not displayed the third for screen width more than 350px', () => {
+        mockUseMediaQuery(600);
+        renderHeader();
+
+        expect(getButton('Schemas').nextElementSibling).not.toHaveStyle('order: 3');
     });
 });

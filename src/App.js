@@ -1,36 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import API from 'api';
 import { loadSchemas } from 'redux/reducers/schemas';
+import { selectDarkTheme } from 'redux/reducers/ui';
 
-import Header  from 'components/Header';
-import Content from 'components/Content/Content';
+import Dashboard from 'components/Schemas/Dashboard/Dashboard';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container      from '@material-ui/core/Container';
-import Box            from '@material-ui/core/Box';
-import grey           from '@material-ui/core/colors/grey';
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        minHeight: '100vh',
-        backgroundColor: grey[50]
-    },
-    gutters: {
-        [theme.breakpoints.down('xs')]: {
-          paddingLeft: 0,
-          paddingRight: 0
-        }
-    }
-}));
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App = () => {
-    const classes  = useStyles();
-    const dispatch = useDispatch();
+    const isDarkTheme = useSelector(selectDarkTheme);
+    const dispatch    = useDispatch();
 
-    // TODO isSchemasClicked is set true while profile isn't available
-    const [isSchemasClicked, setIsSchemasClicked] = useState(true);
+    const muiTheme = createMuiTheme({
+        palette: {
+            type: isDarkTheme ? 'dark' : 'light'
+        }
+    });
 
     useEffect(() => {
         // TODO demo profile
@@ -39,15 +27,10 @@ const App = () => {
     }, [dispatch]);
 
     return (
-        <Container className={classes.gutters}>
-            <Box display='flex' flexDirection='column' className={classes.root}>
-                <Header
-                    isSchemasClicked={isSchemasClicked}
-                    setIsSchemasClicked={setIsSchemasClicked}
-                />
-                <Content isSchemasClicked={isSchemasClicked} />
-            </Box>
-        </Container>
+        <ThemeProvider theme={muiTheme}>
+            <CssBaseline />
+            <Dashboard />
+        </ThemeProvider>
     );
 };
 

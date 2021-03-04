@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button         from '@material-ui/core/Button';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green          from '@material-ui/core/colors/green';
-import yellow         from '@material-ui/core/colors/yellow';
-import red            from '@material-ui/core/colors/red';
-import useMediaQuery  from '@material-ui/core/useMediaQuery';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Button from '@material-ui/core/Button';
+import green  from '@material-ui/core/colors/green';
+import yellow from '@material-ui/core/colors/yellow';
+import red    from '@material-ui/core/colors/red';
+
+const xxsScreenWidth = 435;
 
 const useStyles = makeStyles(theme => ({
     root: {
         margin: theme.spacing(1),
-        [theme.breakpoints.down(390)]: {
+        [theme.breakpoints.down(xxsScreenWidth)]: {
             margin: theme.spacing(0.5)
         }
     },
@@ -71,7 +72,7 @@ const CustomButton = ({
 
     const color     = getColor(colorTheme, isDisabled);
     const classes   = useStyles({ color: color.main });
-    const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(390));
+    const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(xxsScreenWidth));
     const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));
     const isColorNotDefault = ['green', 'yellow', 'red'].includes(colorTheme);
 

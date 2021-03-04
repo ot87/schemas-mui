@@ -15,7 +15,8 @@ export const UiModes = {
 
 export const initialState = {
     activeSchemaId: null,
-    mode: UiModes.SHOW
+    mode: UiModes.SHOW,
+    darkTheme: false
 };
 
 const uiSlice = createSlice({
@@ -27,6 +28,9 @@ const uiSlice = createSlice({
         },
         setMode(state, action) {
             state.mode = action.payload;
+        },
+        toggleDarkTheme(state) {
+            state.darkTheme = !state.darkTheme;
         }
     },
     extraReducers: {
@@ -45,9 +49,10 @@ const uiSlice = createSlice({
     }
 });
 
-export const { setActiveSchemaId, setMode } = uiSlice.actions;
+export const { setActiveSchemaId, setMode, toggleDarkTheme } = uiSlice.actions;
 
 export default uiSlice.reducer;
 
 export const selectActiveSchemaId = (state) => state.ui.activeSchemaId;
 export const selectMode = (state) => state.ui.mode;
+export const selectDarkTheme = (state) => state.ui.darkTheme;

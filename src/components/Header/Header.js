@@ -6,8 +6,9 @@ import SchemasTabs  from 'components/Schemas/SchemasTabs/SchemasTabs';
 import SchemasPanel from 'components/Schemas/SchemasPanel/SchemasPanel';
 
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar         from '@material-ui/core/AppBar';
-import Toolbar        from '@material-ui/core/Toolbar';
+import AppBar  from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import DarkThemeSwitcher from 'components/DarkThemeSwitcher/DarkThemeSwitcher';
 
 const useStyles = makeStyles(theme => ({
     toolbar: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Header component with control buttons.
- * Consists of two parts - a clickable [CustomButton]{@link CustomButton} and a panel to display either the [SchemasTabs]{@link SchemasTabs} or the control [SchemasPanel]{@link SchemasPanel}.
+ * Consists of three parts - a clickable [CustomButton]{@link CustomButton}, a panel to display either the [SchemasTabs]{@link SchemasTabs} or the control [SchemasPanel]{@link SchemasPanel}, and a [DarkThemeSwitcher]{@link DarkThemeSwitcher} to toggle light/dark mode of the UI.
  * @param {Object}            props
  * @param {'static'|'sticky'} props.appBarPosition    - AppBar position.
  * @param {'panel'|'tabs'}    props.showInHeader      - Indicates a type of element to show - either a control panel or tabs of schemas.
@@ -61,6 +62,7 @@ const Header = ({
                     <SchemasPanel />
                 : <SchemasTabs />}
                 {/* TODO <Plate text={profile.name} onClick={() => setContent(profile)} /> */}
+                <DarkThemeSwitcher />
             </Toolbar>
         </AppBar>
     );
