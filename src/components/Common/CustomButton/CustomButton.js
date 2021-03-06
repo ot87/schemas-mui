@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { lxs } from 'components/utils/customBreakpoints';
+
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Button from '@material-ui/core/Button';
@@ -9,12 +11,10 @@ import green  from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
-const xxsScreenWidth = 435;
-
 const useStyles = makeStyles(theme => ({
     root: {
         margin: theme.spacing(1),
-        [theme.breakpoints.down(xxsScreenWidth)]: {
+        [theme.breakpoints.down(lxs)]: {
             margin: theme.spacing(0.5)
         }
     },
@@ -72,7 +72,7 @@ const CustomButton = ({
 
     const color     = getColor(colorTheme, isDisabled);
     const classes   = useStyles({ color: color.main });
-    const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(xxsScreenWidth));
+    const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(lxs));
     const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));
     const isColorNotDefault = ['green', 'yellow', 'red'].includes(colorTheme);
 
