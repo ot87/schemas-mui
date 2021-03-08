@@ -8,7 +8,8 @@ import { UiModes } from 'redux/reducers/ui';
 
 const getBanner = (name) => getByRole('banner', name);
 
-const renderHeader = ({ renderProps = {}, initialState = {} } = {}) => {
+const renderHeader = ({ renderProps = {}, initData = {} } = {}) => {
+    const initialState = { ui: initData };
     const setIsSchemasClickedHandler = jest.fn();
     const initProps = {
         isSchemasClicked: false,
@@ -57,12 +58,7 @@ describe('Header without "activeSchemaId" and with "mode" = "SHOW"', () => {
 
 describe('Header with "activeSchemaId"', () => {
     test('"Back" button and TabList are displayed ("mode" = "SHOW")', () => {
-        renderHeader({ initialState: {
-            ui: {
-                activeSchemaId: '1',
-                mode: UiModes.SHOW
-            }
-        } });
+        renderHeader({ initData: { activeSchemaId: '1', mode: UiModes.SHOW } });
 
         expect(getButton('Back')).toBeInTheDocument();
         expect(getTabList()).toBeInTheDocument();
@@ -71,12 +67,7 @@ describe('Header with "activeSchemaId"', () => {
     test('"Schema" button is displayed when "Back" button is clicked ("mode" = "SHOW")', () => {
         renderHeader({
             renderProps: { isSchemasClicked: true },
-            initialState: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.SHOW
-                }
-            }
+            initData: { activeSchemaId: '1', mode: UiModes.SHOW }
         });
 
         userEvent.click(getButton('Back'));
@@ -89,7 +80,7 @@ describe('Header with "activeSchemaId"', () => {
 describe('Responsiveness of Header', () => {
     test('Header is sticky ("mode" = "SHOW")', () => {
         const applyJSSRules = mockStyleInjection();
-        renderHeader({ initialState: { ui: { mode: UiModes.SHOW } } });
+        renderHeader({ initData: { mode: UiModes.SHOW } });
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionSticky');
@@ -97,7 +88,7 @@ describe('Responsiveness of Header', () => {
 
     test('Header is static ("mode" = "ADD")', () => {
         const applyJSSRules = mockStyleInjection();
-        renderHeader({ initialState: { ui: { mode: UiModes.ADD } } });
+        renderHeader({ initData: { mode: UiModes.ADD } });
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionStatic');
@@ -105,12 +96,7 @@ describe('Responsiveness of Header', () => {
 
     test('Header is static ("mode" = "EDIT" and "activeSchemaId" is present)', () => {
         const applyJSSRules = mockStyleInjection();
-        renderHeader({ initialState: {
-            ui: {
-                activeSchemaId: '1',
-                mode: UiModes.EDIT
-            }
-        } });
+        renderHeader({ initData: { activeSchemaId: '1', mode: UiModes.EDIT } });
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionStatic');

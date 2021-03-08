@@ -13,7 +13,7 @@ const cardContent = [
     {id: '2', name: 'item 2'}
 ].map((item) => <div key={item.id}>{item.name}</div>);
 
-const renderCard = (renderProps) => {
+const renderCard = ({ renderProps = {} } = {}) => {
     const initProps      = {
         name:    'CustomCard 1',
         content: cardContent
@@ -37,7 +37,7 @@ test('CustomCard is displayed', () => {
 
 test('"onClick" handler is called by clicking inner part of the Card', () => {
     const onClickHandler = jest.fn();
-    const { card } = renderCard({ onClick: onClickHandler });
+    const { card } = renderCard({ renderProps: { onClick: onClickHandler } });
 
     // check that CustomCard's onClickHandler has been called
     userEvent.click(card.firstElementChild);
@@ -46,7 +46,7 @@ test('"onClick" handler is called by clicking inner part of the Card', () => {
 
 test('onClick handler is not called by clicking the outer part of the Card', () => {
     const onClickHandler = jest.fn();
-    const { card } = renderCard({ onClick: onClickHandler });
+    const { card } = renderCard({ renderProps: { onClick: onClickHandler } });
 
     // check that CustomCard's onClickHandler has been called
     userEvent.click(card);
@@ -55,7 +55,9 @@ test('onClick handler is not called by clicking the outer part of the Card', () 
 
 test('if isClicked is true CustomCard is not clickable', () => {
     const onClickHandler = jest.fn();
-    const { card, rerenderCard } = renderCard({ isClicked: false, onClick: onClickHandler });
+    const { card, rerenderCard } = renderCard({
+        renderProps: { isClicked: false, onClick: onClickHandler }
+    });
 
     // check that CustomCard's onClickHandler has been called
     userEvent.click(card.firstElementChild);
@@ -73,7 +75,7 @@ test('if isClicked is true CustomCard is not clickable', () => {
 
 test('CustomCard with yellow theme has yellow background for hover', () => {
     const applyJSSRules = mockStyleInjection();
-    const { card } = renderCard({ colorTheme: 'yellow' });
+    const { card } = renderCard({ renderProps: { colorTheme: 'yellow' } });
 
     applyJSSRules();
 
@@ -85,7 +87,7 @@ test('CustomCard with yellow theme has yellow background for hover', () => {
 
 test('CustomCard with red theme has red background for hover', () => {
     const applyJSSRules = mockStyleInjection();
-    const { card } = renderCard({ colorTheme: 'red' });
+    const { card } = renderCard({ renderProps: { colorTheme: 'red' } });
 
     applyJSSRules();
 

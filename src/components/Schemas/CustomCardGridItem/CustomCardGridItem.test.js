@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, mockStyleInjection, configureMockAppStore } from 'test-utils';
+import { render, mockStyleInjection } from 'test-utils';
 import { getAllButtons } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
@@ -22,15 +22,14 @@ const renderCustomCardGridItem = ({ mock = false, renderProps = {} } = {}) => {
             }
         }
     }};
-    const store = mock ?
-        configureMockAppStore(false)(initialState)
-    : undefined;
-
-    render(<CustomCardGridItem id='1' {...renderProps} />, { initialState, store });
+    const { mockedStore } = render(
+        <CustomCardGridItem id='1' {...renderProps} />,
+        { initialState, mock }
+    );
 
     return {
         card: getAllButtons('Schema 1 2')[0],
-        store
+        mockedStore
     };
 };
 
@@ -53,11 +52,11 @@ describe('CustomCardGridItem', () => {
     });
 
     test('"setActiveSchemaId" is dispatched when Card is clicked', () => {
-        const { card, store } = renderCustomCardGridItem({ mock: true });
+        const { card, mockedStore } = renderCustomCardGridItem({ mock: true });
         const actionPayload = '1';
 
         userEvent.click(card.firstElementChild);
 
-        expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
+        expect(mockedStore.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
     });
 });

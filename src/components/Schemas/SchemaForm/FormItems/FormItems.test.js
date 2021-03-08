@@ -10,7 +10,7 @@ import arrayMutators from 'final-form-arrays';
 
 import red from '@material-ui/core/colors/red';
 
-const renderFormItems = (renderProps = {}) => {
+const renderFormItems = ({ renderProps = {} } = {}) => {
     const onItemsRowClickHandler = jest.fn();
     const onValidateHandler = jest.fn();
     const initItems = [
@@ -60,7 +60,7 @@ describe('FormItems and items', () => {
 
 describe('FormItems and "isRemoveClicked" and "itemsIdsToRemove" properties', () => {
     test('All fields of FormItems are "disabled" when "isRemoveClicked" set to "true"', () => {
-        renderFormItems({ isRemoveClicked: true });
+        renderFormItems({ renderProps: { isRemoveClicked: true } });
 
         getAllTextBoxes().forEach((field) =>{
             expect(field).toBeDisabled();
@@ -69,7 +69,7 @@ describe('FormItems and "isRemoveClicked" and "itemsIdsToRemove" properties', ()
 
     test('Second items row is "red" when its id is in "itemsIdsToRemove"', () => {
         const applyJSSRules = mockStyleInjection();
-        const { itemsRows } = renderFormItems({ itemsIdsToRemove: [1] });
+        const { itemsRows } = renderFormItems({ renderProps: { itemsIdsToRemove: [1] } });
 
         applyJSSRules();
 

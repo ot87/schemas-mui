@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, configureMockAppStore } from 'test-utils';
+import { render } from 'test-utils';
 import {
     getButton, queryButton,
     getTable, getTextBox, getTextBoxWithin,
@@ -24,17 +24,13 @@ const renderEditSchemaForm = ({ mock = false, async = false } = {}) => {
         },
         ui: { mode: UiModes.EDIT }
     };
-    const store = mock ?
-        configureMockAppStore(async)(initialState)
-    : undefined;
-
-    render(<EditSchemaForm id='1' />, { initialState, store });
+    const { mockedStore } = render(<EditSchemaForm id='1' />, { initialState, mock, async });
 
     return {
         form: getTable(),
         submitButton: getButton('Submit'),
         cancelButton: getButton('Cancel'),
-        store
+        mockedStore
     };
 };
 
@@ -72,7 +68,7 @@ describe('EditSchemaForm', () => {
     });
 
     test('"updateSchema" is dispatched when "Submit" button is clicked', () => {
-        const { submitButton, store } = renderEditSchemaForm({ mock: true, async: true });
+        const { submitButton, mockedStore } = renderEditSchemaForm({ mock: true, async: true });
         const actionPayload = {
             id: '1',
             name: 'Schema 12',
@@ -83,17 +79,17 @@ describe('EditSchemaForm', () => {
         userEvent.type(getTextBox('Schema Name'), '2');
         userEvent.click(submitButton);
 
-        const dispatchedAction = store.getActions()[0];
+        const dispatchedAction = mockedStore.getActions()[0];
         expect(dispatchedAction.type).toBe(updateSchema.pending.type);
         expect(dispatchedAction.meta.arg).toEqual(actionPayload);
     });
 
     test('"setActiveSchemaId" is dispatched when "Cancel" button is clicked', () => {
-        const { cancelButton, store } = renderEditSchemaForm({ mock: true });
+        const { cancelButton, mockedStore } = renderEditSchemaForm({ mock: true });
         const actionPayload = null;
 
         userEvent.click(cancelButton);
 
-        expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
+        expect(mockedStore.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
     })
 });

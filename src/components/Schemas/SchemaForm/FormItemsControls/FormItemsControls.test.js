@@ -8,7 +8,7 @@ import FormItemsControls from './FormItemsControls';
 import green from '@material-ui/core/colors/green';
 import red   from '@material-ui/core/colors/red';
 
-const renderFormItemsControls = renderProps => {
+const renderFormItemsControls = ({ renderProps = {} } = {}) => {
     const addOnClick       = jest.fn();
     const removeOnClick    = jest.fn();
     const removeAllOnClick = jest.fn();
@@ -62,7 +62,9 @@ describe('FormItemsControls and "Add" button', () => {
     });
 
     test('"Add" button is disabled', () => {
-        const { itemsControls } = renderFormItemsControls({ isRemoveClicked: true });
+        const { itemsControls } = renderFormItemsControls({
+            renderProps: { isRemoveClicked: true }
+        });
 
         expect(itemsControls).toBeInTheDocument();
 
@@ -72,7 +74,9 @@ describe('FormItemsControls and "Add" button', () => {
     });
 
     test('"Add" button is not clickable while disabled', () => {
-        const { addOnClick } = renderFormItemsControls({ isRemoveClicked: true });
+        const { addOnClick } = renderFormItemsControls({
+            renderProps: { isRemoveClicked: true }
+        });
 
         const addButton = getButton('Add');
         userEvent.click(addButton);
@@ -90,7 +94,9 @@ describe('FormItemsControls and "Add" button', () => {
 
 describe('FormItemsControls and "Add" and "Remove" buttons', () => {
     test('"Add" and "Remove" buttons are displayed', () => {
-        const { itemsControls } = renderFormItemsControls({ showRemove: true });
+        const { itemsControls } = renderFormItemsControls({
+            renderProps: { showRemove: true }
+        });
 
         expect(itemsControls).toBeInTheDocument();
         expect(itemsControls.childElementCount).toEqual(2);
@@ -105,7 +111,9 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
     });
 
     test('"Remove" button is clicked', () => {
-        const { removeOnClick } = renderFormItemsControls({ showRemove: true });
+        const { removeOnClick } = renderFormItemsControls({
+            renderProps: { showRemove: true }
+        });
 
         userEvent.click(getButton('Remove'));
         expect(removeOnClick).toBeCalledTimes(1);
@@ -113,7 +121,7 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
 
     test('"Remove" button is "red"', () => {
         const applyJSSRules = mockStyleInjection();
-        renderFormItemsControls({ showRemove: true });
+        renderFormItemsControls({ renderProps: { showRemove: true } });
 
         applyJSSRules();
 
@@ -122,8 +130,7 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
 
     test('"Remove" button is toggled', () => {
         const { itemsControls } = renderFormItemsControls({
-            isRemoveClicked: true,
-            showRemove: true
+            renderProps: { isRemoveClicked: true, showRemove: true }
         });
 
         expect(itemsControls).toBeInTheDocument();
@@ -135,7 +142,7 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
 
     test('"All" button is not displayed', () => {
         const { itemsControls, rerenderItemsControls } = renderFormItemsControls({
-            isRemoveClicked: true
+            renderProps: { isRemoveClicked: true }
         });
 
         expect(queryButtonWithin(itemsControls, 'All')).not.toBeInTheDocument();
@@ -149,8 +156,7 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
 describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
     test('All three buttons are displayed', () => {
         const { itemsControls } = renderFormItemsControls({
-            isRemoveClicked: true,
-            showRemove: true
+            renderProps: { isRemoveClicked: true, showRemove: true }
         });
 
         expect(itemsControls).toBeInTheDocument();
@@ -171,8 +177,7 @@ describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
 
     test('"All" button is clicked', () => {
         const { removeAllOnClick } = renderFormItemsControls({
-            isRemoveClicked: true,
-            showRemove: true
+            renderProps: { isRemoveClicked: true, showRemove: true }
         });
 
         userEvent.click(getButton('All'));
@@ -182,8 +187,7 @@ describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
     test('"All" button is "red"', () => {
         const applyJSSRules = mockStyleInjection();
         renderFormItemsControls({
-            isRemoveClicked: true,
-            showRemove: true
+            renderProps: { isRemoveClicked: true, showRemove: true }
         });
 
         applyJSSRules();
@@ -193,9 +197,11 @@ describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
 
     test('"All" button is toggled', () => {
         const { itemsControls } = renderFormItemsControls({
-            isRemoveClicked: true,
-            showRemove: true,
-            isRemoveAllClicked: true
+            renderProps: {
+                isRemoveClicked: true,
+                showRemove: true,
+                isRemoveAllClicked: true
+            }
         });
 
         expect(itemsControls).toBeInTheDocument();

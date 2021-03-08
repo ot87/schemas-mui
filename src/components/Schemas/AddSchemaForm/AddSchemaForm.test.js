@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, configureMockAppStore } from 'test-utils';
+import { render } from 'test-utils';
 import {
     getButton, queryButton,
     getTable, getTextBox, getTextBoxWithin,
@@ -13,17 +13,13 @@ import { addSchema } from 'redux/reducers/schemas';
 
 const renderAddSchemaForm = ({ mock = false, async = false } = {}) => {
     const initialState = { ui: { mode: UiModes.ADD } };
-    const store = mock ?
-        configureMockAppStore(async)(initialState)
-    : undefined;
-
-    render(<AddSchemaForm />, { initialState, store });
+    const { mockedStore } = render(<AddSchemaForm />, { initialState, mock, async });
 
     return {
         form: getTable(),
         submitButton: getButton('Submit'),
         cancelButton: getButton('Cancel'),
-        store
+        mockedStore
     };
 };
 
@@ -59,7 +55,7 @@ describe('AddSchemaForm', () => {
     });
 
     test('"AddSchema" is dispatched when "Submit" button is clicked', () => {
-        const { submitButton, store } = renderAddSchemaForm({ mock: true, async: true });
+        const { submitButton, mockedStore } = renderAddSchemaForm({ mock: true, async: true });
         const actionPayload = {
             name: 'name',
             description: '',
@@ -69,17 +65,17 @@ describe('AddSchemaForm', () => {
         userEvent.type(getTextBox('Schema Name'), 'name');
         userEvent.click(submitButton);
 
-        const dispatchedAction = store.getActions()[0];
+        const dispatchedAction = mockedStore.getActions()[0];
         expect(dispatchedAction.type).toBe(addSchema.pending.type);
         expect(dispatchedAction.meta.arg).toEqual(actionPayload);
     });
 
     test('"setMode" is dispatched when "Cancel" button is clicked', () => {
-        const { cancelButton, store } = renderAddSchemaForm({ mock: true });
+        const { cancelButton, mockedStore } = renderAddSchemaForm({ mock: true });
         const actionPayload = UiModes.SHOW;
 
         userEvent.click(cancelButton);
 
-        expect(store.getActions()).toEqual([setMode(actionPayload)]);
+        expect(mockedStore.getActions()).toEqual([setMode(actionPayload)]);
     });
 });

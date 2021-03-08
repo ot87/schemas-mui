@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, configureMockAppStore } from 'test-utils';
+import { render } from 'test-utils';
 import {
     getAllButtons, getButton,
     queryButtonWithin
@@ -29,14 +29,13 @@ const renderCustomCardButtonsGridItem = ({
             }
         }
     }};
-    const store = mock ?
-        configureMockAppStore(async)(initialState)
-    : undefined;
-
-    render(<CustomCardButtonsGridItem id='1' {...renderProps}  />, { initialState, store });
+    const { mockedStore } = render(
+        <CustomCardButtonsGridItem id='1' {...renderProps} />,
+        { initialState, mock, async }
+    );
 
     return {
-        store
+        mockedStore
     }
 };
 
@@ -59,7 +58,7 @@ describe('CustomCardButtonsGridItem', () => {
     });
 
     test('"deleteSchema" is dispatched when "Delete" button is clicked', () => {
-        const { store } = renderCustomCardButtonsGridItem({
+        const { mockedStore } = renderCustomCardButtonsGridItem({
             mock: true,
             async: true,
             renderProps: { isCardClicked: true }
@@ -68,13 +67,13 @@ describe('CustomCardButtonsGridItem', () => {
 
         userEvent.click(getButton('Delete'));
 
-        const dispatchedAction = store.getActions()[0];
+        const dispatchedAction = mockedStore.getActions()[0];
         expect(dispatchedAction.type).toBe(deleteSchema.pending.type);
         expect(dispatchedAction.meta.arg).toEqual(actionPayload);
     });
 
     test('"setActiveSchemaId" is dispatched when "Cancel" button is clicked', () => {
-        const { store } = renderCustomCardButtonsGridItem({
+        const { mockedStore } = renderCustomCardButtonsGridItem({
             mock: true,
             renderProps: { isCardClicked: true }
         });
@@ -82,15 +81,15 @@ describe('CustomCardButtonsGridItem', () => {
 
         userEvent.click(getButton('Cancel'));
 
-        expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
+        expect(mockedStore.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
     });
 
     test('"setActiveSchemaId" is dispatched when Card is clicked', () => {
-        const { store } = renderCustomCardButtonsGridItem({ mock: true });
+        const { mockedStore } = renderCustomCardButtonsGridItem({ mock: true });
         const actionPayload = '1';
 
         userEvent.click(getAllButtons('Schema 1 2')[0].firstElementChild);
 
-        expect(store.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
+        expect(mockedStore.getActions()).toEqual([setActiveSchemaId(actionPayload)]);
     });
 });

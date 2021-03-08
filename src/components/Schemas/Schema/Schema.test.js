@@ -9,16 +9,14 @@ import Schema from './Schema';
 
 const queryByTextWithin = (element, text) => within(element).queryByText(text);
 
-const renderSchema = (schemaData = {}) => {
+const renderSchema = ({ initData = {} } = {}) => {
     const initialState = { schemas: {
         ids: [ '1' ],
         entities: {
             '1': {
-                ...{
-                    id: '1', name: 'Schema 1', description: '',
-                    items: [{ id: '1', name: 'Name', quantity: 'Quantity', time: 'Time' }]
-                },
-                ...schemaData
+                id: '1', name: 'Schema 1', description: '',
+                items: [{ id: '1', name: 'Name', quantity: 'Quantity', time: 'Time' }],
+                ...initData
             }
         }
     }};
@@ -32,7 +30,7 @@ const renderSchema = (schemaData = {}) => {
 
 describe('Schema', () => {
     test('Schema is displayed without description and items', () => {
-        const { schema } = renderSchema({ items: [] });
+        const { schema } = renderSchema({ initData: { items: [] } });
 
         expect(schema).toBeInTheDocument();
         expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
@@ -41,7 +39,7 @@ describe('Schema', () => {
     });
 
     test('Schema is displayed with description and items', () => {
-        const { schema } = renderSchema({ description: 'Description 1' });
+        const { schema } = renderSchema({ initData: { description: 'Description 1' } });
 
         expect(schema).toBeInTheDocument();
         expect(getByTextWithin(schema, 'Schema 1')).toBeInTheDocument();
@@ -51,7 +49,7 @@ describe('Schema', () => {
 
     test('Schema is displayed without item time', () => {
         const { schema } = renderSchema({
-            items: [{ id: '1', name: 'Name', quantity: 'Quantity', time: '' }]
+            initData: { items: [{ id: '1', name: 'Name', quantity: 'Quantity', time: '' }] }
         });
 
         expect(schema).toBeInTheDocument();

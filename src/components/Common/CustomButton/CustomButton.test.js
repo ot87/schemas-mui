@@ -9,7 +9,7 @@ import green  from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
-const renderButton = (renderProps) => {
+const renderButton = ({ renderProps = {} } = {}) => {
     const onClickHandler = jest.fn();
     const initProps      = { text: 'CustomButton', onClick: onClickHandler };
     const { rerender }   = render(<CustomButton {...initProps} {...renderProps} />);
@@ -44,7 +44,7 @@ test('CustomButton is displayed with default props and onClick handler is called
 describe('Property colorTheme of CustomButton', () => {
     test('CustomButton with "default" colorTheme has "default" color', () => {
         const applyJSSRules = mockStyleInjection();
-        const { button } = renderButton({ colorTheme: 'default' });
+        const { button } = renderButton({ renderProps: { colorTheme: 'default' } });
 
         applyJSSRules();
 
@@ -60,7 +60,7 @@ describe('Property colorTheme of CustomButton', () => {
         'CustomButton with "$colorTheme" colorTheme has "$expectedStyle" style',
         ({ colorTheme, expectedStyle }) => {
             const applyJSSRules = mockStyleInjection();
-            const { button } = renderButton({ colorTheme });
+            const { button } = renderButton({ renderProps: { colorTheme } });
 
             applyJSSRules();
 
@@ -85,7 +85,7 @@ describe('Properties colorTheme and type of CustomButton', () => {
         'CustomButton with "$colorTheme" colorTheme and "$type" type has "$expectedStyle" style',
         ({ colorTheme, type, expectedStyle }) => {
             const applyJSSRules = mockStyleInjection();
-            const { button } = renderButton({ colorTheme, type });
+            const { button } = renderButton({ renderProps: { colorTheme, type } });
 
             applyJSSRules();
 
@@ -104,7 +104,7 @@ describe('Property type of CustomButton and onClick handler', () => {
     `(
         'CustomButton with "$type" type has "$toContain" classes, has not "$notToContain" classes and onClick handler has been called "$calls" times',
         ({ type, toContain, notToContain, calls }) => {
-            const { button, onClickHandler } = renderButton({ type });
+            const { button, onClickHandler } = renderButton({ renderProps: { type } });
 
             toContain.split('|').forEach(expected => {
                 expect(button.className).toContain(expected);
@@ -141,7 +141,9 @@ describe('Rerender CustomButton', () => {
     `(
         'Type "$initType" to "$newType", expected class "$expectedClass" and onClick handler has been called "$calls" times',
         ({ initType, newType, expectedClass, calls }) => {
-            const { button, onClickHandler, rerenderButton } = renderButton({ type: initType });
+            const { button, onClickHandler, rerenderButton } = renderButton({
+                renderProps: { type: initType }
+            });
 
             rerenderButton({ type: newType });
 

@@ -1,23 +1,21 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { render, configureMockAppStore, mockUseMediaQuery } from 'test-utils';
+import { render, mockUseMediaQuery } from 'test-utils';
 import { getButton } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import DarkThemeSwitcher from './DarkThemeSwitcher';
-import { toggleDarkTheme, initialState as defaultState } from 'redux/reducers/ui';
+import { toggleDarkTheme } from 'redux/reducers/ui';
 
 const getByTestId = (name) => screen.getByTestId(name);
 
-const renderDarkThemeSwitcher = ({ mock = false, initialState = undefined } = {}) => {
-    const store = mock ?
-        configureMockAppStore(false)({ ui: defaultState })
-    : undefined;
-    render(<DarkThemeSwitcher/>, { initialState, store });
+const renderDarkThemeSwitcher = ({ mock = false, initData = {} } = {}) => {
+    const initialState = { ui: { darkTheme: false, ...initData } };
+    const { mockedStore } = render(<DarkThemeSwitcher/>, { initialState, mock });
 
     return {
         darkThemeSwitcher: getButton('mode'),
-        store
+        mockedStore
     }
 };
 
@@ -36,18 +34,18 @@ describe('DarkThemeSwitcher', () => {
 
     test('DarkThemeSwitcher is displayed with "darkTheme" set to "true"', () => {
         const { darkThemeSwitcher } = renderDarkThemeSwitcher({
-            initialState: { ui: { darkTheme: true } }
+            initData: { darkTheme: true }
         });
 
         expect(darkThemeSwitcher).toContainElement(getByTestId('light'));
     });
 
     test('"toggleDarkTheme" is dispatched when DarkThemeSwitcher is clicked', () => {
-        const { darkThemeSwitcher, store } = renderDarkThemeSwitcher({ mock: true });
+        const { darkThemeSwitcher, mockedStore } = renderDarkThemeSwitcher({ mock: true });
 
         userEvent.click(darkThemeSwitcher);
 
-        expect(store.getActions()).toEqual([toggleDarkTheme()]);
+        expect(mockedStore.getActions()).toEqual([toggleDarkTheme()]);
     });
 });
 

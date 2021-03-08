@@ -15,18 +15,16 @@ import red    from '@material-ui/core/colors/red';
 
 const renderSchemasBoard = ({ initData = {} } = {}) => {
     const initialState = {
-        ...{
-            schemas: {
-                ids: [ '1', '2' ],
-                entities: {
-                    '1': {
-                        id: '1', name: 'Schema 1', description: '',
-                        items: [{ id: '1', name: '2', quantity: '3', time: '' }]
-                    },
-                    '2': {
-                        id: '2', name: 'Schema 2', description: '',
-                        items: []
-                    }
+        schemas: {
+            ids: [ '1', '2' ],
+            entities: {
+                '1': {
+                    id: '1', name: 'Schema 1', description: '',
+                    items: [{ id: '1', name: '2', quantity: '3', time: '' }]
+                },
+                '2': {
+                    id: '2', name: 'Schema 2', description: '',
+                    items: []
                 }
             }
         },
@@ -173,10 +171,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
     test('SchemaForm is displayed ("mode" = "EDIT")', () => {
         renderSchemasBoard({
             initData: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.EDIT
-                }
+                ui: { activeSchemaId: '1', mode: UiModes.EDIT }
             }
         });
 
@@ -190,10 +185,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
     test('SchemasBoard is displayed back when Schema is updated ("mode" = "EDIT")', async () => {
         renderSchemasBoard({
             initData: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.EDIT
-                }
+                ui: { activeSchemaId: '1', mode: UiModes.EDIT }
             }
         });
 
@@ -207,10 +199,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
     test('SchemasBoard is displayed back when "Cancel" button is clicked ("mode" = "EDIT")', async () => {
         renderSchemasBoard({
             initData: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.EDIT
-                }
+                ui: { activeSchemaId: '1', mode: UiModes.EDIT }
             }
         });
 
@@ -237,10 +226,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
     test('CustomCardButtons is displayed when another Card is clicked ("mode" = "DELETE")', () => {
         renderSchemasBoard({
             initData: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.DELETE
-                }
+                ui: { activeSchemaId: '1', mode: UiModes.DELETE }
             }
         });
 
@@ -254,10 +240,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
     test('Card is deleted when "Delete" button is clicked ("mode" = "DELETE")', () => {
         renderSchemasBoard({
             initData: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.DELETE
-                }
+                ui: { activeSchemaId: '1', mode: UiModes.DELETE }
             }
         });
 
@@ -269,10 +252,7 @@ describe('SchemasBoard with "activeSchemaId"', () => {
     test('SchemasBoard is displayed back when "Cancel" button is clicked ("mode" = "DELETE")', () => {
         renderSchemasBoard({
             initData: {
-                ui: {
-                    activeSchemaId: '1',
-                    mode: UiModes.DELETE
-                }
+                ui: { activeSchemaId: '1', mode: UiModes.DELETE }
             }
         });
 

@@ -16,7 +16,7 @@ const cardContent = [
 const notClickedName = 'CustomCard 1 item 1 item 2';
 const clickedName = 'CustomCard 1 Button 1 Button 2';
 
-const renderCard = (renderProps) => {
+const renderCard = () => {
     const onClickHandler        = jest.fn();
     const onButton1ClickHandler = jest.fn();
     const onButton2ClickHandler = jest.fn();
@@ -36,7 +36,7 @@ const renderCard = (renderProps) => {
         onClick: onClickHandler,
         buttons: buttons
     };
-    const { rerender } = render(<CustomCardButtons {...initProps} {...renderProps} />);
+    const { rerender } = render(<CustomCardButtons {...initProps} />);
 
     return {
         card: getAllButtons(notClickedName)[0],

@@ -7,7 +7,7 @@ import FormField from './FormField';
 
 import { Form } from 'react-final-form';
 
-const renderFormField = renderProps => {
+const renderFormField = ({ renderProps = {} } = {}) => {
     const label = 'FormField Label';
     const name  = 'FormFieldName';
     const initProps = { label, name };
@@ -42,7 +42,9 @@ test('FormField is displayed with "label" and "name" props', () => {
 
 describe('Property "placeholder" of FormField', () => {
     test('FormField is displayed with "placeholder"', () => {
-        const { field } = renderFormField({ placeholder: 'FormField Placeholder' });
+        const { field } = renderFormField({
+            renderProps: { placeholder: 'FormField Placeholder' }
+        });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveAttribute('placeholder', 'FormField Placeholder');
@@ -65,14 +67,14 @@ describe('Property "disabled" of FormField', () => {
     });
 
     test('FormField with "disabled" set to "false" is not disabled', () => {
-        const { field } = renderFormField({ disabled: false });
+        const { field } = renderFormField({ renderProps: { disabled: false } });
 
         expect(field).toBeInTheDocument();
         expect(field).toBeEnabled();
     });
 
     test('FormField with "disabled" set to "true" is disabled', () => {
-        const { field } = renderFormField({ disabled: true });
+        const { field } = renderFormField({ renderProps: { disabled: true } });
 
         expect(field).toBeInTheDocument();
         expect(field).toBeDisabled();
@@ -89,7 +91,7 @@ describe('Properties "multiline" and "rows" of FormField', () => {
     });
 
     test('FormField with "multiline" set to "false" is input', () => {
-        const { field } = renderFormField({ multiline: false });
+        const { field } = renderFormField({ renderProps: { multiline: false } });
 
         expect(field).toBeInTheDocument();
         expect(field).not.toHaveClass('MuiInputBase-inputMultiline');
@@ -97,7 +99,7 @@ describe('Properties "multiline" and "rows" of FormField', () => {
     });
 
     test('FormField with "multiline" set to "true" but without "rows" is textarea and has "1" row', () => {
-        const { field } = renderFormField({ multiline: true });
+        const { field } = renderFormField({ renderProps: { multiline: true } });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveClass('MuiInputBase-inputMultiline');
@@ -106,14 +108,14 @@ describe('Properties "multiline" and "rows" of FormField', () => {
     });
 
     test('FormField with "multiline" and "rows" set to "3" has "3" rows', () => {
-        const { field } = renderFormField({ multiline: true, rows: 3 });
+        const { field } = renderFormField({ renderProps: { multiline: true, rows: 3 } });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveAttribute('rows', '3');
     });
 
     test('FormField without "multiline" but with "rows" is input', () => {
-        const { field } = renderFormField({ rows: 3 });
+        const { field } = renderFormField({ renderProps: { rows: 3 } });
 
         expect(field).toBeInTheDocument();
         expect(field).not.toHaveClass('MuiInputBase-inputMultiline');
@@ -130,14 +132,16 @@ describe('Property "validate" of FormField', () => {
     });
 
     test('FormField with "validate" is required', () => {
-        const { field } = renderFormField({ validate: jest.fn() });
+        const { field } = renderFormField({ renderProps: { validate: jest.fn() } });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveAttribute('required');
     });
 
     test('FormField with "validate" returns "false" is not displayed with an error', () => {
-        const { field, rerenderFormField } = renderFormField({ validate: jest.fn(_ => false) });
+        const { field, rerenderFormField } = renderFormField({
+            renderProps: { validate: jest.fn(_ => false) }
+        });
 
         expect(field).toBeInTheDocument();
         expect(field).toHaveAttribute('aria-invalid', 'false');
@@ -152,7 +156,9 @@ describe('Property "validate" of FormField', () => {
     });
 
     test('FormField with "validate" returns "true" is displayed with an error', () => {
-        const { field, rerenderFormField } = renderFormField({ validate: jest.fn(_ => true) });
+        const { field, rerenderFormField } = renderFormField({
+            renderProps: { validate: jest.fn(_ => true) }
+        });
 
         expect(field).toBeInTheDocument();
 

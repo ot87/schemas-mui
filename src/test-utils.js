@@ -42,18 +42,25 @@ const customRender = (
     ui,
     {
         initialState = {},
-        store = configureAppStore(initialState),
+        mock = false,
+        async = false,
         ...renderOptions
     } = {}
 ) => {
+    const mockedStore = mock ?
+        configureMockAppStore(async)(initialState)
+    : undefined;
     const Wrapper = ({ children }) => (
-        <Provider store={store}>
+        <Provider store={(mockedStore || configureAppStore(initialState))}>
             <ThemeProvider theme={createMuiTheme()}>
                 {children}
             </ThemeProvider>
         </Provider>
     );
-    return render(ui, { wrapper: Wrapper, ...renderOptions });
+    return {
+        ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+        mockedStore
+    }
 };
 
 // re-export everything

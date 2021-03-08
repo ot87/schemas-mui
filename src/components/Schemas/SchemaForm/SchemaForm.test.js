@@ -9,12 +9,13 @@ import userEvent from '@testing-library/user-event';
 
 import SchemaForm from './SchemaForm';
 
-const renderSchemaForm = (items = null) => {
+const renderSchemaForm = ({ initData = {} } = {}) => {
     const schema = {
         id: '1',
         name: 'Schema 1',
         description: '',
-        items: items || [{ id: '1', name: '1', quantity: '1', time: '' }]
+        items: [{ id: '1', name: '1', quantity: '1', time: '' }],
+        ...initData
     };
     const onSubmitHandler = jest.fn();
     const onCancelHandler = jest.fn();
@@ -61,7 +62,9 @@ describe('SchemaForm', () => {
     });
 
     test('Form without items row and "Remove" button is displayed', () => {
-        const { form, removeButton } = renderSchemaForm([]);
+        const { form, removeButton } = renderSchemaForm({
+            initData: { items: [] }
+        });
 
         expect(form).toBeInTheDocument();
 
@@ -123,7 +126,7 @@ describe('SchemaForm', () => {
     });
 
     test('"Add" button adds items row when there are no items rows', () => {
-        renderSchemaForm([]);
+        renderSchemaForm({ initData: { items: [] } });
 
         expect(queryGridCell('Name Quantity Time')).not.toBeInTheDocument();
         userEvent.click(getButton('Add'));

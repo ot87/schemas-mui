@@ -9,7 +9,13 @@ import green  from '@material-ui/core/colors/green';
 import yellow from '@material-ui/core/colors/yellow';
 import red    from '@material-ui/core/colors/red';
 
-const renderFormButtons = (renderProps = {}) => {
+const renderFormButtons = ({
+    renderProps = {
+        submit: {},
+        reset: {},
+        cancel: {},
+    }
+} = {}) => {
     const submitOnClick = jest.fn();
     const resetOnClick  = jest.fn();
     const cancelOnClick = jest.fn();
@@ -84,9 +90,11 @@ test('All three buttons "Submit", "Reset" and "Cancel" are clickable', () => {
 
 test('All three buttons "Submit", "Reset" and "Cancel" are disabled', () => {
     const { schemaFormButtons, submit, reset, cancel } = renderFormButtons({
-        submit: { isDisabled: true },
-        reset:  { isDisabled: true },
-        cancel: { isDisabled: true }
+        renderProps: {
+            submit: { isDisabled: true },
+            reset:  { isDisabled: true },
+            cancel: { isDisabled: true }
+        }
     });
 
     expect(schemaFormButtons).toBeInTheDocument();
@@ -103,9 +111,11 @@ test('All three buttons "Submit", "Reset" and "Cancel" are disabled', () => {
 
 test('All three buttons "Submit", "Reset" and "Cancel" are not clickable while disabled', () => {
     const { submit, reset, cancel } = renderFormButtons({
-        submit: { isDisabled: true },
-        reset:  { isDisabled: true },
-        cancel: { isDisabled: true }
+        renderProps: {
+            submit: { isDisabled: true },
+            reset:  { isDisabled: true },
+            cancel: { isDisabled: true }
+        }
     });
 
     userEvent.click(submit.button);

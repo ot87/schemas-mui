@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Header from './Header';
 
-const renderHeader = (renderProps = {}) => {
+const renderHeader = ({ renderProps = {} } = {}) => {
     const handleButtonClick = jest.fn();
 
     render(
@@ -32,13 +32,13 @@ describe('Header properties', () => {
     });
 
     test('Header is displayed with "Back" button', () => {
-        renderHeader({ showInHeader: 'tabs' });
+        renderHeader({ renderProps: { showInHeader: 'tabs' } });
 
         expect(getButton('Back')).toBeInTheDocument();
     });
 
     test('Handler handleButtonClick is called', () => {
-        const { handleButtonClick } = renderHeader({ showInHeader: 'tabs' });
+        const { handleButtonClick } = renderHeader({ renderProps: { showInHeader: 'tabs' } });
 
         userEvent.click(getButton('Back'));
         expect(handleButtonClick).toBeCalled();
@@ -56,7 +56,7 @@ describe('Responsiveness of Header', () => {
 
     test('Header is static', () => {
         const applyJSSRules = mockStyleInjection();
-        renderHeader({ appBarPosition: 'static' });
+        renderHeader({ renderProps: { appBarPosition: 'static' } });
         applyJSSRules();
 
         expect(getBanner().className).toContain('positionStatic');

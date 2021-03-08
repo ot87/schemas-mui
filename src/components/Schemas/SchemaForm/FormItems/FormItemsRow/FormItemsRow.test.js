@@ -10,15 +10,22 @@ import arrayMutators from 'final-form-arrays';
 
 import red from '@material-ui/core/colors/red';
 
-const renderFormItemsRow = ({ items = [], searchRowText = '', renderProps = {} } = {}) => {
+const renderFormItemsRow = ({
+    initData = {},
+    searchRowText = 'Name 1 Quantity 1 Time 1',
+    renderProps = {}
+} = {}) => {
+    const initItemsRow = [{
+        ...{ id: '1', name: '1', quantity: '1', time: '1' },
+        ...initData
+    }];
     const onRowClickHandler = jest.fn();
     const onValidateHandler = jest.fn();
-    const itemsRowText = 'Name Quantity Time';
 
     render(
         <Form
             onSubmit={jest.fn()}
-            initialValues={{ items }}
+            initialValues={{ items: initItemsRow }}
             mutators={{...arrayMutators}}
             render={() => (
                 <FormItemsRow
@@ -34,7 +41,7 @@ const renderFormItemsRow = ({ items = [], searchRowText = '', renderProps = {} }
     );
 
     return {
-        itemsRow: getGridCell(searchRowText || itemsRowText),
+        itemsRow: getGridCell(searchRowText),
         onRowClickHandler,
         onValidateHandler
     };
@@ -52,17 +59,14 @@ describe('FormItemsRow', () => {
     });
 
     test('All items with value are displayed', () => {
-        const { itemsRow } = renderFormItemsRow({
-            items: [{ id: '1', name: '1', quantity: '1', time: '1' }],
-            searchRowText: 'Name 1 Quantity 1 Time 1'
-        });
+        const { itemsRow } = renderFormItemsRow();
 
         expect(itemsRow).toBeInTheDocument();
     });
 
     test('Part of the items with value are displayed', () => {
         const { itemsRow } = renderFormItemsRow({
-            items: [{ id: '1', name: '1', quantity: '1', time: '' }],
+            initData: { time: '' },
             searchRowText: 'Name 1 Quantity 1 Time'
         });
 

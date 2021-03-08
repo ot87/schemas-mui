@@ -5,35 +5,30 @@ import userEvent from '@testing-library/user-event';
 
 import SchemasPanel from './SchemasPanel';
 import { UiModes }  from 'redux/reducers/ui';
+import { initialState } from 'redux/reducers/schemas';
 
-const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
+const renderSchemasPanel = ({ initData = {} } = {}) => {
     let buttons = {};
-
-    if (isStateInitial) {
-        render(<SchemasPanel />);
-    } else {
-        const initialState = {
-            ...{
-                schemas: {
-                    ids: [ '1' ],
-                    entities: {
-                        '1': {
-                            id: '1', name: 'schema 1', description: '',
-                            items: []
-                        }
-                    },
+    const initialState = {
+        schemas: {
+            ids: [ '1' ],
+            entities: {
+                '1': {
+                    id: '1', name: 'schema 1', description: '',
+                    items: []
                 }
-            },
-            ...initData
-        };
+            }
+        },
+        ...initData
+    };
 
-        render(<SchemasPanel />, { initialState });
+    render(<SchemasPanel />, { initialState });
 
+    buttons['addButton'] = getButton('Add');
+    if (!initData?.schemas) {
         buttons['editButton']   = getButton('Edit');
         buttons['deleteButton'] = getButton('Delete');
     }
-
-    buttons['addButton'] = getButton('Add');
 
     return buttons;
 };
@@ -44,7 +39,7 @@ const renderSchemasPanel = ({ isStateInitial = true, initData = {} } = {}) => {
   activeSchemaId is null (by default)
 */
 test('"Add" CustomButton is displayed, clickable and not disabled', () => {
-    const { addButton } = renderSchemasPanel();
+    const { addButton } = renderSchemasPanel({ initData: { schemas: initialState } });
 
     // Add CustomButton is displayed, is not clicked and is not disabled
     expect(addButton).toBeInTheDocument();
@@ -66,7 +61,7 @@ test('"Add" CustomButton is displayed, clickable and not disabled', () => {
   activeSchemaId is null (by default)
 */
 test('"Add", "Edit" and "Delete" CustomButtons are displayed', () => {
-    const { addButton, editButton, deleteButton } = renderSchemasPanel({ isStateInitial: false });
+    const { addButton, editButton, deleteButton } = renderSchemasPanel();
 
     expect(addButton).toBeInTheDocument();
     expect(addButton.className).toContain('MuiButton-outlined');
@@ -93,7 +88,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
             addButton,
             [`${name1.toLowerCase()}Button`]: button1,
             [`${name2.toLowerCase()}Button`]: button2
-        } = renderSchemasPanel({ isStateInitial: false });
+        } = renderSchemasPanel();
 
         userEvent.click(button1);
         expect(button1.className).toContain('MuiButton-contained');
@@ -116,10 +111,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
             addButton,
             [`${name1.toLowerCase()}Button`]: button1,
             [`${name2.toLowerCase()}Button`]: button2
-        } = renderSchemasPanel({
-            isStateInitial: false,
-            initData: { ui: { mode: UiModes[mode] } }
-        });
+        } = renderSchemasPanel({ initData: { ui: { mode: UiModes[mode] } } });
 
         expect(button1.className).toContain('MuiButton-contained');
         expect(button1.className).not.toContain('clicked');
@@ -138,7 +130,6 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
         ${'Delete'}
     `('"$name" CustomButton is toggled back', ({ name }) => {
         const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel({
-            isStateInitial: false,
             initData: { ui: { mode: UiModes[name.toUpperCase()] } }
         });
 
@@ -161,7 +152,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
             addButton,
             [`${name1.toLowerCase()}Button`]: button1,
             [`${name2.toLowerCase()}Button`]: button2
-        } = renderSchemasPanel({ isStateInitial: false });
+        } = renderSchemasPanel();
 
         userEvent.click(button1);
         expect(button1.className).toContain('MuiButton-contained');
@@ -184,7 +175,7 @@ describe('"Edit" and "Delete" CustomButtons are togglable and not disabled', () 
 */
 describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomButtons are disabled and not clickable', () => {
     test('"Add" CustomButton is clicked', () => {
-        const { addButton } = renderSchemasPanel({ isStateInitial: false });
+        const { addButton } = renderSchemasPanel();
 
         userEvent.click(addButton);
 
@@ -201,7 +192,7 @@ describe('"Add" CustomButton is clickable once only, "Edit" and "Delete" CustomB
         const {
             addButton,
             [`${name.toLowerCase()}Button`]: buttonToDisable
-        } = renderSchemasPanel({ isStateInitial: false });
+        } = renderSchemasPanel();
 
         userEvent.click(addButton);
 
@@ -232,12 +223,8 @@ describe.each`
     ({ clicked, disabled1, disabled2 }) => {
         test(`"${clicked}" CustomButton is clicked`, () => {
             const { [`${clicked.toLowerCase()}Button`]: button } = renderSchemasPanel({
-                isStateInitial: false,
                 initData: {
-                    ui: {
-                        activeSchemaId: '1',
-                        mode: UiModes[clicked.toUpperCase()]
-                    }
+                    ui: { activeSchemaId: '1', mode: UiModes[clicked.toUpperCase()] }
                 }
             });
 
@@ -252,12 +239,8 @@ describe.each`
             ${disabled2}
         `('"$name" CustomButton is disabled', ({ name }) => {
             const { [`${name.toLowerCase()}Button`]: button } = renderSchemasPanel({
-                isStateInitial: false,
                 initData: {
-                    ui: {
-                        activeSchemaId: '1',
-                        mode: UiModes[clicked.toUpperCase()]
-                    }
+                    ui: { activeSchemaId: '1', mode: UiModes[clicked.toUpperCase()] }
                 }
             });
 
