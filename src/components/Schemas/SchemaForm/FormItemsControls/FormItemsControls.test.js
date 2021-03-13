@@ -58,7 +58,7 @@ describe('FormItemsControls and "Add" button', () => {
 
         applyJSSRules();
 
-        expect(getButton('Add')).toHaveStyle(`color: ${green[600]}`);
+        expect(getButton('Add')).toHaveStyle(`color: ${green[700]}`);
     });
 
     test('"Add" button is disabled', () => {
@@ -125,7 +125,7 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
 
         applyJSSRules();
 
-        expect(getButton('Remove')).toHaveStyle(`color: ${red[600]}`);
+        expect(getButton('Remove')).toHaveStyle(`color: ${red[700]}`);
     });
 
     test('"Remove" button is toggled', () => {
@@ -192,7 +192,7 @@ describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
 
         applyJSSRules();
 
-        expect(getButton('All')).toHaveStyle(`color: ${red[600]}`);
+        expect(getButton('All')).toHaveStyle(`color: ${red[700]}`);
     });
 
     test('"All" button is toggled', () => {

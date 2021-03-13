@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme => ({
     highlight: {
         backgroundColor: ({ color }) => (
             color === 'yellow' ?
-                yellow[600]
+                yellow[700]
             : color === 'red' ?
-                red[600]
+                red[700]
             : null
         )
     },
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
         padding: 0
     },
     subheader: {
-        color: ({ isClicked }) => isClicked ? red[600] : null
+        color: ({ isClicked }) => isClicked ? red[700] : null
     }
 }));
 

@@ -82,7 +82,7 @@ test('CustomCard with yellow theme has yellow background for hover', () => {
     // check that CustomCard has yellow background
     expect(
         card.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-    ).toHaveStyle(`background-color: ${yellow[600]}`);
+    ).toHaveStyle(`background-color: ${yellow[700]}`);
 });
 
 test('CustomCard with red theme has red background for hover', () => {
@@ -94,5 +94,5 @@ test('CustomCard with red theme has red background for hover', () => {
     // check that CustomCard has red background
     expect(
         card.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-    ).toHaveStyle(`background-color: ${red[600]}`);
+    ).toHaveStyle(`background-color: ${red[700]}`);
 });

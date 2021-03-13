@@ -70,9 +70,9 @@ test('All three buttons "Submit", "Reset" and "Cancel" have colors "green", "yel
 
     applyJSSRules();
 
-    expect(submit.button).toHaveStyle(`color: ${green[600]}`);
-    expect(reset.button).toHaveStyle(`color: ${yellow[600]}`);
-    expect(cancel.button).toHaveStyle(`color: ${red[600]}`);
+    expect(submit.button).toHaveStyle(`color: ${green[700]}`);
+    expect(reset.button).toHaveStyle(`color: ${yellow[700]}`);
+    expect(cancel.button).toHaveStyle(`color: ${red[700]}`);
 });
 
 test('All three buttons "Submit", "Reset" and "Cancel" are clickable', () => {

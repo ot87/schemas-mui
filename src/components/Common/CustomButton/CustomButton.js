@@ -4,7 +4,12 @@ import cn from 'classnames';
 
 import { lxs } from 'components/utils/customBreakpoints';
 
-import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {
+    makeStyles,
+    useTheme,
+    ThemeProvider,
+    createMuiTheme
+} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Button from '@material-ui/core/Button';
 import green  from '@material-ui/core/colors/green';
@@ -29,23 +34,19 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const getColor = (colorTheme, isDisabled) => {
-    const currentTheme = createMuiTheme();
-
-    return (
-        isDisabled ?
-            currentTheme.palette.primary
-        : (
-            colorTheme === 'green' ?
-                {main: green[600]}
-            : colorTheme === 'yellow' ?
-                {main: yellow[600], contrastText: '#fff'}
-            : colorTheme === 'red' ?
-                {main: red[600]}
-            : currentTheme.palette.primary
-        )
-    );
-};
+const getColor = (colorTheme, { palette }, isDisabled) => (
+    isDisabled ?
+        palette.primary
+    : (
+        colorTheme === 'green' ?
+            {main: green[700], contrastText: palette.background.default}
+        : colorTheme === 'yellow' ?
+            {main: yellow[700], contrastText: palette.background.default}
+        : colorTheme === 'red' ?
+            {main: red[700], contrastText: palette.background.default}
+        : palette.primary
+    )
+);
 
 /**
  * Callback for events handling.
@@ -70,7 +71,7 @@ const CustomButton = ({
     const isToggled  = type === 'toggled';
     const isDisabled = type === 'disabled';
 
-    const color     = getColor(colorTheme, isDisabled);
+    const color     = getColor(colorTheme, useTheme(), isDisabled);
     const classes   = useStyles({ color: color.main });
     const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(lxs));
     const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));

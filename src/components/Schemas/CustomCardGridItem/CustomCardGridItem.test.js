@@ -48,7 +48,7 @@ describe('CustomCardGridItem', () => {
 
         expect(
             card.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${yellow[600]}`);
+        ).toHaveStyle(`background-color: ${yellow[700]}`);
     });
 
     test('"setActiveSchemaId" is dispatched when Card is clicked', () => {

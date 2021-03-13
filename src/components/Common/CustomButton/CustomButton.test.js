@@ -53,9 +53,9 @@ describe('Property colorTheme of CustomButton', () => {
 
     test.each`
         colorTheme  | expectedStyle
-        ${'green'}  | ${`color: ${green[600]}`}
-        ${'yellow'} | ${`color: ${yellow[600]}`}
-        ${'red'}    | ${`color: ${red[600]}`}
+        ${'green'}  | ${`color: ${green[700]}`}
+        ${'yellow'} | ${`color: ${yellow[700]}`}
+        ${'red'}    | ${`color: ${red[700]}`}
     `(
         'CustomButton with "$colorTheme" colorTheme has "$expectedStyle" style',
         ({ colorTheme, expectedStyle }) => {
@@ -72,12 +72,12 @@ describe('Property colorTheme of CustomButton', () => {
 describe('Properties colorTheme and type of CustomButton', () => {
     test.each`
         colorTheme  | type          | expectedStyle
-        ${'green'}  | ${'clicked'}  | ${`background-color: ${green[600]}`}
-        ${'yellow'} | ${'clicked'}  | ${`background-color: ${yellow[600]}`}
-        ${'red'}    | ${'clicked'}  | ${`background-color: ${red[600]}`}
-        ${'green'}  | ${'toggled'}  | ${`background-color: ${green[600]}`}
-        ${'yellow'} | ${'toggled'}  | ${`background-color: ${yellow[600]}`}
-        ${'red'}    | ${'toggled'}  | ${`background-color: ${red[600]}`}
+        ${'green'}  | ${'clicked'}  | ${`background-color: ${green[700]}`}
+        ${'yellow'} | ${'clicked'}  | ${`background-color: ${yellow[700]}`}
+        ${'red'}    | ${'clicked'}  | ${`background-color: ${red[700]}`}
+        ${'green'}  | ${'toggled'}  | ${`background-color: ${green[700]}`}
+        ${'yellow'} | ${'toggled'}  | ${`background-color: ${yellow[700]}`}
+        ${'red'}    | ${'toggled'}  | ${`background-color: ${red[700]}`}
         ${'green'}  | ${'disabled'} | ${`background-color: #fff`}
         ${'yellow'} | ${'disabled'} | ${`background-color: #fff`}
         ${'red'}    | ${'disabled'} | ${`background-color: #fff`}

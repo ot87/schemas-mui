@@ -68,10 +68,10 @@ describe('SchemasBoard without "activeSchemaId"', () => {
 
         expect(
             card1.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${yellow[600]}`);
+        ).toHaveStyle(`background-color: ${yellow[700]}`);
         expect(
             card2.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${yellow[600]}`);
+        ).toHaveStyle(`background-color: ${yellow[700]}`);
     });
 
     test('SchemaForm is displayed when Card is clicked ("mode" = "EDIT")', () => {
@@ -103,10 +103,10 @@ describe('SchemasBoard without "activeSchemaId"', () => {
 
         expect(
             card1.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${red[600]}`);
+        ).toHaveStyle(`background-color: ${red[700]}`);
         expect(
             card2.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${red[600]}`);
+        ).toHaveStyle(`background-color: ${red[700]}`);
     });
 
     test('CustomCardButtons is displayed when Card is clicked ("mode" = "DELETE")', () => {
