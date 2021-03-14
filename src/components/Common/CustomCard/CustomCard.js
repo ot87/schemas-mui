@@ -113,7 +113,7 @@ const CustomCard = ({
     }
 
     return (
-        <Card className={classes.root} role='button'>
+        <Card className={classes.root} role='button' elevation={isClicked ? 5 : 3}>
             {cardContent}
         </Card>
     );
