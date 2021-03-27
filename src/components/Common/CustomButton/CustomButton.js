@@ -3,18 +3,11 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { lxs } from 'components/utils/customBreakpoints';
+import useNewPrimaryColor from 'components/utils/useNewPrimaryColor';
 
-import {
-    makeStyles,
-    useTheme,
-    ThemeProvider,
-    createMuiTheme
-} from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Button from '@material-ui/core/Button';
-import green  from '@material-ui/core/colors/green';
-import yellow from '@material-ui/core/colors/yellow';
-import red    from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,20 +26,6 @@ const useStyles = makeStyles(theme => ({
         }
     }
 }));
-
-const getColor = (colorTheme, { palette }, isDisabled) => (
-    isDisabled ?
-        palette.primary
-    : (
-        colorTheme === 'green' ?
-            {main: green[700], contrastText: palette.background.default}
-        : colorTheme === 'yellow' ?
-            {main: yellow[700], contrastText: palette.background.default}
-        : colorTheme === 'red' ?
-            {main: red[700], contrastText: palette.background.default}
-        : palette.primary
-    )
-);
 
 /**
  * Callback for events handling.
@@ -71,8 +50,8 @@ const CustomButton = ({
     const isToggled  = type === 'toggled';
     const isDisabled = type === 'disabled';
 
-    const color     = getColor(colorTheme, useTheme(), isDisabled);
-    const classes   = useStyles({ color: color.main });
+    const theme     = useNewPrimaryColor(isDisabled ? 'default' : colorTheme);
+    const classes   = useStyles({ color: theme.palette.primary.main });
     const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(lxs));
     const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));
     const isColorNotDefault = ['green', 'yellow', 'red'].includes(colorTheme);
@@ -107,9 +86,7 @@ const CustomButton = ({
 
     if (isColorNotDefault && !isDisabled) {
         button = (
-            <ThemeProvider theme={createMuiTheme({
-                palette: { primary: color }
-            })}>
+            <ThemeProvider theme={theme}>
                 {button}
             </ThemeProvider>
         );

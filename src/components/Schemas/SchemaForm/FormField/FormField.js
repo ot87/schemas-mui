@@ -5,10 +5,18 @@ import { Field } from 'react-final-form';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({ palette }) => ({
     textfield: {
-        backgroundColor: theme.palette.background.paper
-    }
+        backgroundColor: palette.background.paper
+    },
+    input: {
+        '&:hover:not($error) $notchedOutline': {
+            borderColor: palette.primary.main
+        }
+    },
+    notchedOutline: {},
+    error: {},
+    shrink: {}
 }));
 
 /**
@@ -50,6 +58,11 @@ const FormField = ({
                     error={validate && meta.touched && meta.error}
                     fullWidth
                     id={name}
+                    InputProps={{ classes: {
+                        root: classes.input,
+                        notchedOutline: classes.notchedOutline,
+                        error: classes.error
+                    } }}
                     label={label}
                     multiline={multiline}
                     placeholder={placeholder || label}
