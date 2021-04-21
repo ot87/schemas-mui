@@ -5,8 +5,9 @@ import userEvent from '@testing-library/user-event';
 
 import CustomCardGridItem    from './CustomCardGridItem';
 import { setActiveSchemaId } from 'redux/reducers/ui';
+import customPrimaryColors from 'components/utils/customPrimaryColors';
 
-import yellow from '@material-ui/core/colors/yellow';
+const yellowColor = customPrimaryColors.light.yellow.main;
 
 const renderCustomCardGridItem = ({ mock = false, renderProps = {} } = {}) => {
     const initialState = { schemas: {
@@ -40,15 +41,15 @@ describe('CustomCardGridItem', () => {
         expect(card).toBeInTheDocument();
     });
 
-    test('CustomCardGridItem with yellow theme has yellow background for hover', () => {
+    test('CustomCardGridItem with "yellow" theme has yellow background for hover', () => {
         const applyJSSRules = mockStyleInjection();
         const { card } = renderCustomCardGridItem({ renderProps: { colorTheme: 'yellow' } });
 
         applyJSSRules();
 
         expect(
-            card.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${yellow[700]}`);
+            card.getElementsByTagName('span')[1]
+        ).toHaveStyle(`background-color: ${yellowColor}`);
     });
 
     test('"setActiveSchemaId" is dispatched when Card is clicked', () => {

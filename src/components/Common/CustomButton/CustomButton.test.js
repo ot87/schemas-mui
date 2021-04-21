@@ -5,10 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 import CustomButton from './CustomButton';
 
-import green  from '@material-ui/core/colors/green';
-import yellow from '@material-ui/core/colors/yellow';
-import red    from '@material-ui/core/colors/red';
-
 const renderButton = ({ renderProps = {} } = {}) => {
     const onClickHandler = jest.fn();
     const initProps      = { text: 'CustomButton', onClick: onClickHandler };
@@ -23,78 +19,38 @@ const renderButton = ({ renderProps = {} } = {}) => {
     };
 };
 
-test('CustomButton is displayed with default props and onClick handler is called', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { button, onClickHandler } = renderButton();
-
-    applyJSSRules();
-
-    // CustomButton is displayed (without specified type)
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('MuiButton-outlined');
-
-    // CustomButton without specified colorTheme has "default" color
-    expect(button.className).not.toContain('Primary');
-
-    // onClickHandler has been called
-    userEvent.click(button);
-    expect(onClickHandler).toBeCalledTimes(1);
-});
-
-describe('Property colorTheme of CustomButton', () => {
-    test('CustomButton with "default" colorTheme has "default" color', () => {
+describe('CustomButton', () => {
+    test('CustomButton is displayed with default props and "onClick" handler is called', () => {
         const applyJSSRules = mockStyleInjection();
-        const { button } = renderButton({ renderProps: { colorTheme: 'default' } });
+        const { button, onClickHandler } = renderButton();
 
         applyJSSRules();
 
+        // CustomButton is displayed (without specified type)
+        expect(button).toBeInTheDocument();
+        expect(button).toHaveClass('MuiButton-outlined');
+
+        // CustomButton without specified "isCustomColor" does not have "primary" color
         expect(button.className).not.toContain('Primary');
+
+        // onClickHandler has been called
+        userEvent.click(button);
+        expect(onClickHandler).toBeCalledTimes(1);
     });
-
-    test.each`
-        colorTheme  | expectedStyle
-        ${'green'}  | ${`color: ${green[700]}`}
-        ${'yellow'} | ${`color: ${yellow[700]}`}
-        ${'red'}    | ${`color: ${red[700]}`}
-    `(
-        'CustomButton with "$colorTheme" colorTheme has "$expectedStyle" style',
-        ({ colorTheme, expectedStyle }) => {
-            const applyJSSRules = mockStyleInjection();
-            const { button } = renderButton({ renderProps: { colorTheme } });
-
-            applyJSSRules();
-
-            expect(button).toHaveStyle(expectedStyle);
-        }
-    );
 });
 
-describe('Properties colorTheme and type of CustomButton', () => {
-    test.each`
-        colorTheme  | type          | expectedStyle
-        ${'green'}  | ${'clicked'}  | ${`background-color: ${green[700]}`}
-        ${'yellow'} | ${'clicked'}  | ${`background-color: ${yellow[700]}`}
-        ${'red'}    | ${'clicked'}  | ${`background-color: ${red[700]}`}
-        ${'green'}  | ${'toggled'}  | ${`background-color: ${green[700]}`}
-        ${'yellow'} | ${'toggled'}  | ${`background-color: ${yellow[700]}`}
-        ${'red'}    | ${'toggled'}  | ${`background-color: ${red[700]}`}
-        ${'green'}  | ${'disabled'} | ${`background-color: #fff`}
-        ${'yellow'} | ${'disabled'} | ${`background-color: #fff`}
-        ${'red'}    | ${'disabled'} | ${`background-color: #fff`}
-    `(
-        'CustomButton with "$colorTheme" colorTheme and "$type" type has "$expectedStyle" style',
-        ({ colorTheme, type, expectedStyle }) => {
-            const applyJSSRules = mockStyleInjection();
-            const { button } = renderButton({ renderProps: { colorTheme, type } });
+describe('Property "isCustomColor"', () => {
+    test('CustomButton with specified "isCustomColor" has "default" color', () => {
+        const applyJSSRules = mockStyleInjection();
+        const { button } = renderButton({ renderProps: { isCustomColor: true } });
 
-            applyJSSRules();
+        applyJSSRules();
 
-            expect(button).toHaveStyle(expectedStyle);
-        }
-    );
+        expect(button.className).toContain('Primary');
+    });
 });
 
-describe('Property type of CustomButton and onClick handler', () => {
+describe('Property "type" and "onClick" handler', () => {
     test.each`
         type          | toContain              | notToContain                    | calls
         ${'shown'}    | ${'outlined'}          | ${'contained|clicked|disabled'} | ${1}
@@ -102,7 +58,7 @@ describe('Property type of CustomButton and onClick handler', () => {
         ${'toggled'}  | ${'contained'}         | ${'outlined|clicked|disabled'}  | ${1}
         ${'disabled'} | ${'disabled|outlined'} | ${'contained|clicked'}          | ${0}
     `(
-        'CustomButton with "$type" type has "$toContain" classes, has not "$notToContain" classes and onClick handler has been called "$calls" times',
+        'CustomButton with "$type" type has "$toContain" classes, does not have "$notToContain" classes and onClick handler has been called "$calls" times',
         ({ type, toContain, notToContain, calls }) => {
             const { button, onClickHandler } = renderButton({ renderProps: { type } });
 
@@ -162,21 +118,21 @@ describe('Rerender CustomButton', () => {
 });
 
 describe('Responsiveness of CustomButton', () => {
-    test('Size of CustomButton is small for screen width less than 390px', () => {
+    test('Size is small for screen width less than 390px', () => {
         mockUseMediaQuery(300);
 
         const { button } = renderButton();
         expect(button).toHaveClass('MuiButton-sizeSmall');
     });
 
-    test('Size of CustomButton is medium for screen width between 390px and 600px', () => {
+    test('Size is medium for screen width between 390px and 600px', () => {
         mockUseMediaQuery(500);
 
         const { button } = renderButton();
         expect(button.className).not.toContain('MuiButton-size');
     });
 
-    test('Size of CustomButton is large for screen width 600px and more', () => {
+    test('Size is large for screen width 600px and more', () => {
         mockUseMediaQuery(600);
 
         const { button, rerenderButton } = renderButton();

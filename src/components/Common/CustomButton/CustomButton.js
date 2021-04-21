@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { lxs } from 'components/utils/customBreakpoints';
-import useNewPrimaryColor from 'components/utils/useNewPrimaryColor';
 
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Button from '@material-ui/core/Button';
 
@@ -21,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     clicked: {
         '&:hover': {
-            backgroundColor: ({ color }) => color,
+            backgroundColor: theme.palette.primary.main,
             cursor: 'auto'
         }
     }
@@ -35,13 +34,13 @@ const useStyles = makeStyles(theme => ({
 /**
  * Functional component which renders a custom clickable or togglable button.
  * @param {Object}                                 props
- * @param {'green'|'yellow'|'red'|'default'}       [props.colorTheme] - Color theme of the CustomButton.
- * @param {'clicked'|'toggled'|'disabled'|'shown'} [props.type]       - Indicates a type of the CustomButton. If it's clicked, onClick is nullified; if it's toggled, the CustomButton is clicked and stayed clickable; if it's disabled, the CustomButton is disabled.
- * @param {EventHandler}                           props.onClick      - On click function for the CustomButton.
- * @param {string}                                 props.text         - Text to display on the CustomButton.
+ * @param {boolean}                                [props.isCustomColor] - Color theme of the CustomButton.
+ * @param {'clicked'|'toggled'|'disabled'|'shown'} [props.type]          - Indicates a type of the CustomButton. If it's clicked, onClick is nullified; if it's toggled, the CustomButton is clicked and stayed clickable; if it's disabled, the CustomButton is disabled.
+ * @param {EventHandler}                           props.onClick         - On click function for the CustomButton.
+ * @param {string}                                 props.text            - Text to display on the CustomButton.
  */
 const CustomButton = ({
-    colorTheme = 'default',
+    isCustomColor = false,
     type = 'shown',
     onClick,
     text
@@ -50,13 +49,11 @@ const CustomButton = ({
     const isToggled  = type === 'toggled';
     const isDisabled = type === 'disabled';
 
-    const theme     = useNewPrimaryColor(isDisabled ? 'default' : colorTheme);
-    const classes   = useStyles({ color: theme.palette.primary.main });
+    const classes   = useStyles();
     const xxsScreen = useMediaQuery(theme => theme.breakpoints.down(lxs));
     const xsScreen  = useMediaQuery(theme => theme.breakpoints.down('xs'));
-    const isColorNotDefault = ['green', 'yellow', 'red'].includes(colorTheme);
 
-    let button = (
+    return (
         <Button
             classes={{
                 root: cn({
@@ -65,7 +62,7 @@ const CustomButton = ({
                 }),
                 outlined: classes.outlined
             }}
-            color={isColorNotDefault || isClicked ? 'primary' : 'default'}
+            color={isCustomColor || isClicked ? 'primary' : 'default'}
             disabled={isDisabled}
             disableElevation={isClicked}
             disableFocusRipple={isClicked}
@@ -83,23 +80,13 @@ const CustomButton = ({
             {text}
         </Button>
     );
-
-    if (isColorNotDefault && !isDisabled) {
-        button = (
-            <ThemeProvider theme={theme}>
-                {button}
-            </ThemeProvider>
-        );
-    }
-
-    return button;
 };
 
 CustomButton.propTypes = {
-    colorTheme: PropTypes.oneOf(['green', 'yellow', 'red', 'default']),
-    type:       PropTypes.oneOf(['clicked', 'toggled', 'disabled', 'shown']),
-    onClick:    PropTypes.func.isRequired,
-    text:       PropTypes.string.isRequired
+    isCustomColor: PropTypes.bool,
+    type:          PropTypes.oneOf(['clicked', 'toggled', 'disabled', 'shown']),
+    onClick:       PropTypes.func.isRequired,
+    text:          PropTypes.string.isRequired
 };
 
 export default CustomButton;

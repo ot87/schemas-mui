@@ -1,12 +1,9 @@
 import React from 'react';
-import { render, mockStyleInjection } from 'test-utils';
+import { render } from 'test-utils';
 import { getAllButtons } from 'test-helpers';
 import userEvent from '@testing-library/user-event';
 
 import CustomCard from './CustomCard';
-
-import yellow from '@material-ui/core/colors/yellow';
-import red    from '@material-ui/core/colors/red';
 
 const cardContent = [
     {id: '1', name: 'item 1'},
@@ -14,7 +11,7 @@ const cardContent = [
 ].map((item) => <div key={item.id}>{item.name}</div>);
 
 const renderCard = ({ renderProps = {} } = {}) => {
-    const initProps      = {
+    const initProps = {
         name:    'CustomCard 1',
         content: cardContent
     };
@@ -71,28 +68,4 @@ test('if isClicked is true CustomCard is not clickable', () => {
     userEvent.click(card);
     userEvent.click(card.firstElementChild);
     expect(onClickHandler).toHaveBeenCalledTimes(1);
-});
-
-test('CustomCard with yellow theme has yellow background for hover', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { card } = renderCard({ renderProps: { colorTheme: 'yellow' } });
-
-    applyJSSRules();
-
-    // check that CustomCard has yellow background
-    expect(
-        card.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-    ).toHaveStyle(`background-color: ${yellow[700]}`);
-});
-
-test('CustomCard with red theme has red background for hover', () => {
-    const applyJSSRules = mockStyleInjection();
-    const { card } = renderCard({ renderProps: { colorTheme: 'red' } });
-
-    applyJSSRules();
-
-    // check that CustomCard has red background
-    expect(
-        card.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-    ).toHaveStyle(`background-color: ${red[700]}`);
 });

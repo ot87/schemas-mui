@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
-import CustomCard from 'components/Common/CustomCard/CustomCard';
+import CustomCard from 'components/Common/CustomCard';
 
 import { selectSchemaById }  from 'redux/reducers/schemas';
 import { setActiveSchemaId } from 'redux/reducers/ui';

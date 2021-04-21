@@ -4,9 +4,10 @@ import { getTabList, getButton, getButtonWithin, queryButtonWithin } from 'test-
 import userEvent from '@testing-library/user-event';
 
 import FormItemsControls from './FormItemsControls';
+import customPrimaryColors from 'components/utils/customPrimaryColors';
 
-import green from '@material-ui/core/colors/green';
-import red   from '@material-ui/core/colors/red';
+const greenColor = customPrimaryColors.light.green.main;
+const redColor   = customPrimaryColors.light.red.main;
 
 const renderFormItemsControls = ({ renderProps = {} } = {}) => {
     const addOnClick       = jest.fn();
@@ -58,7 +59,7 @@ describe('FormItemsControls and "Add" button', () => {
 
         applyJSSRules();
 
-        expect(getButton('Add')).toHaveStyle(`color: ${green[700]}`);
+        expect(getButton('Add')).toHaveStyle(`color: ${greenColor}`);
     });
 
     test('"Add" button is disabled', () => {
@@ -125,7 +126,7 @@ describe('FormItemsControls and "Add" and "Remove" buttons', () => {
 
         applyJSSRules();
 
-        expect(getButton('Remove')).toHaveStyle(`color: ${red[700]}`);
+        expect(getButton('Remove')).toHaveStyle(`color: ${redColor}`);
     });
 
     test('"Remove" button is toggled', () => {
@@ -192,7 +193,7 @@ describe('FormItemsControls and "Add", "Remove" and "All" buttons', () => {
 
         applyJSSRules();
 
-        expect(getButton('All')).toHaveStyle(`color: ${red[700]}`);
+        expect(getButton('All')).toHaveStyle(`color: ${redColor}`);
     });
 
     test('"All" button is toggled', () => {

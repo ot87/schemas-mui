@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CustomButton from 'components/Common/CustomButton/CustomButton';
+import CustomButton from 'components/Common/CustomButton';
 import SchemasTabs  from 'components/Schemas/SchemasTabs/SchemasTabs';
 import SchemasPanel from 'components/Schemas/SchemasPanel/SchemasPanel';
 
@@ -55,8 +55,8 @@ const Header = ({
             <Toolbar className={classes.toolbar}>
                 <CustomButton
                     onClick={handleButtonClick}
-                    text={(showPanel ? 'Schemas' : 'Back')}
-                    type={(showPanel ? 'clicked' : 'shown')}
+                    text={showPanel ? 'Schemas' : 'Back'}
+                    type={showPanel ? 'clicked' : 'shown'}
                 />
                 {showPanel ?
                     <SchemasPanel />

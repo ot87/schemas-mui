@@ -8,10 +8,11 @@ import {
 import userEvent from '@testing-library/user-event';
 
 import SchemasBoard from './SchemasBoard';
+import customPrimaryColors from 'components/utils/customPrimaryColors';
 import { UiModes }  from 'redux/reducers/ui';
 
-import yellow from '@material-ui/core/colors/yellow';
-import red    from '@material-ui/core/colors/red';
+const yellowColor = customPrimaryColors.light.yellow.main;
+const redColor    = customPrimaryColors.light.red.main;
 
 const renderSchemasBoard = ({ initData = {} } = {}) => {
     const initialState = {
@@ -53,7 +54,7 @@ describe('SchemasBoard without "activeSchemaId"', () => {
         expect(getGridCellWithin(schema, '2 3')).toBeInTheDocument();
     });
 
-    test('SchemasBoard is displayed with two Cards with yellow theme ("mode" = "EDIT")', () => {
+    test('SchemasBoard is displayed with two Cards with "yellow" theme ("mode" = "EDIT")', () => {
         const applyJSSRules = mockStyleInjection();
         renderSchemasBoard({
             initData: { ui: { mode: UiModes.EDIT } }
@@ -67,11 +68,11 @@ describe('SchemasBoard without "activeSchemaId"', () => {
         expect(card2).toBeInTheDocument();
 
         expect(
-            card1.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${yellow[700]}`);
+            card1.getElementsByTagName('span')[1]
+        ).toHaveStyle(`background-color: ${yellowColor}`);
         expect(
-            card2.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${yellow[700]}`);
+            card2.getElementsByTagName('span')[1]
+        ).toHaveStyle(`background-color: ${yellowColor}`);
     });
 
     test('SchemaForm is displayed when Card is clicked ("mode" = "EDIT")', () => {
@@ -88,7 +89,7 @@ describe('SchemasBoard without "activeSchemaId"', () => {
         expect(getGridCellWithin(form, 'Name 2 Quantity 3 Time')).toBeInTheDocument();
     });
 
-    test('SchemasBoard is displayed with two Cards with red theme ("mode" = "DELETE")', () => {
+    test('SchemasBoard is displayed with two Cards with "red" theme ("mode" = "DELETE")', () => {
         const applyJSSRules = mockStyleInjection();
         renderSchemasBoard({
             initData: { ui: { mode: UiModes.DELETE } }
@@ -102,11 +103,11 @@ describe('SchemasBoard without "activeSchemaId"', () => {
         expect(card2).toBeInTheDocument();
 
         expect(
-            card1.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${red[700]}`);
+            card1.getElementsByTagName('span')[1]
+        ).toHaveStyle(`background-color: ${redColor}`);
         expect(
-            card2.getElementsByClassName('MuiCardActionArea-focusHighlight')[0]
-        ).toHaveStyle(`background-color: ${red[700]}`);
+            card2.getElementsByTagName('span')[1]
+        ).toHaveStyle(`background-color: ${redColor}`);
     });
 
     test('CustomCardButtons is displayed when Card is clicked ("mode" = "DELETE")', () => {

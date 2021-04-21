@@ -12,7 +12,7 @@ import App from 'App';
 
 const findAllButtons = (name) => screen.findAllByRole('button', { name });
 
-test('create Schema, edit it and then delete', async () => {
+test('Create Schema, edit it and then delete', async () => {
     render(<App />);
 
     // TEST CREATION
@@ -92,7 +92,7 @@ test('create Schema, edit it and then delete', async () => {
     const addedCardName = `${schemaName} ${rowName} 1 ${rowName} 2`;
 
     // Schema Card is created
-    let addedSchemaCard = await findAllButtons(addedCardName);
+    const addedSchemaCard = await findAllButtons(addedCardName);
     expect(addedSchemaCard[0]).toBeInTheDocument();
 
 
@@ -121,8 +121,9 @@ test('create Schema, edit it and then delete', async () => {
     userEvent.click(getButton('Back'));
 
     // Schema Card is displayed
-    addedSchemaCard = await findAllButtons(addedCardName);
-    expect(addedSchemaCard[0]).toBeInTheDocument();
+    await waitFor(() => {
+        expect(getAllButtons(addedCardName)[0]).toBeInTheDocument();
+    });
 
 
     // TEST EDIT
@@ -131,7 +132,8 @@ test('create Schema, edit it and then delete', async () => {
     expect(editButton).toBeInTheDocument();
 
     userEvent.click(editButton);
-    userEvent.click(addedSchemaCard[0].firstElementChild);
+    userEvent.click(getAllButtons(addedCardName)[0].firstElementChild);
+
     expect(editButton.className).toContain('clicked');
 
     // form is displayed and editable
@@ -176,16 +178,16 @@ test('create Schema, edit it and then delete', async () => {
     const editedCardName = `${schemaName} ${rowName} 1 ${rowName} 3`;
 
     // Schema Card is edited
-    let editedSchemaCard = await findAllButtons(editedCardName);
-    expect(editedSchemaCard[0]).toBeInTheDocument();
+    await waitFor(() => {
+        expect(getAllButtons(editedCardName)[0]).toBeInTheDocument();
+    });
 
     // uncheck Edit mode
     userEvent.click(editButton);
 
 
     // click on the Card, check that its content is displayed and return back
-
-    userEvent.click(editedSchemaCard[0].firstElementChild);
+    userEvent.click(getAllButtons(editedCardName)[0].firstElementChild);
 
     const editedSchemaButton = getTab(schemaName);
     expect(editedSchemaButton).toBeInTheDocument();
@@ -206,9 +208,9 @@ test('create Schema, edit it and then delete', async () => {
     userEvent.click(getButton('Back'));
 
     // Schema Card is displayed
-    editedSchemaCard = await findAllButtons(editedCardName);
-    expect(editedSchemaCard[0]).toBeInTheDocument();
-
+    await waitFor(() => {
+        expect(getAllButtons(editedCardName)[0]).toBeInTheDocument();
+    });
 
 
     // TEST DELETION
@@ -217,7 +219,7 @@ test('create Schema, edit it and then delete', async () => {
     expect(deleteButton).toBeInTheDocument();
 
     userEvent.click(deleteButton);
-    userEvent.click(editedSchemaCard[0].firstElementChild);
+    userEvent.click(getAllButtons(editedCardName)[0].firstElementChild);
     expect(deleteButton.className).toContain('clicked');
 
     // Schema Card is clicked for deletion
@@ -227,7 +229,7 @@ test('create Schema, edit it and then delete', async () => {
     // click Cancel Button
     userEvent.click(getButtonWithin(forDeleteSchemaCard, 'Cancel'));
 
-    editedSchemaCard = getAllButtons(editedCardName);
+    const editedSchemaCard = getAllButtons(editedCardName);
     expect(editedSchemaCard[0]).toBeInTheDocument();
 
     // click Schema Card for deletion again
@@ -245,7 +247,7 @@ test('create Schema, edit it and then delete', async () => {
     });
 }, 40000);
 
-test('add two schemas, delete one', async() => {
+test('Add two schemas, delete one', async() => {
     render(<App />);
 
     const firstCardName  = 'Test schema name 1';
@@ -264,11 +266,12 @@ test('add two schemas, delete one', async() => {
     userEvent.type(getTextBox('Schema Name'), secondCardName);
     userEvent.click(getButton('Submit'));
 
-    const secondSchemaCard = await findAllButtons(secondCardName);
-    expect(secondSchemaCard[0]).toBeInTheDocument();
+    await waitFor(() => {
+        expect(getAllButtons(secondCardName)[0]).toBeInTheDocument();
+    });
 
     userEvent.click(getButton('Delete'));
-    userEvent.click(secondSchemaCard[0].firstElementChild);
+    userEvent.click(getAllButtons(secondCardName)[0].firstElementChild);
     userEvent.click(
         getButtonWithin(
             getButton(`${secondCardName} Delete Cancel`),

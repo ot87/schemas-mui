@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CustomButton from 'components/Common/CustomButton/CustomButton';
+import CustomButton from 'components/Common/CustomButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';

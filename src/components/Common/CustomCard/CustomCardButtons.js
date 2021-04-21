@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CustomCard   from './CustomCard';
-import CustomButton from 'components/Common/CustomButton/CustomButton';
+import CustomCard   from '.';
+import CustomButton from 'components/Common/CustomButton';
 
 import Box from '@material-ui/core/Box';
 

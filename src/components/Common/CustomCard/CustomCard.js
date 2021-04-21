@@ -7,8 +7,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader     from '@material-ui/core/CardHeader';
 import CardContent    from '@material-ui/core/CardContent';
 import Typography     from '@material-ui/core/Typography';
-import yellow         from '@material-ui/core/colors/yellow';
-import red            from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,13 +34,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: theme.shape.borderRadius
     },
     highlight: {
-        backgroundColor: ({ color }) => (
-            color === 'yellow' ?
-                yellow[700]
-            : color === 'red' ?
-                red[700]
-            : null
-        )
+        backgroundColor: theme.palette.primary.main
     },
     header: {
         padding: 0
@@ -53,7 +45,7 @@ const useStyles = makeStyles(theme => ({
         padding: 0
     },
     subheader: {
-        color: ({ isClicked }) => isClicked ? red[700] : null
+        color: ({ isClicked }) => isClicked ? theme.palette.primary.main : null
     }
 }));
 
@@ -64,21 +56,19 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * Functional component which renders a custom CustomCard element.
- * @param {Object}         props
- * @param {'yellow'|'red'} [props.colorTheme] - Color theme of the CustomCard.
- * @param {*}              props.content      - Content of the CustomCard.
- * @param {boolean}        [props.isClicked]  - Indicates whether the CustomCard is clicked.
- * @param {string}         props.name         - Name of the CustomCard.
- * @param {EventHandler}   [props.onClick]    - On click function for the CustomCard.
+ * @param {Object}       props
+ * @param {*}            props.content     - Content of the CustomCard.
+ * @param {boolean}      [props.isClicked] - Indicates whether the CustomCard is clicked.
+ * @param {string}       props.name        - Name of the CustomCard.
+ * @param {EventHandler} [props.onClick]   - On click function for the CustomCard.
  */
 const CustomCard = ({
-    colorTheme = null,
     content,
     isClicked = false,
     name,
     onClick = null
 }) => {
-    const classes = useStyles({ color: colorTheme, isClicked });
+    const classes = useStyles({ isClicked });
 
     let cardContent = (
         <>
@@ -120,7 +110,6 @@ const CustomCard = ({
 };
 
 CustomCard.propTypes = {
-    colorTheme: PropTypes.oneOf(['yellow', 'red']),
     content:    PropTypes.node.isRequired,
     isClicked:  PropTypes.bool,
     name:       PropTypes.string.isRequired,
