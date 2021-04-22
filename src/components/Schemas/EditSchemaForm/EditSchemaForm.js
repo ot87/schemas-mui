@@ -21,7 +21,7 @@ const EditSchemaForm = ({ id }) => {
     const onCancel = () => dispatch(setActiveSchemaId(null));
 
     return (
-        <CustomPrimaryThemeProvider colorTheme='yellow'>
+        <CustomPrimaryThemeProvider themeColor='yellow'>
             <SchemaForm
                 schema={schema}
                 onSubmit={onSubmit}

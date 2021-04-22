@@ -48,14 +48,14 @@ const FormItemsControls = ({
             role='tablist'
         >
             <CustomButton
-                colorTheme='green'
+                themeColor='green'
                 onClick={addOnClick}
                 text='Add'
                 type={isRemoveClicked ? 'disabled' : 'shown'}
             />
             {showRemove ?
                 <CustomButton
-                    colorTheme='red'
+                    themeColor='red'
                     onClick={removeOnClick}
                     text='Remove'
                     type={isRemoveClicked ? 'toggled' : 'shown'}
@@ -63,7 +63,7 @@ const FormItemsControls = ({
             : null}
             {showRemove && isRemoveClicked ?
                 <CustomButton
-                    colorTheme='red'
+                    themeColor='red'
                     onClick={removeAllOnClick}
                     text='All'
                     type={isRemoveAllClicked ? 'toggled' : 'shown'}

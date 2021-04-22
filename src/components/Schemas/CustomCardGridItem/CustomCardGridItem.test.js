@@ -43,7 +43,7 @@ describe('CustomCardGridItem', () => {
 
     test('CustomCardGridItem with "yellow" theme has yellow background for hover', () => {
         const applyJSSRules = mockStyleInjection();
-        const { card } = renderCustomCardGridItem({ renderProps: { colorTheme: 'yellow' } });
+        const { card } = renderCustomCardGridItem({ renderProps: { themeColor: 'yellow' } });
 
         applyJSSRules();
 

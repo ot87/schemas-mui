@@ -23,7 +23,7 @@ const AddSchemaForm = () => {
     const onCancel = () => dispatch(setMode(UiModes.SHOW));
 
     return (
-        <CustomPrimaryThemeProvider colorTheme='green'>
+        <CustomPrimaryThemeProvider themeColor='green'>
             <SchemaForm
                 schema={schema}
                 onSubmit={onSubmit}

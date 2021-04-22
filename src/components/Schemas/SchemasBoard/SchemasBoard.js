@@ -50,7 +50,7 @@ const SchemasBoard = () => {
         if (isAdd) {
             schemasBoard = <AddSchemaForm />;
         } else {
-            const cardColorTheme = (
+            const cardThemeColor = (
                 isEdit ?
                     'yellow'
                 : isDelete ?
@@ -63,7 +63,7 @@ const SchemasBoard = () => {
                     render={id => (
                         <CustomCardGridItem
                             id={id}
-                            colorTheme={cardColorTheme}
+                            themeColor={cardThemeColor}
                             key={id}
                         />
                     )}

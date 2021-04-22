@@ -40,7 +40,7 @@ const CustomCardButtons = ({
         content = (
             <Box display='flex' flexDirection='column'>
                 <CustomButton
-                    colorTheme='red'
+                    themeColor='red'
                     onClick={first.onClick}
                     text={first.text}
                 />
@@ -54,7 +54,7 @@ const CustomCardButtons = ({
 
     return (
         <CustomCard
-            colorTheme='red'
+            themeColor='red'
             content={content}
             isClicked={isCardClicked}
             name={name}

@@ -13,21 +13,21 @@ import CustomButton from './CustomButton';
 /**
  * Functional component which renders a custom clickable or togglable button.
  * @param {Object}                                 props
- * @param {'green'|'yellow'|'red'|'default'}       [props.colorTheme] - Color theme of the CustomButton.
+ * @param {'green'|'yellow'|'red'|'default'}       [props.themeColor] - A color of the theme of the CustomButton.
  * @param {'clicked'|'toggled'|'disabled'|'shown'} [props.type]       - Indicates a type of the CustomButton. If it's clicked, onClick is nullified; if it's toggled, the CustomButton is clicked and stayed clickable; if it's disabled, the CustomButton is disabled.
  * @param {EventHandler}                           props.onClick      - On click function for the CustomButton.
  * @param {string}                                 props.text         - Text to display on the CustomButton.
  */
 const CustomButtonContainer = ({
-    colorTheme = 'default',
+    themeColor = 'default',
     type = 'shown',
     ...restProps
 }) => {
-    const isCustomColor = customPrimaryColors.colors.includes(colorTheme);
+    const isCustomColor = customPrimaryColors.colors.includes(themeColor);
 
     return (
         <CustomPrimaryThemeProvider
-            colorTheme={type === 'disabled' ? 'default' : colorTheme}
+            themeColor={type === 'disabled' ? 'default' : themeColor}
         >
             <CustomButton
                 isCustomColor={isCustomColor}
@@ -39,7 +39,7 @@ const CustomButtonContainer = ({
 };
 
 CustomButtonContainer.propTypes = {
-    colorTheme: PropTypes.oneOf(['green', 'yellow', 'red', 'default']),
+    themeColor: PropTypes.oneOf(['green', 'yellow', 'red', 'default']),
     type:       PropTypes.oneOf(['clicked', 'toggled', 'disabled', 'shown']),
     onClick:    PropTypes.func.isRequired,
     text:       PropTypes.string.isRequired

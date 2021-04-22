@@ -44,19 +44,19 @@ const FormButtons = ({ submit, reset, cancel }) => {
             role='tablist'
         >
             <CustomButton
-                colorTheme='green'
+                themeColor='green'
                 onClick={submit.onClick}
                 text='Submit'
                 type={submit.isDisabled ? 'disabled' : 'shown'}
             />
             <CustomButton
-                colorTheme='yellow'
+                themeColor='yellow'
                 onClick={reset.onClick}
                 text='Reset'
                 type={reset.isDisabled ? 'disabled' : 'shown'}
             />
             <CustomButton
-                colorTheme='red'
+                themeColor='red'
                 onClick={cancel.onClick}
                 text='Cancel'
                 type={cancel.isDisabled ? 'disabled' : 'shown'}

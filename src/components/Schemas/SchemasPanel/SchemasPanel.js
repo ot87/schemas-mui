@@ -46,7 +46,7 @@ const SchemasPanel = () => {
     return (
         <Box display='flex' mx='auto' my={0} order={xxxsScreen ? 3 : null}>
             <CustomButton
-                colorTheme='green'
+                themeColor='green'
                 onClick={handleAddClick}
                 text='Add'
                 type={(
@@ -60,7 +60,7 @@ const SchemasPanel = () => {
             {schemasCount ?
                 <>
                     <CustomButton
-                        colorTheme='yellow'
+                        themeColor='yellow'
                         onClick={handleEditClick}
                         text='Edit'
                         type={(
@@ -74,7 +74,7 @@ const SchemasPanel = () => {
                         )}
                     />
                     <CustomButton
-                        colorTheme='red'
+                        themeColor='red'
                         onClick={handleDeleteClick}
                         text='Delete'
                         type={(

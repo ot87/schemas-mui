@@ -26,7 +26,7 @@ const renderCustomPrimaryThemeProvider = ({ renderProps = {} } = {}) => {
 };
 
 describe('CustomPrimaryThemeProvider', () => {
-    test('"Children" are displayed without "colorTheme" specified', () => {
+    test('"Children" are displayed without "themeColor" specified', () => {
         const { button } = renderCustomPrimaryThemeProvider();
 
         expect(button).toBeInTheDocument();
@@ -34,15 +34,15 @@ describe('CustomPrimaryThemeProvider', () => {
     });
 
     test.each`
-        colorTheme  | expectedStyle
+        themeColor  | expectedStyle
         ${'green'}  | ${`color: ${greenColor}`}
         ${'yellow'} | ${`color: ${yellowColor}`}
         ${'red'}    | ${`color: ${redColor}`}
     `(
-        '"Children" with "$colorTheme" colorTheme have "$expectedStyle" style',
-        ({ colorTheme, expectedStyle }) => {
+        '"Children" with "$themeColor" themeColor have "$expectedStyle" style',
+        ({ themeColor, expectedStyle }) => {
             const applyJSSRules = mockStyleInjection();
-            const { button } = renderCustomPrimaryThemeProvider({ renderProps: { colorTheme } });
+            const { button } = renderCustomPrimaryThemeProvider({ renderProps: { themeColor } });
 
             applyJSSRules();
 

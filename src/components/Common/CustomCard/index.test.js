@@ -35,7 +35,7 @@ describe('CustomCard', () => {
 
     test('CustomCard with "yellow" theme has yellow background for hover', () => {
         const applyJSSRules = mockStyleInjection();
-        const { card } = renderCard({ renderProps: { colorTheme: 'yellow' } });
+        const { card } = renderCard({ renderProps: { themeColor: 'yellow' } });
 
         applyJSSRules();
 
@@ -47,7 +47,7 @@ describe('CustomCard', () => {
 
     test('CustomCard with "red" theme has red background for hover', () => {
         const applyJSSRules = mockStyleInjection();
-        const { card } = renderCard({ renderProps: { colorTheme: 'red' } });
+        const { card } = renderCard({ renderProps: { themeColor: 'red' } });
 
         applyJSSRules();
 

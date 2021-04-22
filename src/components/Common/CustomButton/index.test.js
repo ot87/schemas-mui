@@ -35,7 +35,7 @@ describe('CustomButton', () => {
         expect(button).toBeInTheDocument();
         expect(button).toHaveClass('MuiButton-outlined');
 
-        // CustomButton without specified "colorTheme" does not have "primary" color
+        // CustomButton without specified "themeColor" does not have "primary" color
         expect(button.className).not.toContain('Primary');
 
         // onClickHandler has been called
@@ -44,10 +44,10 @@ describe('CustomButton', () => {
     });
 });
 
-describe('Property "colorTheme"', () => {
-    test('CustomButton with "default" colorTheme does not have "primary" color', () => {
+describe('Property "themeColor"', () => {
+    test('CustomButton with "default" themeColor does not have "primary" color', () => {
         const applyJSSRules = mockStyleInjection();
-        const { button } = renderButton({ renderProps: { colorTheme: 'default' } });
+        const { button } = renderButton({ renderProps: { themeColor: 'default' } });
 
         applyJSSRules();
 
@@ -55,9 +55,9 @@ describe('Property "colorTheme"', () => {
     });
 });
 
-describe('Properties "colorTheme" and "type"', () => {
+describe('Properties "themeColor" and "type"', () => {
     test.each`
-        colorTheme  | type          | expectedStyle
+        themeColor  | type          | expectedStyle
         ${'green'}  | ${'clicked'}  | ${`background-color: ${greenColor}`}
         ${'yellow'} | ${'clicked'}  | ${`background-color: ${yellowColor}`}
         ${'red'}    | ${'clicked'}  | ${`background-color: ${redColor}`}
@@ -68,10 +68,10 @@ describe('Properties "colorTheme" and "type"', () => {
         ${'yellow'} | ${'disabled'} | ${`background-color: #fff`}
         ${'red'}    | ${'disabled'} | ${`background-color: #fff`}
     `(
-        'CustomButton with "$colorTheme" colorTheme and "$type" type has "$expectedStyle" style',
-        ({ colorTheme, type, expectedStyle }) => {
+        'CustomButton with "$themeColor" themeColor and "$type" type has "$expectedStyle" style',
+        ({ themeColor, type, expectedStyle }) => {
             const applyJSSRules = mockStyleInjection();
-            const { button } = renderButton({ renderProps: { colorTheme, type } });
+            const { button } = renderButton({ renderProps: { themeColor, type } });
 
             applyJSSRules();
 

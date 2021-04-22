@@ -11,9 +11,9 @@ import { setActiveSchemaId } from 'redux/reducers/ui';
  * Component to select a specified schema from the store for [CustomCard]{@link CustomCard}.
  * @param {Object}         props
  * @param {string}         props.id           - Schema id
- * @param {'yellow'|'red'} [props.colorTheme] - Color theme of the CustomCard.
+ * @param {'yellow'|'red'} [props.themeColor] - A color of the theme of the CustomCard.
  */
-const CustomCardGridItem = ({ id, colorTheme = null }) => {
+const CustomCardGridItem = ({ id, themeColor = null }) => {
     const schema   = useSelector(selectSchemaById(id));
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const CustomCardGridItem = ({ id, colorTheme = null }) => {
 
     return (
         <CustomCard
-            colorTheme={colorTheme}
+            themeColor={themeColor}
             content={schema.items.map(item => <div key={item.id}>{item.name}</div>)}
             name={schema.name}
             onClick={onClick(schema.id)}
@@ -31,7 +31,7 @@ const CustomCardGridItem = ({ id, colorTheme = null }) => {
 
 CustomCardGridItem.propTypes = {
     id:         PropTypes.string.isRequired,
-    colorTheme: PropTypes.oneOf(['yellow', 'red'])
+    themeColor: PropTypes.oneOf(['yellow', 'red'])
 };
 
 export default CustomCardGridItem;
